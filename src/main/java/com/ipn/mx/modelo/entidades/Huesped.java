@@ -1,9 +1,20 @@
 package com.ipn.mx.modelo.entidades;
 import java.io.InputStream;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table (name = "Huesped", schema = "public")
 public class Huesped {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idHuesped;
     private String nombreUsuario;
+    private int idMunicipio;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -94,6 +105,14 @@ public class Huesped {
 
     public void setExiste(int existe) {
         this.existe = existe;
+    }
+
+    public int getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(int idMunicipio) {
+        this.idMunicipio = idMunicipio;
     }
     
 }

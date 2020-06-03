@@ -1,6 +1,17 @@
 package com.ipn.mx.modelo.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table (name = "Reservacion", schema = "public")
 public class Reservacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReservacion;
     private int idHuesped;
     private int idCuarto;

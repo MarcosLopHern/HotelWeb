@@ -1,6 +1,11 @@
 package com.ipn.mx.modelo.entidades;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Usuario {
+   @Id
    private String nombreUsuario;
    private String pswrd;
    private String tipo;
