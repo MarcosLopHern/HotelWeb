@@ -36,7 +36,6 @@ public class HuespedDTO implements Serializable{
         sb.append("telefono").append(getEntidad().getTelefono()).append("\n");
         sb.append("foto").append(getEntidad().getFoto()).append("\n");
         sb.append("existe").append(getEntidad().getExiste()).append("\n");
-        
         return sb.toString();
     }
 }

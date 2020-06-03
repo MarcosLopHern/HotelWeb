@@ -1,6 +1,6 @@
 package com.ipn.mx.modelo.dao;
 
-import com.ipn.mx.modelo.dto.HuespedDTO;
+import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.utilidades.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-public class HuespedDAO {
-        public void create(HuespedDTO dto){
+public class MunicipioDAO {
+    public void create(MunicipioDTO dto){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
         try{
@@ -23,7 +23,7 @@ public class HuespedDAO {
         }
     }
     
-    public void update(HuespedDTO dto){
+    public void update(MunicipioDTO dto){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
         try{
@@ -37,7 +37,7 @@ public class HuespedDAO {
         }
     }
     
-    public void delete(HuespedDTO dto){
+    public void delete(MunicipioDTO dto){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
         try{
@@ -51,12 +51,12 @@ public class HuespedDAO {
         }
     }
     
-    public HuespedDTO read(HuespedDTO dto){
+    public MunicipioDTO read(MunicipioDTO dto){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
         try{
             transaction.begin();
-            dto.setEntidad(session.get(dto.getEntidad().getClass(),dto.getEntidad().getIdHuesped()));
+            dto.setEntidad(session.get(dto.getEntidad().getClass(),dto.getEntidad().getIdMunicipio()));
             transaction.commit();
         }catch(HibernateException he){
             if(transaction!=null && transaction.isActive()){
@@ -66,13 +66,13 @@ public class HuespedDAO {
         return dto;
     }
     
-    public List<HuespedDTO> readAll(){
+    public List<MunicipioDTO> readAll(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
-        List<HuespedDTO> lista = null;
+        List<MunicipioDTO> lista = null;
         try{
             transaction.begin();
-            Query q = session.createQuery("from Huesped h order by h.idHuesped");
+            Query q = session.createQuery("from Municipio m order by m.idMunicipio");
             lista = q.list();
             transaction.commit();
         }catch(HibernateException he){
