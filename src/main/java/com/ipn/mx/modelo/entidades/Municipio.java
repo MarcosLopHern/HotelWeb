@@ -16,6 +16,10 @@ public class Municipio {
     private String clave;
     private String nombre;
     private int activo;
+    
+    public Municipio(){
+        //huevos al carreño
+    }
 
     public int getIdMunicipio() {
         return idMunicipio;
