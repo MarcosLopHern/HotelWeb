@@ -8,15 +8,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 
 @ManagedBean(name = "usuarioMB")
 @SessionScoped
@@ -131,14 +126,13 @@ public class UsuarioMB extends BaseBean implements Serializable {
         String username = dto.getEntidad().getNombreUsuario();
         String msj = dao.validate(dto);
         if (username.equalsIgnoreCase(msj)) {
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            session.setAttribute("nombreUsuario", msj);       
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nombreUsuario", msj);       
             return "/huespedes/bienvenida?faces-redirect=true";
         } else {
             return null;
         }
     }
-
+    
 //    private void cerrarSesion(HttpServletRequest request, HttpServletResponse response) {
 //        try {
 //            HttpSession session = request.getSession(true);
