@@ -16,21 +16,22 @@
                 <div class="card-body text-primary">
                     <f:view>
                         <h:form>
-                            <h:outputText value="Nombre de Usuario:"/>
-                            <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
+                            <h:panelGrid columns="2" class="form-group row">
 
-                            <h:outputText value="Contrase&ntilde;a:"/>
-                            <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
-                            
-                            <h:commandButton value="Ingresar" action="#{usuarioMB.inicarSesion()}"/>
-                            <h:commandLink action="#{usuarioMB.prepareAdd()}">
-                                Registrarse
-                            </h:commandLink>
+                                <h:outputText value="Nombre de Usuario:"/>
+                                <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
+
+                                <h:outputText value="Contrase&ntilde;a:"/>
+                                <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
+
+                                <h:commandButton value="Ingresar" action="#{usuarioMB.iniciarSesion()}"/>
+                                <h:commandLink action="#{usuarioMB.prepareAdd()}">
+                                    Registrarse
+                                </h:commandLink>
+                               
+                            </h:panelGrid>
                         </h:form>
                         
-                        <h:commandLink action="#{usuarioMB.prepareAdd()}">
-                            Registrarse
-                        </h:commandLink>
                     </f:view>
                 </div>
             </div>

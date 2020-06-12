@@ -123,7 +123,7 @@ public class UsuarioMB extends BaseBean implements Serializable {
         }
     }
     
-    private String iniciarSesion() {
+    public String iniciarSesion() {
         String username = dto.getEntidad().getNombreUsuario();
         String msj = dao.validate(dto);
         if (username.equalsIgnoreCase(msj)) {
