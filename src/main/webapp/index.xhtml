@@ -23,7 +23,12 @@
                             <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
                             
                             <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
+                            <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
                         </h:form>
+                        
+                        <h:commandLink action="#{usuarioMB.prepareAdd()}">
+                            Registrarse
+                        </h:commandLink>
                     </f:view>
                 </div>
             </div>
