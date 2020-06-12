@@ -56,12 +56,12 @@ public class UsuarioMB extends BaseBean implements Serializable {
     public String prepareAdd(){
         dto = new UsuarioDTO();
         setAccion(ACC_CREAR);
-        return "/usuarios/usuarioForm?faces-redirect=true";
+        return "/huespedes/huespedForm?faces-redirect=true";
     }
     
     public String prepareUpdate(){
         setAccion(ACC_ACTUALIZAR);
-        return "/usuarios/usuarioForm?faces-redirect=true";
+        return "/huespedes/huespedForm?faces-redirect=true";
     }
     
     public String prepareIndex(){
