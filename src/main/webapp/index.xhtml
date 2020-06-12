@@ -22,8 +22,7 @@
                             <h:outputText value="Contrase&ntilde;a:"/>
                             <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
                             
-                            <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
-                            <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
+                            <h:commandButton value="Ingresar" action="#{usuarioMB.inicarSesion()}"/>
                         </h:form>
                         
                         <h:commandLink action="#{usuarioMB.prepareAdd()}">
