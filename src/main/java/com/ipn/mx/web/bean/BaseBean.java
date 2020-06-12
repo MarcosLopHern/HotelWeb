@@ -8,6 +8,16 @@ public class BaseBean {
     protected static final String ACC_ACTUALIZAR = "ACTUALIZAR";
     protected String accion;
     
+    public BaseBean(){}
+    
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+    
     protected void error(String idMensaje, String mensaje) {
         FacesContext.getCurrentInstance().addMessage(idMensaje,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, idMensaje));

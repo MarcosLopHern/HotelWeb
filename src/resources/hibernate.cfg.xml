@@ -5,9 +5,9 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/GestionDeUsuarios?serverTimezone=America/Mexico_City&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;useSSL=false</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/HotelWeb?serverTimezone=America/Mexico_City&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;useSSL=false</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">n0m3l0</property>
+        <property name="connection.password">root</property>
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>
         <!-- Select our SQL dialect -->
@@ -26,9 +26,11 @@
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
         
         
-        <mapping class="com.ipn.mx.modelo.entidades.Carrera" />
-        <mapping class="com.ipn.mx.modelo.entidades.Alumno" />
-        <mapping class="com.ipn.mx.modelo.entidades.UsuarioDB" />
-        <mapping class="com.ipn.mx.modelo.entidades.Grafica" />
+        <mapping class="com.ipn.mx.modelo.entidades.Cuarto" />
+        <mapping class="com.ipn.mx.modelo.entidades.Estado" />
+        <mapping class="com.ipn.mx.modelo.entidades.Huesped" />
+        <mapping class="com.ipn.mx.modelo.entidades.Municipio" />
+        <mapping class="com.ipn.mx.modelo.entidades.Reservacion" />
+        <mapping class="com.ipn.mx.modelo.entidades.Usuario" />
     </session-factory>
 </hibernate-configuration>
