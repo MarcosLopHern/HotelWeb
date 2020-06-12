@@ -134,22 +134,9 @@ public class UsuarioMB extends BaseBean implements Serializable {
         }
     }
     
-//    private void cerrarSesion(HttpServletRequest request, HttpServletResponse response) {
-//        try {
-//            HttpSession session = request.getSession(true);
-//            session.removeAttribute("nombreUsuario");
-//            if (session.getAttribute("nombreUsuario") == null) {
-//                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-//                session.invalidate();
-//                response.setHeader("Pragma", "no-cache");
-//                response.setHeader("Cache-Control", "no-store");
-//                response.setHeader("Expires", "0");
-//                response.setDateHeader("Expires", -1);   
-//                response.sendRedirect("index.jsp");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public String cerrarSesion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index?faces-redirect=true";
+    }
 }
 
