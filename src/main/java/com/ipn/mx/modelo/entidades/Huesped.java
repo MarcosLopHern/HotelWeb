@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +21,7 @@ public class Huesped {
     private String email;
     private String numeroTarjeta;
     private String telefono;
+    @Lob
     private InputStream foto;
     private int existe;
 

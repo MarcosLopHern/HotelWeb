@@ -1,9 +1,11 @@
 package com.ipn.mx.modelo.entidades;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table (name = "Usuario", schema = "public")
 public class Usuario {
    @Id
    private String nombreUsuario;
