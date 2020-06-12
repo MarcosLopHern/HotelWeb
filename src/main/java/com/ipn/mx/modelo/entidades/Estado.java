@@ -17,7 +17,9 @@ public class Estado {
     private String abreviacion;
     private int activo;
     
-    public Estado(){}
+    public Estado(){
+    
+    }
 
     public int getIdEstado() {
         return idEstado;
