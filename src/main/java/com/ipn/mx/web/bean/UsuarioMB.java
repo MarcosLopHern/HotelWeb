@@ -48,6 +48,7 @@ public class UsuarioMB extends BaseBean implements Serializable {
     
     @PostConstruct
     public void init(){
+        dto = new UsuarioDTO();
         listaDeUsuarios = new ArrayList<>();
         listaDeUsuarios = dao.readAll();
     }
