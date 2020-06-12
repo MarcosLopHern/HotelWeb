@@ -17,12 +17,12 @@
                     <f:view>
                         <h:form>
                             <h:outputText value="Nombre de Usuario:"/>
-                            <h:inputText id="txtNombreUsuario" value=""/>
+                            <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
 
                             <h:outputText value="Contrase&ntilde;a:"/>
-                            <h:inputText id="txtPswrd" value=""/>
+                            <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
                             
-                            <h:commandButton value="Ingresar" action="#{UsuarioBean.ingresar()}"/>
+                            <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
                         </h:form>
                     </f:view>
                 </div>

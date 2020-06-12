@@ -3,10 +3,13 @@ package com.ipn.mx.modelo.dao;
 import com.ipn.mx.modelo.dto.UsuarioDTO;
 import com.ipn.mx.utilidades.HibernateUtil;
 import java.util.List;
+import javax.persistence.ParameterMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.query.Query;
+import org.hibernate.result.ResultSetOutput;
 
 public class UsuarioDAO {
     public void create(UsuarioDTO dto){
@@ -82,4 +85,23 @@ public class UsuarioDAO {
         }
         return lista;
     }
+    
+    public String validate(UsuarioDTO dto){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        String msj = "";
+        try{
+            transaction.begin();
+            ProcedureCall call = session.createStoredProcedureCall( "sp_login" );
+            call.registerParameter("nombreUsr",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getNombreUsuario());
+            call.registerParameter("claveUsr",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getPswrd());
+            ResultSetOutput rs = (ResultSetOutput)call.getOutputs().getCurrent();            
+            msj = (String) rs.getSingleResult();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive())
+                transaction.rollback();
+        }
+        return msj;
+    } 
 }
