@@ -21,35 +21,35 @@
                                     <f:facet name="header">
                                         <h:outputText value="idHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.idHuesped}"/>
+                                    <h:outputText value="#{dto.idHuesped}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="nombreHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.nombre}"/>
+                                    <h:outputText value="#{dto.nombre}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="paternoHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.apellidoPaterno}"/>
+                                    <h:outputText value="#{dto.apellidoPaterno}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="maternoHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.apellidoMaterno}"/>
+                                    <h:outputText value="#{dto.apellidoMaterno}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="emailHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.email}"/>
+                                    <h:outputText value="#{dto.email}"/>
                                 </h:column>
                                 
                                 <h:column>
@@ -70,21 +70,21 @@
                                     <f:facet name="header">
                                         <h:outputText value="No. Tarjeta"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.numeroTarjeta}"/>
+                                    <h:outputText value="#{dto.numeroTarjeta}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Teléfono"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.telefono}"/>
+                                    <h:outputText value="#{dto.telefono}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="nombreUsuario"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.entidad.nombreUsuario}"/>
+                                    <h:outputText value="#{dto.nombreUsuario}"/>
                                 </h:column>
                                 
                                 <h:column>
@@ -103,7 +103,7 @@
                                     action="#{huespedMB.prepareUpdate()}" 
                                     value="Editar"
                                     actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                    <f:param name="claveSel" value="#{dto.entidad.idHuesped}"/>
+                                    <f:param name="claveSel" value="#{dto.idHuesped}"/>
                                 </h:commandButton>
                                                                 
                             </h:column>
