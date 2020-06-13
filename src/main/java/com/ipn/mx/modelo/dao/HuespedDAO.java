@@ -33,7 +33,6 @@ public class HuespedDAO {
         }catch(HibernateException he){
             he.printStackTrace();
             if(transaction!=null && transaction.isActive()){
-                
                 transaction.rollback();
             }
         }

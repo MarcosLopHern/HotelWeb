@@ -61,7 +61,7 @@
                                 <h:inputText id="txtNombreUsuario" readonly="#{huespedMB.modoActualizar}" value="#{huespedMB.nombreUsuario}"/>
 
                                 <h:outputText value="Contraseña:"/>
-                                <h:inputSecret id="txtPswrd"  value="#{huespedMB.pswrd}"/>
+                                <h:inputSecret id="txtPswrd" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}"/>
 
                                 <h:commandButton value="Crear" action="#{huespedMB.add()}" rendered="#{huespedMB.modoCrear}"/>
                                 <h:commandButton value="Editar" action="#{huespedMB.update()}" rendered="#{huespedMB.modoActualizar}"/>

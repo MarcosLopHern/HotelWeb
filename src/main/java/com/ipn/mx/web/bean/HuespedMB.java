@@ -203,7 +203,7 @@ public class HuespedMB extends BaseBean implements Serializable {
                 if (foto != null && !foto.getSubmittedFileName().isEmpty()){
                     dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
                 }else{
-                    dto.getEntidad().setFoto(dao.read(dto).getEntidad().getFoto());
+                    dto.getEntidad().setFoto(dto.getEntidad().getFoto());
                 }
                 dto.getEntidad().setNombreUsuario(nombreUsuario);
                 dto.getEntidad().setExiste(true);
