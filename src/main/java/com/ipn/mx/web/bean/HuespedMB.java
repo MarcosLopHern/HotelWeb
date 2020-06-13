@@ -236,9 +236,9 @@ public class HuespedMB extends BaseBean implements Serializable {
         return os.toByteArray();
     }
     
-    public String displayEstado(HuespedDTO hdto){
+    public String displayEstado(int idMunicipio){
         MunicipioDTO mdto = new MunicipioDTO();
-        mdto.getEntidad().setIdMunicipio(hdto.getEntidad().getIdMunicipio());
+        mdto.getEntidad().setIdMunicipio(idMunicipio);
         MunicipioDAO mdao = new MunicipioDAO();
         EstadoDTO edto = new EstadoDTO();
         EstadoDAO edao = new EstadoDAO();
@@ -248,16 +248,16 @@ public class HuespedMB extends BaseBean implements Serializable {
         return edto.getEntidad().getNombre();
     }
     
-    public String displayMunicipio(HuespedDTO hdto){
+    public String displayMunicipio(int idMunicipio){
         MunicipioDTO mdto = new MunicipioDTO();
-        mdto.getEntidad().setIdMunicipio(hdto.getEntidad().getIdMunicipio());
+        mdto.getEntidad().setIdMunicipio(idMunicipio);
         MunicipioDAO mdao = new MunicipioDAO();
         mdto = mdao.read(mdto);
         return mdto.getEntidad().getNombre();
     }
     
-    public String displayFoto(HuespedDTO hdto){
-        return "/Imagen?id"+hdto.getEntidad().getIdHuesped();
+    public String displayFoto(int idHuesped){
+        return "/Imagen?id"+idHuesped;
     }
     
 }

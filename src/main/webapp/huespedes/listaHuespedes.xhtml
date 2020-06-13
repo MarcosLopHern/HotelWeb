@@ -56,14 +56,14 @@
                                     <f:facet name="header">
                                         <h:outputText value="estadoHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{huespedMB.displayEstado(dto)}"/>
+                                    <h:outputText value="#{huespedMB.displayEstado(dto.idMunicipio)}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="municipioHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{huespedMB.displayMunicipio(dto)}"/>
+                                    <h:outputText value="#{huespedMB.displayMunicipio(dto.idMunicipio)}"/>
                                 </h:column>
                                 
                                 <h:column>
@@ -91,7 +91,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Foto"/>
                                     </f:facet>
-                                    <h:graphicImage value="#{huespedMB.displayFoto(dto)}" />
+                                    <h:graphicImage value="#{huespedMB.displayFoto(dto.idHuesped)}" />
                                 </h:column>
                                 
                                 <h:column>

@@ -19,7 +19,7 @@ public class Municipio implements Serializable {
     private int activo;
     
     public Municipio(){
-        //huevos al carreño
+
     }
 
     public int getIdMunicipio() {
