@@ -257,7 +257,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     }
     
     public String displayFoto(int idHuesped){
-        return "/Imagen?id"+idHuesped;
+        return "/Imagen?id="+idHuesped;
     }
     
 }
