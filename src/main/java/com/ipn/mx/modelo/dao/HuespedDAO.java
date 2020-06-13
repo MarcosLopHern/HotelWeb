@@ -72,7 +72,7 @@ public class HuespedDAO {
         List<HuespedDTO> lista = null;
         try{
             transaction.begin();
-            Query q = session.createQuery("from Huesped h order by h.idHuesped");
+            Query q = session.createQuery("from Huesped h where h.existe=1 order by h.idHuesped");
             lista = q.list();
             transaction.commit();
         }catch(HibernateException he){

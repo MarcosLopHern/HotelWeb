@@ -43,7 +43,7 @@
                                 <h:inputFile id="txtFoto" value="#{huespedMB.foto}"/>
                                 
                                 <h:outputText value="Estado:"/>
-                                <h:selectOneMenu id="txtEstado" value="#{huespedMB.idEstado}">                                 
+                                <h:selectOneMenu id="txtEstado" value="#{huespedMB.idEstado}">      
                                     <f:selectItem itemLabel="Seleccionar Estado" itemValue=""/>
                                     <f:selectItems value="#{huespedMB.listaEstados()}" var="estado"
                                                    itemValue="#{estado.idEstado}" itemLabel="#{estado.nombre}" />
@@ -61,7 +61,7 @@
                                 <h:inputText id="txtNombreUsuario" value="#{huespedMB.nombreUsuario}"/>
 
                                 <h:outputText value="Contraseña:"/>
-                                <h:inputText id="txtPswrd" value="#{huespedMB.pswrd}"/>
+                                <h:inputSecret id="txtPswrd"  value="#{huespedMB.pswrd}"/>
 
                                 <h:commandButton value="Crear" action="#{huespedMB.add()}" rendered="#{huespedMB.modoCrear}"/>
                                 <h:commandButton value="Editar" action="#{huespedMB.update()}" rendered="#{huespedMB.modoActualizar}"/>

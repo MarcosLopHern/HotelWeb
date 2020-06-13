@@ -23,7 +23,7 @@ public class Huesped implements Serializable {
     private String telefono;
     @Lob
     private byte[] foto;
-    private int existe;
+    private boolean existe;
 
     public Huesped() {
     }
@@ -100,11 +100,11 @@ public class Huesped implements Serializable {
         this.foto = imagen;
     }
 
-    public int getExiste() {
+    public boolean getExiste() {
         return existe;
     }
 
-    public void setExiste(int existe) {
+    public void setExiste(boolean existe) {
         this.existe = existe;
     }
 

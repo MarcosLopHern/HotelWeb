@@ -25,7 +25,7 @@
                                 <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
 
                                 <h:outputText value="Contrase&ntilde;a:"/>
-                                <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
+                                <h:inputSecret id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
 
                                 <h:commandButton value="Ingresar" action="#{usuarioMB.iniciarSesion()}"/>
                                 <h:commandLink action="#{huespedMB.prepareAdd()}">

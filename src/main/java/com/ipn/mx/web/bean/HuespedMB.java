@@ -13,6 +13,8 @@ import com.ipn.mx.modelo.entidades.Municipio;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -57,14 +59,14 @@ public class HuespedMB extends BaseBean implements Serializable {
         this.dto = dto;
     }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
-    
     public int getIdEstado() {
         return idEstado;
     }
 
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+    
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -99,19 +101,31 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     @PostConstruct
     public void init(){
-        idEstado = 0;
         listaDeHuespedes = new ArrayList<>();
-        listaDeHuespedes = dao.readAll();
+        listaDeHuespedes = dao.readAll();    
     }
     
     public String prepareAdd(){
         dto = new HuespedDTO();
+        idEstado = 0;
         setAccion(ACC_CREAR);
         return "/huespedes/huespedForm?faces-redirect=true";
     }
     
     public String prepareUpdate(){
         setAccion(ACC_ACTUALIZAR);
+        int idMunicipio = dto.getEntidad().getIdMunicipio();
+        MunicipioDTO mdto = new MunicipioDTO();
+        MunicipioDAO mdao = new MunicipioDAO();
+        mdto.getEntidad().setIdMunicipio(idMunicipio);
+        mdto = mdao.read(mdto);
+        idEstado = mdto.getEntidad().getIdEstado();
+        nombreUsuario = dto.getEntidad().getNombreUsuario();
+        UsuarioDTO udto = new UsuarioDTO();
+        UsuarioDAO udao = new UsuarioDAO();
+        udto.getEntidad().setNombreUsuario(nombreUsuario);
+        udto = udao.read(udto);
+        pswrd = udto.getEntidad().getPswrd();
         return "/huespedes/huespedForm?faces-redirect=true";
     }
     
@@ -150,9 +164,15 @@ public class HuespedMB extends BaseBean implements Serializable {
             udto.getEntidad().setTipo("huesped");
             udto.getEntidad().setExiste(true);
             try {
-                dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                if (foto != null && !foto.getSubmittedFileName().isEmpty()){
+                    dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                }else{
+                    File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
+                    FileInputStream fis = new FileInputStream(img);
+                    dto.getEntidad().setFoto(getBytesFromInputStream(fis));
+                }
                 dto.getEntidad().setNombreUsuario(nombreUsuario);
-                dto.getEntidad().setExiste(1);
+                dto.getEntidad().setExiste(true);
             } catch (IOException ex) {
                 Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -177,9 +197,13 @@ public class HuespedMB extends BaseBean implements Serializable {
             udto.getEntidad().setTipo("huesped");
             udto.getEntidad().setExiste(true);
             try {
-                dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                if (foto != null && !foto.getSubmittedFileName().isEmpty()){
+                    dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                }else{
+                    dto.getEntidad().setFoto(dao.read(dto).getEntidad().getFoto());
+                }
                 dto.getEntidad().setNombreUsuario(nombreUsuario);
-                dto.getEntidad().setExiste(1);
+                dto.getEntidad().setExiste(true);
             } catch (IOException ex) {
                 Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -195,6 +219,21 @@ public class HuespedMB extends BaseBean implements Serializable {
     }
     
     public String delete(){
+        Boolean valido = validate();
+        if(valido){
+            UsuarioDTO udto = new UsuarioDTO();
+            UsuarioDAO udao = new UsuarioDAO();
+            udto.getEntidad().setNombreUsuario(nombreUsuario);
+            udto = udao.read(udto);
+            udto.getEntidad().setExiste(false);
+            dto.getEntidad().setNombreUsuario(nombreUsuario);
+            dto = dao.read(dto);
+            dto.getEntidad().setExiste(false);
+            udao.update(udto);
+            dao.update(dto);
+            return prepareListaHuespedes();
+        }
+        
         UsuarioDTO udto = new UsuarioDTO();
         UsuarioDAO udao = new UsuarioDAO();
         udto.getEntidad().setNombreUsuario(nombreUsuario);

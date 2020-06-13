@@ -16,7 +16,7 @@
                 <h:panelGrid>
                     <f:view>
                         <h:form>
-                            <h:dataTable value="#{huespedMB.listaDeHuespedes}" var="dto">
+                            <h:dataTable value="#{huespedMB.listaDeHuespedes}" var="dto" styleClass="table" columnClasses="col">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="idHuesped"/>
@@ -91,21 +91,27 @@
                                     <f:facet name="header">
                                         <h:outputText value="Foto"/>
                                     </f:facet>
-                                    <h:graphicImage value="#{huespedMB.displayFoto(dto.idHuesped)}" />
+                                    <h:graphicImage value="#{huespedMB.displayFoto(dto.idHuesped)}" height="55" width="55"/>
                                 </h:column>
                                 
                                 <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Acciones"/>
-                                </f:facet>
+                                    <f:facet name="header">
+                                        <h:outputText value="Acciones"/>
+                                    </f:facet>
                                 
-                                <h:commandButton 
-                                    action="#{huespedMB.prepareUpdate()}" 
-                                    value="Editar"
-                                    actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                    <f:param name="claveSel" value="#{dto.idHuesped}"/>
-                                </h:commandButton>
-                                                                
+                                    <h:commandButton 
+                                        action="#{huespedMB.prepareUpdate()}" 
+                                        value="Editar"
+                                        actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                    </h:commandButton>
+                                        
+                                    <h:commandButton 
+                                        action="#{huespedMB.delete()}" 
+                                        value="Eliminar"
+                                        actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                    </h:commandButton>
                             </h:column>
                             </h:dataTable>
                         </h:form>

@@ -2804,12 +2804,13 @@ INSERT INTO Municipio(idMunicipio, idEstado, clave, nombre, activo) values
 
 -- Para propositos de prueba de procedures
 call sp_crearUsuario('Xtarevolution','abc123','administrador');
-call sp_crearHuesped('Xtarevolution',7,'Ricardo Iván', 'Cruz', 'Macías','xtarevolution@yahoo.com.mx','0x00x00x0','5561997888',null);
-call sp_actualizarHuesped(1,'Xtarevolution',29,'Ricardo Iván','Cruz','Macías','ricm@gmail.com','x00x00x00x','5562997887',null);
-call sp_actualizarCuarto(1,5,0);
-call sp_crearReservacion(1,1,'2020-12-25 12:12:12','2021-01-01 12:12:12');
-call sp_consultarReservaciones();
-call sp_cancelarReservacion(2);
+-- call sp_crearHuesped('Xtarevolution',7,'Ricardo Iván', 'Cruz', 'Macías','xtarevolution@yahoo.com.mx','0x00x00x0','5561997888',null);
+-- call sp_actualizarHuesped(1,'Xtarevolution',29,'Ricardo Iván','Cruz','Macías','ricm@gmail.com','x00x00x00x','5562997887',null);
+-- call sp_actualizarCuarto(1,5,0);
+-- call sp_crearReservacion(1,1,'2020-12-25 12:12:12','2021-01-01 12:12:12');
+-- call sp_consultarReservaciones();
+-- call sp_cancelarReservacion(2);
+
+-- call sp_login('ricm','ricm');
 select * from usuario;
-call sp_login('ricm','ricm');
 select * from huesped;
