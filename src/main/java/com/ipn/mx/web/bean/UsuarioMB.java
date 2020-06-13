@@ -73,43 +73,6 @@ public class UsuarioMB extends BaseBean implements Serializable {
         return prepareIndex();
     }
     
-    public Boolean validate(){
-        boolean valido = true;
-        //validar campos del formulario
-        return valido;
-    }
-    
-    public String add(){
-        Boolean valido = validate();
-        if(valido){
-            dao.create(dto);
-            if(valido){
-                return prepareIndex();
-            }else{
-                prepareAdd();
-            }
-        }
-        return prepareAdd();
-    }
-    
-    public String update(){
-        Boolean valido = validate();
-        if(valido){
-            dao.update(dto);
-            if(valido){
-                return prepareIndex();
-            }else{
-                prepareUpdate();
-            }
-        }
-        return prepareUpdate();
-    }
-    
-    public String delete(){
-        dao.delete(dto);
-        return prepareIndex();
-    }
-    
     public void seleccionarUsuario(ActionEvent event){
         String claveSel = (String) FacesContext.getCurrentInstance()
                         .getExternalContext().getRequestParameterMap()

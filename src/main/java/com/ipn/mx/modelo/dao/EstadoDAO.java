@@ -1,6 +1,7 @@
 package com.ipn.mx.modelo.dao;
 
 import com.ipn.mx.modelo.dto.EstadoDTO;
+import com.ipn.mx.modelo.entidades.Estado;
 import com.ipn.mx.utilidades.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -66,10 +67,10 @@ public class EstadoDAO {
         return dto;
     }
     
-    public List<EstadoDTO> readAll(){
+    public List<Estado> readAll(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
-        List<EstadoDTO> lista = null;
+        List<Estado> lista = null;
         try{
             transaction.begin();
             Query q = session.createQuery("from Estado e order by e.idEstado");

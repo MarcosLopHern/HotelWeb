@@ -1,15 +1,15 @@
 package com.ipn.mx.modelo.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table (name = "Reservacion", schema = "public")
-public class Reservacion {
+public class Reservacion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReservacion;

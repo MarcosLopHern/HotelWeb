@@ -1,12 +1,13 @@
 package com.ipn.mx.modelo.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table (name = "Usuario", schema = "public")
-public class Usuario {
+public class Usuario implements Serializable {
    @Id
    private String nombreUsuario;
    private String pswrd;

@@ -1,6 +1,7 @@
 package com.ipn.mx.modelo.dao;
 
 import com.ipn.mx.modelo.dto.MunicipioDTO;
+import com.ipn.mx.modelo.entidades.Municipio;
 import com.ipn.mx.utilidades.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -83,10 +84,10 @@ public class MunicipioDAO {
         return lista;
     }
     
-    public List<MunicipioDTO> readAllEstado(int idEstado){
+    public List<Municipio> readAllEstado(int idEstado){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
-        List<MunicipioDTO> lista = null;
+        List<Municipio> lista = null;
         try{
             transaction.begin();
             Query q = session.createQuery("from Municipio m where m.idEstado="+idEstado+" order by m.idMunicipio");

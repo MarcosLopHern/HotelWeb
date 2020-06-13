@@ -1,5 +1,6 @@
 package com.ipn.mx.modelo.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "Estado", schema = "public")
-public class Estado {
+public class Estado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEstado;

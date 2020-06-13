@@ -1,8 +1,9 @@
 package com.ipn.mx.modelo.dto;
 
 import com.ipn.mx.modelo.entidades.Estado;
+import java.io.Serializable;
 
-public class EstadoDTO {
+public class EstadoDTO implements Serializable{
     private Estado entidad;
     
     public EstadoDTO(Estado entidad) {
