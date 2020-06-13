@@ -34,14 +34,6 @@ public class HuespedMB extends BaseBean implements Serializable {
         return dao;
     }
     
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
-    
-    public int getIdEstado() {
-        return idEstado;
-    }
-
     public void setDao(HuespedDAO dao) {
         this.dao = dao;
     }
@@ -54,6 +46,15 @@ public class HuespedMB extends BaseBean implements Serializable {
         this.dto = dto;
     }
 
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+    
+    public int getIdEstado() {
+        return idEstado;
+    }
+
+    
     public List<HuespedDTO> getListaDeHuespedes() {
         return listaDeHuespedes;
     }
@@ -140,8 +141,8 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public Map<Integer, String> listaEstados(){
         Map<Integer,String> listaEstados = new LinkedHashMap<>();
-        EstadoDAO dao = new EstadoDAO();
-        for(EstadoDTO estado : dao.readAll()){
+        EstadoDAO edao = new EstadoDAO();
+        for(EstadoDTO estado : edao.readAll()){
             listaEstados.put(estado.getEntidad().getIdEstado(),estado.getEntidad().getNombre());
         }
         return listaEstados;

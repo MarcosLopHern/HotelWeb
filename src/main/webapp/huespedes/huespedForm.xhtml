@@ -40,13 +40,13 @@
                                 
                                 <h:outputText value="Estado:"/>
                                 <h:selectOneMenu id="txtEstado" value="#{huespedMB.idEstado}">
+                                    <f:ajax execute="txtEstado" event="change" listener="#{huespedMB.obtenerMunicipios()}" render=":lblMunicipio:txtMunicio"/> 
                                     <f:selectItems value="#{huespedMB.listaEstados().entrySet}" var="entryEstado"
                                                 itemValue="#{entryEstado.key}" itemLabel="#{entryEstado.value}" />
+                                    
                                 </h:selectOneMenu>
                                 
-                                
-                                <f:ajax execute="txtEstado" event="onchange" render=":lblMunicipio:txtMunicio"/> 
-                                
+                                                                
                                 <h:outputText id="lblMunicipio" value="Municipio:"/>
                                 <h:selectOneMenu id="txtMunicipio" value="#{huespedMB.dto.entidad.idMunicipio}">
                                     <f:selectItems value="#{huespedMB.listaMunicipios().entrySet}" var="entryMunicipio"
