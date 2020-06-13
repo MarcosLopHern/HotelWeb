@@ -31,7 +31,9 @@ public class HuespedDAO {
             session.update(dto.getEntidad());
             transaction.commit();
         }catch(HibernateException he){
+            he.printStackTrace();
             if(transaction!=null && transaction.isActive()){
+                
                 transaction.rollback();
             }
         }

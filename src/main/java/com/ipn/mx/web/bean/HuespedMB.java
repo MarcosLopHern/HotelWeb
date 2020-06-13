@@ -114,6 +114,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public String prepareUpdate(){
         setAccion(ACC_ACTUALIZAR);
+        
         int idMunicipio = dto.getEntidad().getIdMunicipio();
         MunicipioDTO mdto = new MunicipioDTO();
         MunicipioDAO mdao = new MunicipioDAO();

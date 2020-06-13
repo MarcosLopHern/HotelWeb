@@ -36,7 +36,7 @@ apellidoMaterno nvarchar(30),
 email nvarchar(50) not null,
 numeroTarjeta nvarchar(20),
 telefono nvarchar(10),
-foto blob,
+foto longblob,
 existe boolean not null,
 foreign key(nombreUsuario) references Usuario(nombreUsuario),
 foreign key(idMunicipio) references Municipio(idMunicipio)
