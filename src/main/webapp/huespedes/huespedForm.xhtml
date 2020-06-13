@@ -10,19 +10,48 @@
         <div class="container">
             <div class="card border-primary mb-3">
                 <div class="card-header">
-                    <h1>Registro de Huesped</h1>
+                    <h1>Formulario de Huesped</h1>
                 </div>
                 <div class="card-body text-primary">
                     <f:view>
                         <h:form>
-                            <h:outputText value="Nombre de Usuario:"/>
-                            <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
+                            <h:inputHidden id="accion" value="#{usuarioMB.accion}"/>
+                            <h:panelGrid columns="2" class="form-group row">
+                                <h:outputText value="Nombre:"/>
+                                <h:inputText id="txtNombre" value="#{huespedMB.dto.entidad.nombre}"/>
 
-                            <h:outputText value="Contrase&ntilde;a:"/>
-                            <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
-                            
-                            <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
-                            <h:commandButton value="Ingresar" action="#{usuarioMB.ingresar()}"/>
+                                <h:outputText value="Apellido Paterno:"/>
+                                <h:inputText id="txtApellidoPaterno" value="#{huespedMB.dto.entidad.apellidoPaterno}"/>
+
+                                <h:outputText value="Apellido Materno:"/>
+                                <h:inputText id="txtApellidoMaterno" value="#{huespedMB.dto.entidad.apellidoMaterno}"/>
+                                
+                                <h:outputText value="Email:"/>
+                                <h:inputText id="txtEmail" value="#{huespedMB.dto.entidad.email}"/>
+                                
+                                <h:outputText value="No. Tarjeta:"/>
+                                <h:inputText id="txtNumeroTarjeta" value="#{huespedMB.dto.entidad.numeroTarjeta}"/>
+
+                                <h:outputText value="Telefono:"/>
+                                <h:inputText  id="txtTelefono" value="#{huespedMB.dto.entidad.telefono}"/>
+
+                                <h:outputText value="Foto:"/>
+                                <h:inputFile id="txtFoto" value="#{huespedMB.dto.entidad.foto}"/>
+                                
+                                <h:outputText value="Estado:"/>
+                                <h:selectOneMenu id="txtEstado" value="#{huespedMB.idEstado}">
+                                    <f:selectItems value="#{huespedMB.listaEstados().entrySet}" var="entryEstado"
+                                                itemValue="#{entryEstado.key}" itemLabel="#{entryEstado.value}" />
+                                </h:selectOneMenu>
+                                
+                                
+                                <f:ajax execute="txtEstado" event="onchange" listener="#{huespedMB.obtenerMunicipios()}" render="txtMunicio"/> 
+                                
+                                //PONER SELECT MUNICIPIO Y LA FUNCION
+                                
+                                <h:commandButton value="Crear" action="#{usuarioMB.add()}" rendered="#{usuarioMB.modoCrear}"/>
+                                <h:commandButton value="Editar" action="#{usuarioMB.update()}" rendered="#{usuarioMB.modoActualizar}"/>
+                            </h:panelGrid>
                         </h:form>
                         
                         <h:commandLink action="#{usuarioMB.prepareAdd()}">
