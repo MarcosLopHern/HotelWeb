@@ -2,8 +2,9 @@
 package com.ipn.mx.modelo.dto;
 
 import com.ipn.mx.modelo.entidades.Cuarto;
+import java.io.Serializable;
 
-public class CuartoDTO {
+public class CuartoDTO implements Serializable{
     private Cuarto entidad;
 
     public CuartoDTO() {

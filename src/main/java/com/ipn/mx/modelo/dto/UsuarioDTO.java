@@ -2,8 +2,9 @@
 package com.ipn.mx.modelo.dto;
 
 import com.ipn.mx.modelo.entidades.Usuario;
+import java.io.Serializable;
 
-public class UsuarioDTO {
+public class UsuarioDTO implements Serializable{
     private Usuario entidad;
 
     public UsuarioDTO() {

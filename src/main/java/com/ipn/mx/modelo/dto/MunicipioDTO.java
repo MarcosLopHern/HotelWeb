@@ -1,8 +1,9 @@
 package com.ipn.mx.modelo.dto;
 
 import com.ipn.mx.modelo.entidades.Municipio;
+import java.io.Serializable;
 
-public class MunicipioDTO {
+public class MunicipioDTO implements Serializable{
     private Municipio entidad;
     
     public MunicipioDTO() {
