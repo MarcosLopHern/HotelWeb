@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body text-primary">
                     <f:view>
-                        <h:form>
+                        <h:form enctype="multipart/form-data">
                             <h:inputHidden id="accion" value="#{usuarioMB.accion}"/>
                             <h:panelGrid columns="2" class="form-group row">
                                 <h:outputText value="Nombre:"/>
@@ -40,27 +40,30 @@
                                 
                                 <h:outputText value="Estado:"/>
                                 <h:selectOneMenu id="txtEstado" value="#{huespedMB.idEstado}">
-                                    <f:ajax execute="txtEstado" event="change" listener="#{huespedMB.obtenerMunicipios()}" render=":lblMunicipio:txtMunicio"/> 
-                                    <f:selectItems value="#{huespedMB.listaEstados().entrySet}" var="entryEstado"
-                                                itemValue="#{entryEstado.key}" itemLabel="#{entryEstado.value}" />
-                                    
+                                    <f:selectItems value="#{huespedMB.listaEstados()}" var="estado"
+                                                   itemValue="#{estado.idEstado}" itemLabel="#{estado.nombre}" />
+                                    <f:ajax execute="txtEstado" event="change" render="txtMunicipio"/> 
                                 </h:selectOneMenu>
-                                
                                                                 
-                                <h:outputText id="lblMunicipio" value="Municipio:"/>
+                                <h:outputText id="lblMunicipio" value="Municipio:" rendered="#{huespedMB.idEstado != 0}" />
                                 <h:selectOneMenu id="txtMunicipio" value="#{huespedMB.dto.entidad.idMunicipio}">
-                                    <f:selectItems value="#{huespedMB.listaMunicipios().entrySet}" var="entryMunicipio"
-                                                   itemValue="#{entryMunicipio.key}" itemLabel="#{entryMunicipio.value}" rendered="#{huespedMB.idEstado != 0}"/>
+                                    <f:selectItems value="#{huespedMB.listaMunicipios()}" var="municipio"
+                                                   itemValue="#{municipio.idMunicipio}" itemLabel="#{municipio.nombre}"/>
                                 </h:selectOneMenu>
                                 
-                                <h:commandButton value="Crear" action="#{usuarioMB.add()}" rendered="#{usuarioMB.modoCrear}"/>
-                                <h:commandButton value="Editar" action="#{usuarioMB.update()}" rendered="#{usuarioMB.modoActualizar}"/>
-                            </h:panelGrid>
+                                <h:outputText value="Nombre de Usuario:"/>
+                                <h:inputText id="txtNombreUsuario" value="#{huespedMB.nombreUsuario}"/>
+
+                                <h:outputText value="Contraseña:"/>
+                                <h:inputText id="txtPswrd" value="#{huespedMB.pswrd}"/>
+
+                                <h:commandButton value="Crear" action="#{huespedMB.add()}" rendered="#{usuarioMB.modoCrear}"/>
+                               
+                                <h:commandButton value="Editar" action="#{huespedMB.update()}" rendered="#{usuarioMB.modoActualizar}"/>
+                            </h:panelGrid>                          
                         </h:form>
                         
-                        <h:commandLink action="#{usuarioMB.prepareAdd()}">
-                            Registrarse
-                        </h:commandLink>
+                        
                     </f:view>
                 </div>
             </div>
