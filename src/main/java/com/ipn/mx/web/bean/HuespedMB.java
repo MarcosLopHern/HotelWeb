@@ -10,14 +10,20 @@ import com.ipn.mx.modelo.entidades.Estado;
 import com.ipn.mx.modelo.entidades.Municipio;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.Part;
 
 
 @ManagedBean(name = "huespedMB")
@@ -29,6 +35,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     private int idEstado;
     private String nombreUsuario;
     private String pswrd;
+    private Part foto;
     
     public HuespedMB(){}
 
@@ -72,6 +79,13 @@ public class HuespedMB extends BaseBean implements Serializable {
         this.pswrd = pswrd;
     }
 
+    public Part getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Part foto) {
+        this.foto = foto;
+    }
     
     public List<HuespedDTO> getListaDeHuespedes() {
         return listaDeHuespedes;
@@ -101,7 +115,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public String prepareIndex(){
         init();
-        return "/usuarios/listadoHuespedes?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
     
     public String back(){
@@ -121,6 +135,15 @@ public class HuespedMB extends BaseBean implements Serializable {
             UsuarioDAO udao = new UsuarioDAO();
             udto.getEntidad().setNombreUsuario(nombreUsuario);
             udto.getEntidad().setPswrd(pswrd);
+            udto.getEntidad().setTipo("huesped");
+            udto.getEntidad().setExiste(true);
+            try {
+                dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                dto.getEntidad().setNombreUsuario(nombreUsuario);
+                dto.getEntidad().setExiste(1);
+            } catch (IOException ex) {
+                Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
             udao.create(udto);
             dao.create(dto);
             if(valido){
@@ -181,5 +204,16 @@ public class HuespedMB extends BaseBean implements Serializable {
     public List<Municipio> listaMunicipios(){
         MunicipioDAO mdao = new MunicipioDAO();
         return mdao.readAllEstado(idEstado);
+    }
+    
+    
+
+    public byte[] getBytesFromInputStream(InputStream is) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream(); 
+        byte[] buffer = new byte[0xFFFF];
+        for (int len = is.read(buffer); len != -1; len = is.read(buffer)) { 
+            os.write(buffer, 0, len);
+        }
+        return os.toByteArray();
     }
 }
