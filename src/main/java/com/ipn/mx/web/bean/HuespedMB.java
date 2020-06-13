@@ -117,12 +117,14 @@ public class HuespedMB extends BaseBean implements Serializable {
         int idMunicipio = dto.getEntidad().getIdMunicipio();
         MunicipioDTO mdto = new MunicipioDTO();
         MunicipioDAO mdao = new MunicipioDAO();
+        UsuarioDTO udto = new UsuarioDTO();
+        UsuarioDAO udao = new UsuarioDAO();
+        
         mdto.getEntidad().setIdMunicipio(idMunicipio);
         mdto = mdao.read(mdto);
         idEstado = mdto.getEntidad().getIdEstado();
         nombreUsuario = dto.getEntidad().getNombreUsuario();
-        UsuarioDTO udto = new UsuarioDTO();
-        UsuarioDAO udao = new UsuarioDAO();
+        
         udto.getEntidad().setNombreUsuario(nombreUsuario);
         udto = udao.read(udto);
         pswrd = udto.getEntidad().getPswrd();
