@@ -4,9 +4,35 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Inicio</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
+        <h:outputScript library="js" name="popper.min.js"/>
     </h:head>
     <h:body>
-        Bienvenido #{nombreUsuario}, usuario de tipo #{tipo}
+        <h1>Bienvenido #{nombreUsuario}, usuario de tipo #{tipo}</h1>
+        <h:form rendered="#{tipo == "administrador"}">
+            <h:commandLink action="#{huespedMB.preparePerfil()}">
+                Ver Perfil
+            </h:commandLink>
+            <h:commandLink action="#{huespedMB.prepareListaHuespedes()}">
+                Lista de Huespedes
+            </h:commandLink>
+            <h:commandLink action="">
+                Lista de Cuartos
+            </h:commandLink>
+            <h:commandLink action="#{huespedMB.prepareListaHuespedes()}">
+                Lista de Reservaciones
+            </h:commandLink>
+        </h:form>
+        <h:form rendered="#{tipo != "administrador"}">
+            <h:commandLink action="#{huespedMB.preparePerfil()}">
+                Ver Perfil
+            </h:commandLink>
+            <h:commandLink action="">
+                Lista de Cuartos
+            </h:commandLink>
+        </h:form>
     </h:body>
 </html>
 

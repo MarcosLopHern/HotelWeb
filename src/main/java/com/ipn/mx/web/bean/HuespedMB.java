@@ -4,7 +4,9 @@ import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dao.UsuarioDAO;
+import com.ipn.mx.modelo.dto.EstadoDTO;
 import com.ipn.mx.modelo.dto.HuespedDTO;
+import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.UsuarioDTO;
 import com.ipn.mx.modelo.entidades.Estado;
 import com.ipn.mx.modelo.entidades.Municipio;
@@ -113,13 +115,18 @@ public class HuespedMB extends BaseBean implements Serializable {
         return "/huespedes/huespedForm?faces-redirect=true";
     }
     
+    public String prepareListaHuespedes(){
+        init();
+        return "/huespedes/listaHuespedes?faces-redirect=true";
+    }
+    
     public String prepareIndex(){
         init();
         return "/index?faces-redirect=true";
     }
     
     public String back(){
-        return prepareIndex();
+        return prepareListaHuespedes();
     }
     
     public Boolean validate(){
@@ -215,8 +222,6 @@ public class HuespedMB extends BaseBean implements Serializable {
         return mdao.readAllEstado(idEstado);
     }
     
-    
-
     public byte[] getBytesFromInputStream(InputStream is) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream(); 
         byte[] buffer = new byte[0xFFFF];
@@ -225,4 +230,29 @@ public class HuespedMB extends BaseBean implements Serializable {
         }
         return os.toByteArray();
     }
+    
+    public String displayEstado(HuespedDTO hdto){
+        MunicipioDTO mdto = new MunicipioDTO();
+        mdto.getEntidad().setIdMunicipio(hdto.getEntidad().getIdMunicipio());
+        MunicipioDAO mdao = new MunicipioDAO();
+        EstadoDTO edto = new EstadoDTO();
+        EstadoDAO edao = new EstadoDAO();
+        mdto = mdao.read(mdto);
+        edto.getEntidad().setIdEstado(mdto.getEntidad().getIdEstado());
+        edao.read(edto);
+        return edto.getEntidad().getNombre();
+    }
+    
+    public String displayMunicipio(HuespedDTO hdto){
+        MunicipioDTO mdto = new MunicipioDTO();
+        mdto.getEntidad().setIdMunicipio(hdto.getEntidad().getIdMunicipio());
+        MunicipioDAO mdao = new MunicipioDAO();
+        mdto = mdao.read(mdto);
+        return mdto.getEntidad().getNombre();
+    }
+    
+    public String displayFoto(HuespedDTO hdto){
+        return "/Imagen?id"+hdto.getEntidad().getIdHuesped();
+    }
+    
 }

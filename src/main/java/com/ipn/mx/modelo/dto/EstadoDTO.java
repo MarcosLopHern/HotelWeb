@@ -6,6 +6,10 @@ import java.io.Serializable;
 public class EstadoDTO implements Serializable{
     private Estado entidad;
     
+    public EstadoDTO() {
+        this.entidad = new Estado();
+    }
+    
     public EstadoDTO(Estado entidad) {
         this.entidad = entidad;
     }

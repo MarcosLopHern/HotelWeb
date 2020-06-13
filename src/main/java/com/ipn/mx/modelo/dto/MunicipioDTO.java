@@ -5,6 +5,10 @@ import com.ipn.mx.modelo.entidades.Municipio;
 public class MunicipioDTO {
     private Municipio entidad;
     
+    public MunicipioDTO() {
+        this.entidad = new Municipio();
+    }
+    
     public MunicipioDTO(Municipio entidad) {
         this.entidad = entidad;
     }

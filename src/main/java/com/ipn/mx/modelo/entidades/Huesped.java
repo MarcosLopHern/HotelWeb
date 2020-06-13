@@ -1,5 +1,4 @@
 package com.ipn.mx.modelo.entidades;
-import java.io.InputStream;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
