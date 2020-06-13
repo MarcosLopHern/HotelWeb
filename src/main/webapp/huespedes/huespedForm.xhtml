@@ -45,7 +45,7 @@
                                 </h:selectOneMenu>
                                 
                                 
-                                <f:ajax execute="txtEstado" event="onchange" listener="#{huespedMB.obtenerMunicipios()}" render=":lblMunicipio:txtMunicio"/> 
+                                <f:ajax execute="txtEstado" event="onchange" render=":lblMunicipio:txtMunicio"/> 
                                 
                                 <h:outputText id="lblMunicipio" value="Municipio:"/>
                                 <h:selectOneMenu id="txtMunicipio" value="#{huespedMB.dto.entidad.idMunicipio}">
