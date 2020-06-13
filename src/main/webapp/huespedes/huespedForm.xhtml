@@ -45,9 +45,13 @@
                                 </h:selectOneMenu>
                                 
                                 
-                                <f:ajax execute="txtEstado" event="onchange" listener="#{huespedMB.obtenerMunicipios()}" render="txtMunicio"/> 
+                                <f:ajax execute="txtEstado" event="onchange" listener="#{huespedMB.obtenerMunicipios()}" render=":lblMunicipio:txtMunicio"/> 
                                 
-                                //PONER SELECT MUNICIPIO Y LA FUNCION
+                                <h:outputText id="lblMunicipio" value="Municipio:"/>
+                                <h:selectOneMenu id="txtMunicipio" value="#{huespedMB.dto.entidad.idMunicipio}">
+                                    <f:selectItems value="#{huespedMB.listaMunicipios().entrySet}" var="entryMunicipio"
+                                                   itemValue="#{entryMunicipio.key}" itemLabel="#{entryMunicipio.value}" rendered="#{huespedMB.idEstado != 0}"/>
+                                </h:selectOneMenu>
                                 
                                 <h:commandButton value="Crear" action="#{usuarioMB.add()}" rendered="#{usuarioMB.modoCrear}"/>
                                 <h:commandButton value="Editar" action="#{usuarioMB.update()}" rendered="#{usuarioMB.modoActualizar}"/>
