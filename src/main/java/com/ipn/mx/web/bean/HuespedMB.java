@@ -3,16 +3,16 @@ package com.ipn.mx.web.bean;
 import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.MunicipioDAO;
-import com.ipn.mx.modelo.dto.EstadoDTO;
+import com.ipn.mx.modelo.dao.UsuarioDAO;
 import com.ipn.mx.modelo.dto.HuespedDTO;
-import com.ipn.mx.modelo.dto.MunicipioDTO;
+import com.ipn.mx.modelo.dto.UsuarioDTO;
+import com.ipn.mx.modelo.entidades.Estado;
+import com.ipn.mx.modelo.entidades.Municipio;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,6 +27,8 @@ public class HuespedMB extends BaseBean implements Serializable {
     private HuespedDTO dto;
     private List<HuespedDTO> listaDeHuespedes;
     private int idEstado;
+    private String nombreUsuario;
+    private String pswrd;
     
     public HuespedMB(){}
 
@@ -54,6 +56,22 @@ public class HuespedMB extends BaseBean implements Serializable {
         return idEstado;
     }
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getPswrd() {
+        return pswrd;
+    }
+
+    public void setPswrd(String pswrd) {
+        this.pswrd = pswrd;
+    }
+
     
     public List<HuespedDTO> getListaDeHuespedes() {
         return listaDeHuespedes;
@@ -65,6 +83,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     @PostConstruct
     public void init(){
+        idEstado = 0;
         listaDeHuespedes = new ArrayList<>();
         listaDeHuespedes = dao.readAll();
     }
@@ -98,6 +117,11 @@ public class HuespedMB extends BaseBean implements Serializable {
     public String add(){
         Boolean valido = validate();
         if(valido){
+            UsuarioDTO udto = new UsuarioDTO();
+            UsuarioDAO udao = new UsuarioDAO();
+            udto.getEntidad().setNombreUsuario(nombreUsuario);
+            udto.getEntidad().setPswrd(pswrd);
+            udao.create(udto);
             dao.create(dto);
             if(valido){
                 return prepareIndex();
@@ -111,6 +135,11 @@ public class HuespedMB extends BaseBean implements Serializable {
     public String update(){
         Boolean valido = validate();
         if(valido){
+            UsuarioDTO udto = new UsuarioDTO();
+            UsuarioDAO udao = new UsuarioDAO();
+            udto.getEntidad().setNombreUsuario(nombreUsuario);
+            udto.getEntidad().setPswrd(pswrd);
+            udao.update(udto);
             dao.update(dto);
             if(valido){
                 return prepareIndex();
@@ -122,6 +151,11 @@ public class HuespedMB extends BaseBean implements Serializable {
     }
     
     public String delete(){
+        UsuarioDTO udto = new UsuarioDTO();
+        UsuarioDAO udao = new UsuarioDAO();
+        udto.getEntidad().setNombreUsuario(nombreUsuario);
+        udto.getEntidad().setPswrd(pswrd);
+        udao.delete(udto);
         dao.delete(dto);
         return prepareIndex();
     }
@@ -139,25 +173,13 @@ public class HuespedMB extends BaseBean implements Serializable {
         }
     }
     
-    public Map<Integer, String> listaEstados(){
-        Map<Integer,String> listaEstados = new LinkedHashMap<>();
+    public List<Estado> listaEstados(){
         EstadoDAO edao = new EstadoDAO();
-        for(EstadoDTO estado : edao.readAll()){
-            listaEstados.put(estado.getEntidad().getIdEstado(),estado.getEntidad().getNombre());
-        }
-        return listaEstados;
+        return edao.readAll();
     }
     
-    public Map<Integer, String> listaMunicipios(){
-        Map<Integer,String> listaMunicipios = new LinkedHashMap<>();
-        MunicipioDAO dao = new MunicipioDAO();
-        for(MunicipioDTO municipio : dao.readAllEstado(idEstado)){
-            listaMunicipios.put(municipio.getEntidad().getIdMunicipio(),municipio.getEntidad().getNombre());
-        }
-        return listaMunicipios;
-    }
-    
-    public void obtenerMunicipios(){
-        
+    public List<Municipio> listaMunicipios(){
+        MunicipioDAO mdao = new MunicipioDAO();
+        return mdao.readAllEstado(idEstado);
     }
 }
