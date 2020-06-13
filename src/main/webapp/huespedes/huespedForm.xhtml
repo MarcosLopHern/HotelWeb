@@ -58,7 +58,7 @@
                                 </h:selectOneMenu>
                                 
                                 <h:outputText value="Nombre de Usuario:"/>
-                                <h:inputText id="txtNombreUsuario" value="#{huespedMB.nombreUsuario}"/>
+                                <h:inputText id="txtNombreUsuario" readonly="#{huespedMB.modoActualizar}" value="#{huespedMB.nombreUsuario}"/>
 
                                 <h:outputText value="Contraseña:"/>
                                 <h:inputSecret id="txtPswrd"  value="#{huespedMB.pswrd}"/>

@@ -210,7 +210,7 @@ public class HuespedMB extends BaseBean implements Serializable {
             udao.update(udto);
             dao.update(dto);
             if(valido){
-                return prepareIndex();
+                return prepareListaHuespedes();
             }else{
                 prepareUpdate();
             }
