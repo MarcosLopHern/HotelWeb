@@ -120,6 +120,11 @@ public class HuespedMB extends BaseBean implements Serializable {
         return "/huespedes/listaHuespedes?faces-redirect=true";
     }
     
+    public String preparePerfil(){
+        init();
+        return "/huespedes/perfil?faces-redirect=true";
+    }
+    
     public String prepareIndex(){
         init();
         return "/index?faces-redirect=true";
