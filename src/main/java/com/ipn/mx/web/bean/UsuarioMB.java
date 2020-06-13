@@ -89,8 +89,10 @@ public class UsuarioMB extends BaseBean implements Serializable {
     public String iniciarSesion() {
         String username = dto.getEntidad().getNombreUsuario();
         String msj = dao.validate(dto);
+        dto = dao.read(dto);
         if (username.equalsIgnoreCase(msj)) {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nombreUsuario", msj);       
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nombreUsuario", msj);   
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo());   
             return "/huespedes/bienvenida?faces-redirect=true";
         } else {
             return null;

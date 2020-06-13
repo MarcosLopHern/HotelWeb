@@ -73,7 +73,7 @@ begin
     if (select count(*) from Usuario where nombreUsuario = nomUsr) > 0 then
 		set msj = "Usuario ya existente";
 	else
-		insert into Usuario(nombreUsuario,pswrd,tipo,existe) values (nomUsr,md5(pswd),tipoUsr,1);
+		insert into Usuario(nombreUsuario,pswrd,tipo,existe) values (nomUsr,pswd,tipoUsr,1);
         set msj = "Usuario creado";
 	end if;
     select msj;
