@@ -162,6 +162,15 @@ public class HuespedMB extends BaseBean implements Serializable {
             UsuarioDAO udao = new UsuarioDAO();
             udto.getEntidad().setNombreUsuario(nombreUsuario);
             udto.getEntidad().setPswrd(pswrd);
+            udto.getEntidad().setTipo("huesped");
+            udto.getEntidad().setExiste(true);
+            try {
+                dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                dto.getEntidad().setNombreUsuario(nombreUsuario);
+                dto.getEntidad().setExiste(1);
+            } catch (IOException ex) {
+                Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
             udao.update(udto);
             dao.update(dto);
             if(valido){
