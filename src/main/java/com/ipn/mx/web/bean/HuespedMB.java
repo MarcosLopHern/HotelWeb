@@ -2,8 +2,10 @@ package com.ipn.mx.web.bean;
 
 import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
+import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dto.EstadoDTO;
 import com.ipn.mx.modelo.dto.HuespedDTO;
+import com.ipn.mx.modelo.dto.MunicipioDTO;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
 import java.io.Serializable;
@@ -25,10 +27,19 @@ public class HuespedMB extends BaseBean implements Serializable {
     private HuespedDTO dto;
     private List<HuespedDTO> listaDeHuespedes;
     private int idEstado;
+    
     public HuespedMB(){}
 
     public HuespedDAO getDao() {
         return dao;
+    }
+    
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+    
+    public int getIdEstado() {
+        return idEstado;
     }
 
     public void setDao(HuespedDAO dao) {
@@ -134,5 +145,18 @@ public class HuespedMB extends BaseBean implements Serializable {
             listaEstados.put(estado.getEntidad().getIdEstado(),estado.getEntidad().getNombre());
         }
         return listaEstados;
+    }
+    
+    public Map<Integer, String> listaMunicipios(){
+        Map<Integer,String> listaMunicipios = new LinkedHashMap<>();
+        MunicipioDAO dao = new MunicipioDAO();
+        for(MunicipioDTO municipio : dao.readAllEstado(idEstado)){
+            listaMunicipios.put(municipio.getEntidad().getIdMunicipio(),municipio.getEntidad().getNombre());
+        }
+        return listaMunicipios;
+    }
+    
+    public void obtenerMunicipios(){
+        
     }
 }

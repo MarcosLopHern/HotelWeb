@@ -82,4 +82,21 @@ public class MunicipioDAO {
         }
         return lista;
     }
+    
+    public List<MunicipioDTO> readAllEstado(int idEstado){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        List<MunicipioDTO> lista = null;
+        try{
+            transaction.begin();
+            Query q = session.createQuery("from Municipio m where m.idEstado="+idEstado+" order by m.idMunicipio");
+            lista = q.list();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return lista;
+    }
 }
