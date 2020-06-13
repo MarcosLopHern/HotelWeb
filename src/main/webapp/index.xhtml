@@ -17,7 +17,6 @@
                     <f:view>
                         <h:form>
                             <h:panelGrid columns="2" class="form-group row">
-
                                 <h:outputText value="Nombre de Usuario:"/>
                                 <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
 
@@ -25,7 +24,7 @@
                                 <h:inputText id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
 
                                 <h:commandButton value="Ingresar" action="#{usuarioMB.iniciarSesion()}"/>
-                                <h:commandLink action="#{usuarioMB.prepareAdd()}">
+                                <h:commandLink action="#{huespedMB.prepareAdd()}">
                                     Registrarse
                                 </h:commandLink>
                                

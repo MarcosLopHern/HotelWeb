@@ -98,7 +98,7 @@ delimiter **
 create procedure sp_login(nomUsr nvarchar(30),pswd nvarchar(32))
 begin 
 	declare msj nvarchar(30);
-    if (select count(*) from Usuario where nombreUsuario = nomUsr and pswrd = md5(pswd) and existe = 1) < 1 then
+    if (select count(*) from Usuario where nombreUsuario = nomUsr and pswrd = pswd and existe = 1) < 1 then
 		set msj = "Usuario/contraseña incorrecto";
 	else
         set msj = nomUsr;
@@ -2810,3 +2810,6 @@ call sp_actualizarCuarto(1,5,0);
 call sp_crearReservacion(1,1,'2020-12-25 12:12:12','2021-01-01 12:12:12');
 call sp_consultarReservaciones();
 call sp_cancelarReservacion(2);
+select * from usuario;
+call sp_login('ricm','ricm');
+select * from huesped;

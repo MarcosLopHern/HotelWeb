@@ -23,7 +23,7 @@ public class Huesped implements Serializable {
     private String numeroTarjeta;
     private String telefono;
     @Lob
-    private InputStream foto;
+    private byte[] foto;
     private int existe;
 
     public Huesped() {
@@ -93,11 +93,11 @@ public class Huesped implements Serializable {
         this.telefono = telefono;
     }
 
-    public InputStream getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(InputStream imagen) {
+    public void setFoto(byte[] imagen) {
         this.foto = imagen;
     }
 
