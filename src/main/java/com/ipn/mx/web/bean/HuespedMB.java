@@ -1,12 +1,16 @@
 package com.ipn.mx.web.bean;
 
+import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
+import com.ipn.mx.modelo.dto.EstadoDTO;
 import com.ipn.mx.modelo.dto.HuespedDTO;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,7 +24,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     private HuespedDAO dao = new HuespedDAO();
     private HuespedDTO dto;
     private List<HuespedDTO> listaDeHuespedes;
-    
+    private int idEstado;
     public HuespedMB(){}
 
     public HuespedDAO getDao() {
@@ -123,4 +127,12 @@ public class HuespedMB extends BaseBean implements Serializable {
         }
     }
     
+    public Map<Integer, String> listaEstados(){
+        Map<Integer,String> listaEstados = new LinkedHashMap<>();
+        EstadoDAO dao = new EstadoDAO();
+        for(EstadoDTO estado : dao.readAll()){
+            listaEstados.put(estado.getEntidad().getIdEstado(),estado.getEntidad().getNombre());
+        }
+        return listaEstados;
+    }
 }
