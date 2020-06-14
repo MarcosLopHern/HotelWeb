@@ -104,4 +104,22 @@ public class UsuarioDAO {
         }
         return msj;
     } 
+    
+    public String getIdHuesped(UsuarioDTO dto){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        String msj = "";
+        try{
+            transaction.begin();
+            ProcedureCall call = session.createStoredProcedureCall( "sp_idHuesped" );
+            call.registerParameter("nombreUsr",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getNombreUsuario());
+            ResultSetOutput rs = (ResultSetOutput)call.getOutputs().getCurrent();            
+            msj = (String) rs.getSingleResult();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive())
+                transaction.rollback();
+        }
+        return msj;
+    } 
 }
