@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Lista de Cuartos</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
+        <h:outputScript library="js" name="popper.min.js"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="table-responsive">
+                <h:panelGrid>
+                    <f:view>
+                        <h:form>
+                            <h:dataTable value="#{cuartoMB.listaDeCuartos}" var="dto" styleClass="table" columnClasses="col">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="idCuarto"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.idCuarto}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="precioDiario"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.precioDiario}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="esReservable"/>
+                                    </f:facet>
+                                    <h:outputText value="Sí" rendered="#{dto.esReservable}"/>
+                                    <h:outputText value="No" rendered="#{!dto.esReservable}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="estaEnUso"/>
+                                    </f:facet>
+                                    <h:outputText value="Sí" rendered="#{dto.estaEnUso}"/>
+                                    <h:outputText value="No" rendered="#{!dto.estaEnUso}"/>
+                                </h:column>
+                                
+                                <h:column rendered='#{tipo == "administrador"}'>
+                                    <f:facet name="header">
+                                        <h:outputText value="Acciones"/>
+                                    </f:facet>
+                                
+                                    <h:commandButton 
+                                        action="#{cuartoMB.prepareUpdate()}" 
+                                        value="Editar"
+                                        actionListener="#{cuartoMB.seleccionarCuarto}">                                
+                                        <f:param name="claveSel" value="#{dto.idCuarto}"/>
+                                    </h:commandButton>
+                            </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </f:view>
+                </h:panelGrid>
+            </div>
+        </div>
+    </h:body>
+</html>
+

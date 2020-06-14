@@ -23,6 +23,7 @@ public class CuartoDTO implements Serializable{
         this.entidad = entidad;
     }
     
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
