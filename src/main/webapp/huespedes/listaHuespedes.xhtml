@@ -21,7 +21,12 @@
                                     <f:facet name="header">
                                         <h:outputText value="idHuesped"/>
                                     </f:facet>
-                                    <h:outputText value="#{dto.idHuesped}"/>
+                                    <h:outputText value=""/>
+                                    <h:commandLink action="#{huespedMB.preparePerfil()}"
+                                                   actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                        #{dto.idHuesped}
+                                    </h:commandLink>
                                 </h:column>
                                 
                                 <h:column>

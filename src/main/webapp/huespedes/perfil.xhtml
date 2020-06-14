@@ -1,16 +1,79 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Perfil de Huesped</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
         <h:outputScript library="js" name="popper.min.js"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="container">  
+            <div class="card border-primary mb-3">
+                <div class="card-header">
+                    <h1>Perfil de Huesped</h1>
+                </div>
+                <div class="card-body text-primary">
+                    <f:view>
+                        <h:form>
+                            <h:panelGrid columns="2" class="form-group row">
+                                <h:outputText value="idHuesped"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.idHuesped}"/>
+
+                                <h:outputText value="nombreHuesped"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.nombre}"/>
+
+                                <h:outputText value="paternoHuesped"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.apellidoPaterno}"/>
+
+                                <h:outputText value="maternoHuesped"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.apellidoMaterno}"/>
+
+                                <h:outputText value="emailHuesped"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.email}"/>
+
+                                <h:outputText value="estadoHuesped"/>
+                                <h:outputText value="#{huespedMB.displayEstado(huespedMB.dto.entidad.idMunicipio)}"/>
+
+                                <h:outputText value="municipioHuesped"/>
+                                <h:outputText value="#{huespedMB.displayMunicipio(huespedMB.dto.entidad.idMunicipio)}"/>
+
+                                <h:outputText value="No. Tarjeta"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.numeroTarjeta}"/>
+
+                                <h:outputText value="Teléfono"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.telefono}"/>
+
+                                <h:outputText value="nombreUsuario"/>
+                                <h:outputText value="#{huespedMB.dto.entidad.nombreUsuario}"/>
+
+                                <h:outputText value="Foto"/>
+                                <h:graphicImage value="#{huespedMB.displayFoto(huespedMB.dto.entidad.idHuesped)}" height="55" width="55"/>
+                            </h:panelGrid>
+                            
+                            <h:commandButton 
+                                action="#{huespedMB.prepareUpdate()}" 
+                                value="Editar"
+                                actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{huespedMB.dto.entidad.idHuesped}"/>
+                            </h:commandButton>
+
+                            <h:commandButton 
+                                action="#{huespedMB.delete()}" 
+                                value="Eliminar"
+                                actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{huespedMB.dto.entidad.idHuesped}"/>
+                            </h:commandButton>
+                        </h:form>
+                    </f:view>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
+
+
 

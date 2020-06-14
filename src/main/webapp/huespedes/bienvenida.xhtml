@@ -12,9 +12,6 @@
     <h:body>
         <h1>Bienvenido #{nombreUsuario}, usuario de tipo #{tipo}</h1>
         <h:form rendered='#{tipo == "administrador"}'>
-            <h:commandLink action="#{huespedMB.preparePerfil()}">
-                Ver Perfil
-            </h:commandLink>
             <h:commandLink action="#{huespedMB.prepareListaHuespedes()}">
                 Lista de Huespedes
             </h:commandLink>
