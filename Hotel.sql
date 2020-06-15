@@ -2804,13 +2804,21 @@ INSERT INTO Municipio(idMunicipio, idEstado, clave, nombre, activo) values
 
 -- Para propositos de prueba de procedures
 call sp_crearUsuario('Xtarevolution','abc123','administrador');
--- call sp_crearHuesped('Xtarevolution',7,'Ricardo Iván', 'Cruz', 'Macías','xtarevolution@yahoo.com.mx','0x00x00x0','5561997888',null);
+call sp_crearUsuario('Yomeriuks','12345','huesped');
+call sp_crearUsuario('Faronien','12345','huesped');
+call sp_crearHuesped('Xtarevolution',7,'Ricardo Iván', 'Cruz', 'Macías','xtarevolution@yahoo.com.mx','0x00x00x0','5561997888',null);
+call sp_crearHuesped('Yomeriuks',7,'Cesar', 'Diaz', 'Gonzalez','cesar@yahoo.com.mx','0x00x00x0','5571997888',null);
+call sp_crearHuesped('Faronien',7,'Marcos Daniel', 'Lopez', 'Hernandez','faronien@yahoo.com.mx','0x00x00x0','5581997888',null);
 -- call sp_actualizarHuesped(1,'Xtarevolution',29,'Ricardo Iván','Cruz','Macías','ricm@gmail.com','x00x00x00x','5562997887',null);
 -- call sp_actualizarCuarto(1,5,0);
--- call sp_crearReservacion(1,1,'2020-12-25 12:12:12','2021-01-01 12:12:12');
+call sp_crearReservacion(1,1,'2020-12-25 12:12:12','2021-01-01 12:12:12');
+call sp_crearReservacion(2,2,'2020-12-15 12:12:12','2020-12-27 12:12:12');
+call sp_crearReservacion(3,3,'2020-11-12 12:12:12','2021-12-01 12:12:12');
 -- call sp_consultarReservaciones();
 -- call sp_cancelarReservacion(2);
 
 -- call sp_login('ricm','ricm');
 select * from usuario;
 select * from huesped;
+select * from cuarto;
+select * from reservacion;
