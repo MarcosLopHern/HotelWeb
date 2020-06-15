@@ -1,22 +1,23 @@
 package com.ipn.mx.web.bean;
 
 import com.ipn.mx.modelo.dao.HuespedDAO;
-import com.ipn.mx.modelo.entidades.Huesped;
 import com.ipn.mx.modelo.dao.ReservacionDAO;
 import com.ipn.mx.modelo.dto.ReservacionDTO;
+import com.ipn.mx.modelo.entidades.Huesped;
+import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-@Named(value = "reservacionMB")
-@Dependent
-public class ReservacionMB extends BaseBean implements Serializable {
 
+@ManagedBean(name = "reservacionMB")
+@SessionScoped
+public class ReservacionMB extends BaseBean implements Serializable {
     private ReservacionDAO dao = new ReservacionDAO();
     private ReservacionDTO dto;
     private List<ReservacionDTO> listaDeReservaciones;
