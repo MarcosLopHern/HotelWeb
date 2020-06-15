@@ -1,18 +1,25 @@
 package com.ipn.mx.web.bean;
 
+import com.ipn.mx.modelo.dao.CuartoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.ReservacionDAO;
 import com.ipn.mx.modelo.dto.ReservacionDTO;
 import com.ipn.mx.modelo.entidades.Huesped;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.primefaces.event.SelectEvent;
 
 
 @ManagedBean(name = "reservacionMB")
@@ -21,6 +28,9 @@ public class ReservacionMB extends BaseBean implements Serializable {
     private ReservacionDAO dao = new ReservacionDAO();
     private ReservacionDTO dto;
     private List<ReservacionDTO> listaDeReservaciones;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private int idCuarto;
     
     public ReservacionMB() {}
     
@@ -32,14 +42,49 @@ public class ReservacionMB extends BaseBean implements Serializable {
         return listaDeReservaciones;
     }
     
+    public int getIdCuarto(){
+        return idCuarto;
+    }
+    
+    public void setIdCuarto(int idCuarto){
+        this.idCuarto = idCuarto;
+    }
+    
+    public Date getFechaInicio(){
+        return java.sql.Date.valueOf(LocalDate.now());  
+    }
+    
+      public void setFechaInicio(Date fechaInicio){
+       this.fechaInicio = fechaInicio;  
+          System.out.println("fechaFin: " + fechaInicio);
+          System.out.println("fechaFin2: " + this.fechaInicio);
+    }
+      
+    public Date getFechaFin(){
+        return fechaFin;
+    }
+        
+    public void setFechaFin(Date fechaFin){
+        this.fechaFin = fechaFin; 
+        System.out.println("fechaFin: " + fechaFin);
+          System.out.println("fechaFin2: " + this.fechaFin);
+    }
+    
     @PostConstruct
     public void init(){
+        fechaInicio = java.sql.Date.valueOf(LocalDate.now());
+        fechaFin = java.sql.Date.valueOf(LocalDate.now());
         listaDeReservaciones = new ArrayList<>();
         listaDeReservaciones = dao.readAll();    
     }
     
     public String prepareUpdate(){
         setAccion(ACC_ACTUALIZAR);
+        return "/reservaciones/reservacionForm?faces-redirect=true";
+    }
+    
+     public String prepareNew(){
+        setAccion(ACC_CREAR);
         return "/reservaciones/reservacionForm?faces-redirect=true";
     }
     
@@ -102,14 +147,15 @@ public class ReservacionMB extends BaseBean implements Serializable {
         }
     }
     
-    public List<ReservacionDTO> listaCuartos(){
-        ReservacionDAO dao = new ReservacionDAO();
-        try{
-           return dao.readAll();
-        }catch(Exception e){
-            error("errorListaCuartos", "Error al obtener lista de cuartos");
-            return null;
-        }
+    public int costoCuarto(){
+        CuartoDAO cdao = new CuartoDAO();
+        System.out.println("FI: " + fechaInicio);
+        System.out.println("FF: " + fechaFin);
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        //LocalDate date1 = LocalDate.parse(fechaInicio.toString(), formatter);
+        //LocalDate date2 = LocalDate.parse(fechaFin.toString(), formatter);
+        //long days = ChronoUnit.DAYS.between(date1, date2);
+        return 0;
     }
     
     public String nombreUsuario(int id){

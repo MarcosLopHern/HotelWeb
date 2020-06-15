@@ -31,6 +31,10 @@
             <h:commandLink action="#{cuartoMB.prepareListaCuartos()}">
                 Lista de Cuartos
             </h:commandLink>
+            <h:commandLink action="#{reservacionMB.prepareNew()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                <f:param name="claveSel" value="#{idHuesped}"/>
+                Crear Reservación
+            </h:commandLink>
         </h:form>
     </h:body>
 </html>
