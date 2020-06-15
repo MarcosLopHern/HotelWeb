@@ -107,6 +107,19 @@ begin
 end **
 delimiter ;
 
+delimiter **
+create procedure sp_idHuesped(nomUsr nvarchar(30))
+begin 
+	declare msj nvarchar(30);
+    if (select count(*) from Huesped where nombreUsuario = nomUsr and existe = 1) < 1 then
+		set msj = "Usuario inexistente";
+	else
+        set msj = (select idHuesped from Huesped where nombreUsuario = nomUsr and existe = 1);
+	end if;
+    select msj;
+end **
+delimiter ;
+
 /*--PROCEDIMIENTOS DE HUESPED--*/
 
 delimiter **

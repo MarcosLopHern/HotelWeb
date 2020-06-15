@@ -1,6 +1,8 @@
 package com.ipn.mx.web.bean;
 
+import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.UsuarioDAO;
+import com.ipn.mx.modelo.dto.HuespedDTO;
 import com.ipn.mx.modelo.dto.UsuarioDTO;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
@@ -87,17 +89,22 @@ public class UsuarioMB extends BaseBean implements Serializable {
     }
     
     public String iniciarSesion() {
+        
         String username = dto.getEntidad().getNombreUsuario();
         String msj = dao.validate(dto);
         dto = dao.read(dto);
         if (username.equalsIgnoreCase(msj)) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nombreUsuario", msj);   
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo());   
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo()); 
+            if(dto.getEntidad().getTipo().equals("huesped")){
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idHuesped", dao.getIdHuesped(dto));
+            }
             return "/huespedes/bienvenida?faces-redirect=true";
         } else {
             return null;
         }
     }
+    
     
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
