@@ -1,6 +1,7 @@
 package com.ipn.mx.modelo.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +16,9 @@ public class Reservacion implements Serializable {
     private int idReservacion;
     private int idHuesped;
     private int idCuarto;
-    private String fechaInicio;
-    private String fechaTermino;
-    private String fechaRegistro;
+    private Date fechaInicio;
+    private Date fechaTermino;
+    private Date fechaRegistro;
     private double precioTotal;
     private boolean esActiva;
 
@@ -48,27 +49,27 @@ public class Reservacion implements Serializable {
         this.idCuarto = idCuarto;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaTermino() {
+    public Date getFechaTermino() {
         return fechaTermino;
     }
 
-    public void setFechaTermino(String fechaTermino) {
+    public void setFechaTermino(Date fechaTermino) {
         this.fechaTermino = fechaTermino;
     }
 
-    public String getFechaRegistro() {
+    public Date getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(String fechaRegistro) {
+    public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

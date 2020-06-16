@@ -3,18 +3,23 @@ package com.ipn.mx.web.bean;
 import com.ipn.mx.modelo.dao.CuartoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.ReservacionDAO;
+import com.ipn.mx.modelo.dto.CuartoDTO;
+import com.ipn.mx.modelo.dto.HuespedDTO;
 import com.ipn.mx.modelo.dto.ReservacionDTO;
 import com.ipn.mx.modelo.entidades.Huesped;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -28,11 +33,23 @@ public class ReservacionMB extends BaseBean implements Serializable {
     private ReservacionDAO dao = new ReservacionDAO();
     private ReservacionDTO dto;
     private List<ReservacionDTO> listaDeReservaciones;
-    private Date fechaInicio;
-    private Date fechaFin;
     private int idCuarto;
+    String fI;
+    String ff;
     
     public ReservacionMB() {}
+    
+    public void onDateSelect(SelectEvent event) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        fI = sdf.format(event.getObject());
+    }
+    
+    public void onDateSelect2(SelectEvent event) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        ff = sdf.format(event.getObject());
+    } 
     
     public ReservacionDTO getDto(){
         return dto;
@@ -50,32 +67,11 @@ public class ReservacionMB extends BaseBean implements Serializable {
         this.idCuarto = idCuarto;
     }
     
-    public Date getFechaInicio(){
-        return java.sql.Date.valueOf(LocalDate.now());  
-    }
-    
-      public void setFechaInicio(Date fechaInicio){
-       this.fechaInicio = fechaInicio;  
-          System.out.println("fechaFin: " + fechaInicio);
-          System.out.println("fechaFin2: " + this.fechaInicio);
-    }
-      
-    public Date getFechaFin(){
-        return fechaFin;
-    }
-        
-    public void setFechaFin(Date fechaFin){
-        this.fechaFin = fechaFin; 
-        System.out.println("fechaFin: " + fechaFin);
-          System.out.println("fechaFin2: " + this.fechaFin);
-    }
-    
     @PostConstruct
     public void init(){
-        fechaInicio = java.sql.Date.valueOf(LocalDate.now());
-        fechaFin = java.sql.Date.valueOf(LocalDate.now());
+        idCuarto = -1;
         listaDeReservaciones = new ArrayList<>();
-        listaDeReservaciones = dao.readAll();    
+        listaDeReservaciones = dao.readAll();  
     }
     
     public String prepareUpdate(){
@@ -85,9 +81,20 @@ public class ReservacionMB extends BaseBean implements Serializable {
     
      public String prepareNew(){
         setAccion(ACC_CREAR);
+        idCuarto = -1;
+        dto = new ReservacionDTO();
+        dto.getEntidad().setFechaInicio(java.sql.Date.valueOf(LocalDate.now()));
+        dto.getEntidad().setFechaTermino(java.sql.Date.valueOf(LocalDate.now()));
+        dto.getEntidad().setFechaRegistro(java.sql.Date.valueOf(LocalDate.now()));
+        dto.getEntidad().setEsActiva(true);
+        dto.getEntidad().setIdCuarto(-1);
         return "/reservaciones/reservacionForm?faces-redirect=true";
     }
     
+     public Date getHoy(){
+         return java.sql.Date.valueOf(LocalDate.now());
+     }
+     
      public String prepareListaReservaciones(){
         init();
         return "/reservaciones/listaDeReservaciones?faces-redirect=true";
@@ -108,10 +115,11 @@ public class ReservacionMB extends BaseBean implements Serializable {
         return valido;
     }
     
-    public String update(){
+    public String add(){
         Boolean valido = validate();
+        System.out.println("DTO: " + dto);
         if(valido){
-            dao.update(dto);
+            dao.create(dto);
             if(valido){
                 return prepareListaReservaciones();
             }else{
@@ -147,17 +155,6 @@ public class ReservacionMB extends BaseBean implements Serializable {
         }
     }
     
-    public int costoCuarto(){
-        CuartoDAO cdao = new CuartoDAO();
-        System.out.println("FI: " + fechaInicio);
-        System.out.println("FF: " + fechaFin);
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        //LocalDate date1 = LocalDate.parse(fechaInicio.toString(), formatter);
-        //LocalDate date2 = LocalDate.parse(fechaFin.toString(), formatter);
-        //long days = ChronoUnit.DAYS.between(date1, date2);
-        return 0;
-    }
-    
     public String nombreUsuario(int id){
         HuespedDAO daoc = new HuespedDAO();
         List l = daoc.readAll();
@@ -169,4 +166,24 @@ public class ReservacionMB extends BaseBean implements Serializable {
         return "";
     }
     
+    public double sacaCosto() throws ParseException{
+        if(dto.getEntidad().getIdCuarto() != -1){
+            long diffInMillies = Math.abs(dto.getEntidad().getFechaInicio().getTime() - dto.getEntidad().getFechaTermino().getTime());
+            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS); 
+            CuartoDTO cdto = new CuartoDTO();
+            cdto.getEntidad().setIdCuarto(dto.getEntidad().getIdCuarto());
+            CuartoDAO cdao = new CuartoDAO();
+            cdto = cdao.read(cdto);
+            dto.getEntidad().setPrecioTotal(cdto.getEntidad().getPrecioDiario() * diff);
+            return cdto.getEntidad().getPrecioDiario() * diff;
+        }
+        return 0;
+    }
+    
+    public void seleccionarHuesped(ActionEvent event){
+        String claveSel = (String) FacesContext.getCurrentInstance()
+                        .getExternalContext().getRequestParameterMap()
+                        .get("claveSel");
+        dto.getEntidad().setIdHuesped(Integer.parseInt(claveSel));
+    }
 }

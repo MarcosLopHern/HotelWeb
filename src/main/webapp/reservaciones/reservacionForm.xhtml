@@ -7,9 +7,9 @@
     <h:head>
         <title>Agregar Reservacion</title>
          <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <!--<h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
-        <h:outputScript library="js" name="popper.min.js"/>
+        <h:outputScript library="js" name="popper.min.js"/>-->
     </h:head>
     <h:body>
         <div class="container">
@@ -23,21 +23,25 @@
                             <h:inputHidden id="txtIdHuesped" value="#{huespedMB.dto.entidad.idHuesped}"/>
                             <h:panelGrid columns="2" class="form-group row">
                                 <h:outputText value="Cuarto"/>
-                                <h:selectOneMenu id="txtCuarto" value="#{reservacionMB.idCuarto}">      
+                                <h:selectOneMenu id="txtCuarto" value="#{reservacionMB.dto.entidad.idCuarto}">      
                                     <f:selectItem itemLabel="seleccionar Cuarto" itemValue=""/>
                                     <f:selectItems value="#{cuartoMB.listaCuartos()}" var="cuarto"
                                                    itemValue="#{cuarto.idCuarto}" itemLabel="#{cuarto.idCuarto}" />
                                     <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
                                 </h:selectOneMenu>
-                                <h:outputText value="Fecha de inicio"/> 
-                                <p:calendar id="Finicio" showOn="button" value="#{reservacionMB.fechaInicio}" pattern="dd-MM-yyyy" locale="es" >
-                                    <f:ajax event="change" execute="Finicio"/>
+                                <h:outputText id="fechaInicio" value="Fecha de Inicio: "/>
+                                <p:calendar id="event" value="#{reservacionMB.dto.entidad.fechaInicio}">
+                                    <p:ajax update="txtcosto" event="dateSelect" listener="#{reservacionMB.onDateSelect}" />
                                 </p:calendar>
-                                <h:outputText value="Fecha de finalizacion"/> 
-                                <p:calendar id="Ffin" showOn="button" value="#{reservacionMB.fechaFin}" pattern="dd-MM-yyyy" locale="es" >
-                                    <f:ajax event="change" execute="Ffin"/>
+                                <h:outputText id="fechaFin" value="Fecha de Salida:  "/>
+                                <p:calendar id="event1" value="#{reservacionMB.dto.entidad.fechaTermino}">
+                                    <p:ajax event="dateSelect" listener="#{reservacionMB.onDateSelect2}" update="txtcosto"/>
                                 </p:calendar>
-                                <h:outputText id="txtcosto" value="Costo: #{reservacionMB.costoCuarto()}"/>
+                                <h:outputText id="cost" value="Costo: $"/>
+                                <h:outputText id="txtcosto" value="#{reservacionMB.sacaCosto()}"/>
+                                <h:commandButton value="Crear" action="#{reservacionMB.add()}" rendered="#{reservacionMB.modoCrear}" actionListener="#{reservacionMB.seleccionarHuesped}">
+                                    <f:param name="claveSel" value="#{idHuesped}"/>
+                                </h:commandButton>
                             </h:panelGrid>      
                         </h:form>
                     </f:view>
