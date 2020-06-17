@@ -11,6 +11,11 @@
         <h:outputScript library="js" name="popper.min.js"/>
     </h:head>
     <h:body>
+        <h:form rendered='#{tipo == "administrador"}'>
+            <h:commandLink action="#{reservacionMB.generarReporteGeneral()}">
+                Reporte General de Reservaciones
+            </h:commandLink>
+        </h:form>
         <div class="container">
             <div class="table-responsive">
                 <h:panelGrid>
@@ -70,6 +75,12 @@
                                     <f:facet name="header">
                                         <h:outputText value="Recibo"/>
                                     </f:facet>
+                                    <h:commandButton 
+                                        action="#{reservacionMB.generarReporteIndividual()}" 
+                                        value="Ver Recibo"
+                                        actionListener="#{reservacionMB.seleccionarReservacion}">                                
+                                        <f:param name="claveSel" value="#{dto.idReservacion}"/>
+                                    </h:commandButton>
                                 </h:column>
                                 
                                 <h:column>

@@ -11,6 +11,11 @@
         <h:outputScript library="js" name="popper.min.js"/>
     </h:head>
     <h:body>
+        <h:form rendered='#{tipo == "administrador"}'>
+            <h:commandLink action="#{huespedMB.generarReporteGeneral()}">
+                Reporte General de Huespedes
+            </h:commandLink>
+        </h:form>
         <div class="container">
             <div class="table-responsive">
                 <h:panelGrid>
@@ -97,6 +102,18 @@
                                         <h:outputText value="Foto"/>
                                     </f:facet>
                                     <h:graphicImage value="#{huespedMB.displayFoto(dto.idHuesped)}" height="55" width="55"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Reporte"/>
+                                    </f:facet>
+                                    <h:commandButton 
+                                        action="#{huespedMB.generarReporteIndividual()}" 
+                                        value="Ver Reporte"
+                                        actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                    </h:commandButton>
                                 </h:column>
                                 
                                 <h:column>

@@ -10,6 +10,7 @@ import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.UsuarioDTO;
 import com.ipn.mx.modelo.entidades.Estado;
 import com.ipn.mx.modelo.entidades.Municipio;
+import com.ipn.mx.utilidades.ConexionBD;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
 import java.io.ByteArrayOutputStream;
@@ -19,7 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -27,7 +30,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 
 @ManagedBean(name = "huespedMB")
@@ -300,6 +307,47 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public String displayFoto(int idHuesped){
         return "/Imagen?id="+idHuesped;
+    }
+    
+    public void generarReporteGeneral() {
+        File reporte = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/Huespedes.jasper"));
+        ConexionBD con = new ConexionBD();
+        byte[] bytes;
+        try {
+            bytes = JasperRunManager.runReportToPdf(reporte.getPath(), null, con.obtenerConexion());
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setContentType("application/pdf");
+            response.setContentLength(bytes.length);
+            ServletOutputStream outStream = response.getOutputStream();
+            outStream.write(bytes, 0, bytes.length);
+            outStream.flush();
+            outStream.close();
+        } catch (JRException | IOException ex) {
+            Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    public void generarReporteIndividual(){
+        Map parametros = new HashMap();
+        int idHuesped = dto.getEntidad().getIdHuesped();
+        parametros.put("idHuesped", idHuesped);
+        File reporte = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/Huesped.jasper"));
+        ConexionBD con = new ConexionBD();
+        byte[] bytes;
+        try {
+            bytes = JasperRunManager.runReportToPdf(reporte.getPath(), parametros, con.obtenerConexion());
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setContentType("application/pdf");
+            response.setContentLength(bytes.length);
+            ServletOutputStream outStream = response.getOutputStream();
+            outStream.write(bytes, 0, bytes.length);
+            outStream.flush();
+            outStream.close();
+        } catch (JRException | IOException ex) {
+            Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
     
 }

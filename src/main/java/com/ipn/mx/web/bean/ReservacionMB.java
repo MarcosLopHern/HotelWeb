@@ -7,7 +7,10 @@ import com.ipn.mx.modelo.dto.CuartoDTO;
 import com.ipn.mx.modelo.dto.HuespedDTO;
 import com.ipn.mx.modelo.dto.ReservacionDTO;
 import com.ipn.mx.modelo.entidades.Huesped;
+import com.ipn.mx.utilidades.ConexionBD;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,14 +19,22 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
 import org.primefaces.event.SelectEvent;
 
 
@@ -185,5 +196,46 @@ public class ReservacionMB extends BaseBean implements Serializable {
                         .getExternalContext().getRequestParameterMap()
                         .get("claveSel");
         dto.getEntidad().setIdHuesped(Integer.parseInt(claveSel));
+    }
+    
+    public void generarReporteGeneral() {
+        File reporte = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/Reservaciones.jasper"));
+        ConexionBD con = new ConexionBD();
+        byte[] bytes;
+        try {
+            bytes = JasperRunManager.runReportToPdf(reporte.getPath(), null, con.obtenerConexion());
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setContentType("application/pdf");
+            response.setContentLength(bytes.length);
+            ServletOutputStream outStream = response.getOutputStream();
+            outStream.write(bytes, 0, bytes.length);
+            outStream.flush();
+            outStream.close();
+        } catch (JRException | IOException ex) {
+            Logger.getLogger(ReservacionMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    public void generarReporteIndividual(){
+        Map parametros = new HashMap();
+        int idReservacion = dto.getEntidad().getIdReservacion();
+        parametros.put("idReservacion", idReservacion);
+        File reporte = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/Reservacion.jasper"));
+        ConexionBD con = new ConexionBD();
+        byte[] bytes;
+        try {
+            bytes = JasperRunManager.runReportToPdf(reporte.getPath(), parametros, con.obtenerConexion());
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setContentType("application/pdf");
+            response.setContentLength(bytes.length);
+            ServletOutputStream outStream = response.getOutputStream();
+            outStream.write(bytes, 0, bytes.length);
+            outStream.flush();
+            outStream.close();
+        } catch (JRException | IOException ex) {
+            Logger.getLogger(ReservacionMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
 }
