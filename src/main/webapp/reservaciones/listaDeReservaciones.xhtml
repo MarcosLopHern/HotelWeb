@@ -21,8 +21,8 @@
                 <h:panelGrid>
                     <f:view>
                         <h:form>
-                            <h:dataTable value="#{reservacionMB.listaDeReservaciones}" var="dto" styleClass="table" columnClasses="col">                               
-                                <h:column rendered="#{tipo=='administrador'}">
+                            <h:dataTable value="#{reservacionMB.listaDeReservaciones}" var="dto" styleClass="table" columnClasses="col" rendered="#{tipo=='administrador'}">                               
+                                <h:column >
                                     <f:facet name="header">
                                         <h:outputText value="Huesped"/>
                                     </f:facet>
@@ -96,6 +96,79 @@
                                     </h:commandButton>
                                 </h:column>
                             </h:dataTable> 
+                            
+                            
+                            <h:dataTable value="#{reservacionMB.purgeList(idHuesped)}" var="dto" styleClass="table" columnClasses="col" rendered="#{tipo=='huesped'}">                               
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cuarto"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.idCuarto}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Fecha de inicio"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.fechaInicio}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Fecha de termino"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.fechaTermino}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Fecha de Registro"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.fechaRegistro}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Precio Total"/>
+                                    </f:facet>
+                                    <h:outputText value="$#{dto.precioTotal}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Efectivo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{dto.esActiva}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Recibo"/>
+                                    </f:facet>
+                                    <h:commandButton 
+                                        action="#{reservacionMB.generarReporteIndividual()}" 
+                                        value="Ver Recibo"
+                                        actionListener="#{reservacionMB.seleccionarReservacion}"
+                                        rendered="#{idHuesped==dto.idHuesped}">                                
+                                        <f:param name="claveSel" value="#{dto.idReservacion}"  />
+                                    </h:commandButton>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cancelar"/>
+                                    </f:facet>
+                                        
+                                    <h:commandButton 
+                                        action="#{reservacionMB.delete()}" 
+                                        value="Eliminar"
+                                        actionListener="#{reservacionMB.seleccionarReservacion}"
+                                        rendered="#{idHuesped==dto.idHuesped}">                                
+                                        <f:param name="claveSel" value="#{dto.idReservacion}"  />
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable> 
+                            
                         </h:form>
                     </f:view>
                 </h:panelGrid>

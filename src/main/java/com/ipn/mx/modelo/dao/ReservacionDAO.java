@@ -82,4 +82,22 @@ public class ReservacionDAO {
         }
         return lista;
     }
+    
+    public List<ReservacionDTO> readAllbyHuesped(int idHuesped){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        List<ReservacionDTO> lista = null;
+        try{
+            System.out.println("from Reservacion r where r.idHuesped = " + idHuesped + " order by r.idReservacion");
+            transaction.begin();
+            Query q = session.createQuery("from Reservacion r where r.idHuesped = " + idHuesped + " order by r.idReservacion");
+            lista = q.list();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return lista;
+    }
 }

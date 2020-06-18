@@ -4,9 +4,9 @@ import com.ipn.mx.modelo.dao.CuartoDAO;
 import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.ReservacionDAO;
 import com.ipn.mx.modelo.dto.CuartoDTO;
-import com.ipn.mx.modelo.dto.HuespedDTO;
 import com.ipn.mx.modelo.dto.ReservacionDTO;
 import com.ipn.mx.modelo.entidades.Huesped;
+import com.ipn.mx.modelo.entidades.Reservacion;
 import com.ipn.mx.utilidades.ConexionBD;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import java.io.File;
@@ -85,6 +85,11 @@ public class ReservacionMB extends BaseBean implements Serializable {
         listaDeReservaciones = dao.readAll();  
     }
     
+    public List purgeList(int idHuesped){
+        listaDeReservaciones = dao.readAllbyHuesped(idHuesped);
+        return listaDeReservaciones;
+    }
+    
     public String prepareUpdate(){
         setAccion(ACC_ACTUALIZAR);
         return "/reservaciones/reservacionForm?faces-redirect=true";
@@ -110,7 +115,7 @@ public class ReservacionMB extends BaseBean implements Serializable {
         init();
         return "/reservaciones/listaDeReservaciones?faces-redirect=true";
     }
-    
+     
     public String prepareIndex(){
         init();
         return "/index?faces-redirect=true";
@@ -179,14 +184,18 @@ public class ReservacionMB extends BaseBean implements Serializable {
     
     public double sacaCosto() throws ParseException{
         if(dto.getEntidad().getIdCuarto() != -1){
-            long diffInMillies = Math.abs(dto.getEntidad().getFechaInicio().getTime() - dto.getEntidad().getFechaTermino().getTime());
-            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS); 
-            CuartoDTO cdto = new CuartoDTO();
-            cdto.getEntidad().setIdCuarto(dto.getEntidad().getIdCuarto());
-            CuartoDAO cdao = new CuartoDAO();
-            cdto = cdao.read(cdto);
-            dto.getEntidad().setPrecioTotal(cdto.getEntidad().getPrecioDiario() * diff);
-            return cdto.getEntidad().getPrecioDiario() * diff;
+            try{
+                long diffInMillies = Math.abs(dto.getEntidad().getFechaInicio().getTime() - dto.getEntidad().getFechaTermino().getTime());
+                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS); 
+                CuartoDTO cdto = new CuartoDTO();
+                cdto.getEntidad().setIdCuarto(dto.getEntidad().getIdCuarto());
+                CuartoDAO cdao = new CuartoDAO();
+                cdto = cdao.read(cdto);
+                dto.getEntidad().setPrecioTotal(cdto.getEntidad().getPrecioDiario() * diff);
+                return cdto.getEntidad().getPrecioDiario() * diff;
+            }catch(Exception e){
+                
+            }
         }
         return 0;
     }

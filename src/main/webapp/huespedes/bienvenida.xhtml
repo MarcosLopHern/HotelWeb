@@ -22,6 +22,9 @@
             <h:commandLink action="#{reservacionMB.prepareListaReservaciones()}">
                 Lista de Reservaciones
             </h:commandLink>
+            <h:commandLink action="#{reservacionMB.prepareNew()}">
+                Crear Reservacion
+            </h:commandLink>
         </h:form>
         <h:form rendered='#{tipo != "administrador"}'>
             <h:commandLink action="#{huespedMB.preparePerfil()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
@@ -34,6 +37,9 @@
             <h:commandLink action="#{reservacionMB.prepareNew()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
                 <f:param name="claveSel" value="#{idHuesped}"/>
                 Crear Reservación
+            </h:commandLink>
+            <h:commandLink action="#{reservacionMB.prepareListaReservaciones()}">
+                Mis Reservaciones
             </h:commandLink>
         </h:form>
     </h:body>

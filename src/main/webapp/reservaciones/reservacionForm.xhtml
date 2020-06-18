@@ -20,8 +20,15 @@
                 <div class="card-body text-primary">
                     <f:view>
                         <h:form enctype="multipart/form-data">
-                            <h:inputHidden id="txtIdHuesped" value="#{huespedMB.dto.entidad.idHuesped}"/>
+                            <h:inputHidden id="txtIdHuesped" value="#{huespedMB.dto.entidad.idHuesped}" rendered="#{tipo=='huesped'}"/>
                             <h:panelGrid columns="2" class="form-group row">
+                                <h:outputText value="Huesped" rendered="#{tipo=='administrador'}"/>
+                                <h:selectOneMenu id="txtHuesped" value="#{reservacionMB.dto.entidad.idHuesped}" rendered="#{tipo=='administrador'}">      
+                                    <f:selectItem itemLabel="seleccionar Huesped" itemValue=""/>
+                                    <f:selectItems value="#{huespedMB.listaDeHuespedes}" var="huesped"
+                                                   itemValue="#{huesped.idHuesped}" itemLabel="#{huesped.nombre} #{huesped.apellidoPaterno}" />
+                                    <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
+                                </h:selectOneMenu>
                                 <h:outputText value="Cuarto"/>
                                 <h:selectOneMenu id="txtCuarto" value="#{reservacionMB.dto.entidad.idCuarto}">      
                                     <f:selectItem itemLabel="seleccionar Cuarto" itemValue=""/>
