@@ -196,8 +196,8 @@ public class HuespedMB extends BaseBean implements Serializable {
                         }
                         dto.getEntidad().setNombreUsuario(nombreUsuario);
                         dto.getEntidad().setExiste(true);
-                        udao.update(udto);
                         dao.update(dto);
+                        udao.update(udto);                        
                         Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Te has registrado nuevamente en HotelWeb como el usuario "+nombreUsuario);
                     } catch (IOException ex) {
                         Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -250,8 +250,8 @@ public class HuespedMB extends BaseBean implements Serializable {
             } catch (IOException ex) {
                 Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            udao.update(udto);
             dao.update(dto);
+            udao.update(udto);
             if(valido){
                 return prepareListaHuespedes();
             }else{
@@ -277,12 +277,6 @@ public class HuespedMB extends BaseBean implements Serializable {
             return prepareListaHuespedes();
         }
         
-        UsuarioDTO udto = new UsuarioDTO();
-        UsuarioDAO udao = new UsuarioDAO();
-        udto.getEntidad().setNombreUsuario(nombreUsuario);
-        udto.getEntidad().setPswrd(pswrd);
-        udao.delete(udto);
-        dao.delete(dto);
         return prepareIndex();
     }
     
@@ -294,6 +288,7 @@ public class HuespedMB extends BaseBean implements Serializable {
         dto.getEntidad().setIdHuesped(Integer.parseInt(claveSel));
         try{
            dto = dao.read(dto);
+            setNombreUsuario(dto.getEntidad().getNombreUsuario());
         }catch(Exception e){
             e.printStackTrace();
         }
