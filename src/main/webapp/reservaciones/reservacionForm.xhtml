@@ -46,8 +46,10 @@
                                 </p:calendar>
                                 <h:outputText id="cost" value="Costo: $"/>
                                 <h:outputText id="txtcosto" value="#{reservacionMB.sacaCosto()}"/>
-                                <h:commandButton value="Crear" action="#{reservacionMB.add()}" rendered="#{reservacionMB.modoCrear}" actionListener="#{reservacionMB.seleccionarHuesped}">
+                                <h:commandButton value="Crear" action="#{reservacionMB.add()}" rendered="#{tipo=='huesped'}" actionListener="#{reservacionMB.seleccionarHuesped}">
                                     <f:param name="claveSel" value="#{idHuesped}"/>
+                                </h:commandButton>
+                                <h:commandButton value="Crear" action="#{reservacionMB.add()}" rendered="#{tipo=='administrador'}">
                                 </h:commandButton>
                             </h:panelGrid>      
                         </h:form>
