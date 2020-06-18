@@ -186,25 +186,34 @@ public class HuespedMB extends BaseBean implements Serializable {
                 udto.getEntidad().setTipo("huesped");
                 udto.getEntidad().setExiste(true);
                 if(existencia.equals("Eliminado")){
-                    init();
-                    FacesContext.getCurrentInstance().addMessage("Formulario", new FacesMessage("Esta cuenta ha sido eliminada, contacta a un administrador para obtener ayuda"));
-                    return null;
-//                    try {
-//                        if (foto != null && !foto.getSubmittedFileName().isEmpty()){
-//                            dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
-//                        }else{
-//                            File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
-//                            FileInputStream fis = new FileInputStream(img);
-//                            dto.getEntidad().setFoto(getBytesFromInputStream(fis));
-//                        }
-//                        dto.getEntidad().setNombreUsuario(nombreUsuario);
-//                        dto.getEntidad().setExiste(true);
-//                        dao.update(dto);
-//                        udao.update(udto);                        
-//                        Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Te has registrado nuevamente en HotelWeb como el usuario "+nombreUsuario);
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
+                    HuespedDTO auxdto = new HuespedDTO();
+                    auxdto.getEntidad().setIdHuesped(Integer.parseInt(udao.getIdHuesped(udto)));
+                    try{
+                        auxdto = dao.read(auxdto);
+                        if (foto != null && !foto.getSubmittedFileName().isEmpty()){
+                            dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                        }else{
+                            File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
+                            FileInputStream fis = new FileInputStream(img);
+                            dto.getEntidad().setFoto(getBytesFromInputStream(fis));
+                        }
+                        auxdto.getEntidad().setNombreUsuario(nombreUsuario);
+                        auxdto.getEntidad().setExiste(true);
+                        auxdto.getEntidad().setNombre(dto.getEntidad().getNombre());
+                        auxdto.getEntidad().setApellidoMaterno(dto.getEntidad().getApellidoMaterno());
+                        auxdto.getEntidad().setApellidoPaterno(dto.getEntidad().getApellidoPaterno());
+                        auxdto.getEntidad().setEmail(dto.getEntidad().getEmail());
+                        auxdto.getEntidad().setTelefono(dto.getEntidad().getTelefono());
+                        auxdto.getEntidad().setIdMunicipio(dto.getEntidad().getIdMunicipio());
+                        auxdto.getEntidad().setNumeroTarjeta(dto.getEntidad().getNumeroTarjeta());
+                        auxdto.getEntidad().setFoto(dto.getEntidad().getFoto());
+                        dao.update(auxdto);
+                        udao.update(udto); 
+                        dto = auxdto;
+                        Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Te has registrado en HotelWeb como el usuario "+nombreUsuario);
+                    } catch (IOException ex) {
+                        Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }else{
                     try {
                         if (foto != null && !foto.getSubmittedFileName().isEmpty()){
