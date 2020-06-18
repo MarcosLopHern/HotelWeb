@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ipn.mx.utilidades;
 
 import java.io.IOException;
@@ -36,7 +31,7 @@ public class FiltroAcceso implements Filter{
 
         System.out.println("Ingresando a "+url+" como "+tipo);
         if(tipo.isEmpty()){ // Si el tipo es nulo
-            // Sino es el index, el formulario de huespedes o un recurso js o css redirecciona al index
+            // Si no es el index, el formulario de huespedes o un recurso js o css redirecciona al index
             if(!url.endsWith("/") && !url.contains("index") && !url.contains("huespedForm") && !url.endsWith(".js") && !url.endsWith(".css"))
                 res.sendRedirect(req.getServletContext().getContextPath()+"/");  
             else chain.doFilter(request, response);
@@ -45,7 +40,7 @@ public class FiltroAcceso implements Filter{
             if(url.endsWith("/") || url.contains("index") || url.contains("listaHuespedes") || url.contains("cuartoForm") || url.contains("reportes"))
                 res.sendRedirect(req.getContextPath()+"/faces/huespedes/bienvenida.xhtml");
             else chain.doFilter(request, response);
-        }else if(tipo.equals("administrador")){
+        }else if(tipo.equals("administrador")){ // Si el tipo es administrader
             if(url.endsWith("/") || url.contains("index"))
                 res.sendRedirect(req.getContextPath()+"/faces/huespedes/bienvenida.xhtml");
             else chain.doFilter(request, response);

@@ -91,7 +91,7 @@ public class UsuarioMB extends BaseBean implements Serializable {
     public String iniciarSesion() {
         FacesContext fc = FacesContext.getCurrentInstance();
         String username = dto.getEntidad().getNombreUsuario();
-        String msj = dao.validate(dto);
+        String msj = dao.login(dto);
         dto = dao.read(dto);
         if (username.equalsIgnoreCase(msj)) {
             fc.getExternalContext().getSessionMap().put("nombreUsuario", msj);   
@@ -106,7 +106,6 @@ public class UsuarioMB extends BaseBean implements Serializable {
             return null;
         }
     }
-    
     
     public String cerrarSesion() {        
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();

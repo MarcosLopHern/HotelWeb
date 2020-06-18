@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -162,6 +163,8 @@ public class HuespedMB extends BaseBean implements Serializable {
     public Boolean validate(){
         boolean valido = true;
         //validar campos del formulario
+        
+        
         return valido;
     }
     
@@ -171,24 +174,52 @@ public class HuespedMB extends BaseBean implements Serializable {
             UsuarioDTO udto = new UsuarioDTO();
             UsuarioDAO udao = new UsuarioDAO();
             udto.getEntidad().setNombreUsuario(nombreUsuario);
-            udto.getEntidad().setPswrd(pswrd);
-            udto.getEntidad().setTipo("huesped");
-            udto.getEntidad().setExiste(true);
-            try {
-                if (foto != null && !foto.getSubmittedFileName().isEmpty()){
-                    dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+            
+            String existencia = udao.validate(udto);
+            
+            if(existencia.equals("Existente")){
+                init();
+                FacesContext.getCurrentInstance().addMessage("Formulario", new FacesMessage("Usuario ya existente"));
+                return null;
+            }else{
+                udto.getEntidad().setPswrd(pswrd);
+                udto.getEntidad().setTipo("huesped");
+                udto.getEntidad().setExiste(true);
+                if(existencia.equals("Eliminado")){
+                    try {
+                        if (foto != null && !foto.getSubmittedFileName().isEmpty()){
+                            dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                        }else{
+                            File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
+                            FileInputStream fis = new FileInputStream(img);
+                            dto.getEntidad().setFoto(getBytesFromInputStream(fis));
+                        }
+                        dto.getEntidad().setNombreUsuario(nombreUsuario);
+                        dto.getEntidad().setExiste(true);
+                        udao.update(udto);
+                        dao.update(dto);
+                        Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Te has registrado nuevamente en HotelWeb como el usuario "+nombreUsuario);
+                    } catch (IOException ex) {
+                        Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }else{
-                    File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
-                    FileInputStream fis = new FileInputStream(img);
-                    dto.getEntidad().setFoto(getBytesFromInputStream(fis));
+                    try {
+                        if (foto != null && !foto.getSubmittedFileName().isEmpty()){
+                            dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+                        }else{
+                            File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
+                            FileInputStream fis = new FileInputStream(img);
+                            dto.getEntidad().setFoto(getBytesFromInputStream(fis));
+                        }
+                        dto.getEntidad().setNombreUsuario(nombreUsuario);
+                        dto.getEntidad().setExiste(true);
+                        udao.create(udto);
+                        dao.create(dto);
+                        Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Has completado tu registro en HotelWeb como el usuario "+nombreUsuario);
+                    } catch (IOException ex) {
+                        Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                dto.getEntidad().setNombreUsuario(nombreUsuario);
-                dto.getEntidad().setExiste(true);
-                udao.create(udto);
-                dao.create(dto);
-                Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Has completado tu registro en HotelWeb como el usuario "+nombreUsuario);
-            } catch (IOException ex) {
-                Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
             }
             if(valido){
                 return prepareIndex();

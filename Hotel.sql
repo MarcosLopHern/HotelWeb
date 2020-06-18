@@ -17,7 +17,7 @@ abreviacion varchar(10) not null,
 activo tinyint(1) not null default 1
 );
 
-CREATE TABLE Municipio (
+create table Municipio (
 idMunicipio int(11) primary key not null,
 idEstado int(11) not null,
 clave varchar(3) not null,
@@ -63,6 +63,23 @@ foreign key(idCuarto) references Cuarto(idCuarto)
 );
 
 /*--PROCEDIMIENTOS DE USUARIO--*/
+delimiter **
+create procedure sp_validateUsuario(nomUsr nvarchar(30))
+begin 
+	declare msj nvarchar(30);
+    if (select count(*) from Usuario where nombreUsuario = nomUsr and existe = 0) > 0 then
+		set msj = "Eliminado";
+	else
+		if (select count(*) from Usuario where nombreUsuario = nomUsr and existe = 1) > 0 then
+			set msj = "Existente";
+		else
+			set msj = "Inexistente";
+		end if;
+	end if;
+    select msj;
+end **
+delimiter ;
+
 delimiter **
 create procedure sp_crearUsuario(
 nomUsr nvarchar(30),
@@ -355,7 +372,7 @@ insert into Estado(idEstado, clave, nombre, abreviacion, activo) values
 (31, '31', 'Yucatán', 'Yuc.', 1),
 (32, '32', 'Zacatecas', 'Zac.', 1);
 
-INSERT INTO Municipio(idMunicipio, idEstado, clave, nombre, activo) VALUES
+insert into Municipio(idMunicipio, idEstado, clave, nombre, activo) values
 (1, 1, '001', 'Aguascalientes', 1),
 (2, 1, '002', 'Asientos', 1),
 (3, 1, '003', 'Calvillo', 1),
