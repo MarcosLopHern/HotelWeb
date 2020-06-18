@@ -1,8 +1,6 @@
 package com.ipn.mx.web.bean;
 
-import com.ipn.mx.modelo.dao.HuespedDAO;
 import com.ipn.mx.modelo.dao.UsuarioDAO;
-import com.ipn.mx.modelo.dto.HuespedDTO;
 import com.ipn.mx.modelo.dto.UsuarioDTO;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
@@ -14,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean(name = "usuarioMB")
 @SessionScoped
@@ -89,7 +88,6 @@ public class UsuarioMB extends BaseBean implements Serializable {
     }
     
     public String iniciarSesion() {
-        
         String username = dto.getEntidad().getNombreUsuario();
         String msj = dao.validate(dto);
         dto = dao.read(dto);
@@ -106,9 +104,14 @@ public class UsuarioMB extends BaseBean implements Serializable {
     }
     
     
-    public String cerrarSesion() {
+    public String cerrarSesion() {        
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Pragma", "no-cache");
+        response.addHeader("Cache-Control", "no-cache");
+        response.addHeader("Cache-Control", "no-store");
+        response.addHeader("Cache-Control", "must-revalidate");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
 }
 

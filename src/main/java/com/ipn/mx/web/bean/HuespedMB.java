@@ -183,11 +183,11 @@ public class HuespedMB extends BaseBean implements Serializable {
                 }
                 dto.getEntidad().setNombreUsuario(nombreUsuario);
                 dto.getEntidad().setExiste(true);
+                dao.create(dto);
+                udao.create(udto);
             } catch (IOException ex) {
                 Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            udao.create(udto);
-            dao.create(dto);
             if(valido){
                 return prepareIndex();
             }else{
