@@ -29,7 +29,6 @@ public class FiltroAcceso implements Filter{
         }
         String url = req.getRequestURI();
 
-        System.out.println("Ingresando a "+url+" como "+tipo);
         if(tipo.isEmpty()){ // Si el tipo es nulo
             // Si no es el index, el formulario de huespedes o un recurso js o css redirecciona al index
             if(!url.endsWith("/") && !url.contains("index") && !url.contains("huespedForm") && !url.endsWith(".js") && !url.endsWith(".css"))
