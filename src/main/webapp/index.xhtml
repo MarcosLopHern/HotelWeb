@@ -20,6 +20,7 @@
                 <div class="card-body text-primary">
                     <f:view>
                         <h:form>
+                            <h:messages style="color:red;margin:8px;" /> 
                             <h:panelGrid columns="2" class="form-group row">
                                 <h:outputText value="Nombre de Usuario:"/>
                                 <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>

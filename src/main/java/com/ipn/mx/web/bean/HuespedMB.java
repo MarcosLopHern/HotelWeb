@@ -11,6 +11,7 @@ import com.ipn.mx.modelo.dto.UsuarioDTO;
 import com.ipn.mx.modelo.entidades.Estado;
 import com.ipn.mx.modelo.entidades.Municipio;
 import com.ipn.mx.utilidades.ConexionBD;
+import com.ipn.mx.utilidades.Utilerias;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
 import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
 import java.io.ByteArrayOutputStream;
@@ -183,8 +184,9 @@ public class HuespedMB extends BaseBean implements Serializable {
                 }
                 dto.getEntidad().setNombreUsuario(nombreUsuario);
                 dto.getEntidad().setExiste(true);
-                dao.create(dto);
                 udao.create(udto);
+                dao.create(dto);
+                Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Has completado tu registro en HotelWeb como el usuario "+nombreUsuario);
             } catch (IOException ex) {
                 Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
             }

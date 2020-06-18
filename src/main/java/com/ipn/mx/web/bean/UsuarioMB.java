@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -88,17 +89,20 @@ public class UsuarioMB extends BaseBean implements Serializable {
     }
     
     public String iniciarSesion() {
+        FacesContext fc = FacesContext.getCurrentInstance();
         String username = dto.getEntidad().getNombreUsuario();
         String msj = dao.validate(dto);
         dto = dao.read(dto);
         if (username.equalsIgnoreCase(msj)) {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nombreUsuario", msj);   
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo()); 
+            fc.getExternalContext().getSessionMap().put("nombreUsuario", msj);   
+            fc.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo()); 
             if(dto.getEntidad().getTipo().equals("huesped")){
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idHuesped", dao.getIdHuesped(dto));
+                fc.getCurrentInstance().getExternalContext().getSessionMap().put("idHuesped", dao.getIdHuesped(dto));
             }
             return "/huespedes/bienvenida?faces-redirect=true";
         } else {
+            init();
+            fc.addMessage("Login", new FacesMessage("Nombre de Usuario/Contraseña incorrecto"));
             return null;
         }
     }
