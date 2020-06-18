@@ -1,7 +1,9 @@
 package com.ipn.mx.modelo.dao;
 
 import com.ipn.mx.modelo.dto.CuartoDTO;
+import com.ipn.mx.modelo.entidades.Grafica;
 import com.ipn.mx.utilidades.HibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,7 +11,10 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 public class CuartoDAO {
-        public void create(CuartoDTO dto){
+    
+    private static final String SQL_GRAFICAR = "call sp_datosGrafica()";
+    
+    public void create(CuartoDTO dto){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
         try{
@@ -82,4 +87,25 @@ public class CuartoDAO {
         }
         return lista;
     }
+    
+    public List grafica(){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        List l = new ArrayList();
+        try{
+            transaction.begin();
+            Query q = session.createSQLQuery(SQL_GRAFICAR).addEntity(Grafica.class);
+            for(Grafica g : (List<Grafica>) q.list()){
+                l.add(g);
+            }
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return l;
+    }
+    
+    
 }

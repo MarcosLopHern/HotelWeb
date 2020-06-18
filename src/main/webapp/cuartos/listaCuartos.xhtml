@@ -11,6 +11,11 @@
         <h:outputScript library="js" name="popper.min.js"/>
     </h:head>
     <h:body>
+        <h:form rendered='#{tipo == "administrador"}'>
+            <h:commandLink action="#{cuartoMB.generarGrafica()}">
+                Gráfica de usos por cuarto
+            </h:commandLink>
+        </h:form>
         <div class="container">
             <div class="table-responsive">
                 <h:panelGrid>

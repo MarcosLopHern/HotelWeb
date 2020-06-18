@@ -31,5 +31,6 @@
         <mapping class="com.ipn.mx.modelo.entidades.Municipio" />
         <mapping class="com.ipn.mx.modelo.entidades.Reservacion" />
         <mapping class="com.ipn.mx.modelo.entidades.Usuario" />
+        <mapping class="com.ipn.mx.modelo.entidades.Grafica" />
     </session-factory>
 </hibernate-configuration>
