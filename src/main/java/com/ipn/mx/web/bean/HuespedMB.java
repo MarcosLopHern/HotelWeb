@@ -186,22 +186,25 @@ public class HuespedMB extends BaseBean implements Serializable {
                 udto.getEntidad().setTipo("huesped");
                 udto.getEntidad().setExiste(true);
                 if(existencia.equals("Eliminado")){
-                    try {
-                        if (foto != null && !foto.getSubmittedFileName().isEmpty()){
-                            dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
-                        }else{
-                            File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
-                            FileInputStream fis = new FileInputStream(img);
-                            dto.getEntidad().setFoto(getBytesFromInputStream(fis));
-                        }
-                        dto.getEntidad().setNombreUsuario(nombreUsuario);
-                        dto.getEntidad().setExiste(true);
-                        dao.update(dto);
-                        udao.update(udto);                        
-                        Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Te has registrado nuevamente en HotelWeb como el usuario "+nombreUsuario);
-                    } catch (IOException ex) {
-                        Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    init();
+                    FacesContext.getCurrentInstance().addMessage("Formulario", new FacesMessage("Esta cuenta ha sido eliminada, contacta a un administrador para obtener ayuda"));
+                    return null;
+//                    try {
+//                        if (foto != null && !foto.getSubmittedFileName().isEmpty()){
+//                            dto.getEntidad().setFoto(getBytesFromInputStream(foto.getInputStream()));
+//                        }else{
+//                            File img = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/img/marc.jpg"));
+//                            FileInputStream fis = new FileInputStream(img);
+//                            dto.getEntidad().setFoto(getBytesFromInputStream(fis));
+//                        }
+//                        dto.getEntidad().setNombreUsuario(nombreUsuario);
+//                        dto.getEntidad().setExiste(true);
+//                        dao.update(dto);
+//                        udao.update(udto);                        
+//                        Utilerias.enviarEmail(dto.getEntidad().getEmail(),"Registro de Huesped","Te has registrado nuevamente en HotelWeb como el usuario "+nombreUsuario);
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(HuespedMB.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                 }else{
                     try {
                         if (foto != null && !foto.getSubmittedFileName().isEmpty()){

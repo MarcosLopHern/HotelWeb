@@ -91,20 +91,32 @@ public class UsuarioMB extends BaseBean implements Serializable {
     public String iniciarSesion() {
         FacesContext fc = FacesContext.getCurrentInstance();
         String username = dto.getEntidad().getNombreUsuario();
-        String msj = dao.login(dto);
-        dto = dao.read(dto);
-        if (username.equalsIgnoreCase(msj)) {
-            fc.getExternalContext().getSessionMap().put("nombreUsuario", msj);   
-            fc.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo()); 
-            if(dto.getEntidad().getTipo().equals("huesped")){
-                fc.getCurrentInstance().getExternalContext().getSessionMap().put("idHuesped", dao.getIdHuesped(dto));
+        String msj = dao.validate(dto);
+        if(msj.equals("Existente")){
+            msj = dao.login(dto);
+            dto = dao.read(dto);
+            if (username.equalsIgnoreCase(msj)) {
+                fc.getExternalContext().getSessionMap().put("nombreUsuario", msj);   
+                fc.getCurrentInstance().getExternalContext().getSessionMap().put("tipo", dto.getEntidad().getTipo()); 
+                if(dto.getEntidad().getTipo().equals("huesped")){
+                    fc.getCurrentInstance().getExternalContext().getSessionMap().put("idHuesped", dao.getIdHuesped(dto));
+                }
+                return "/huespedes/bienvenida?faces-redirect=true";
+            } else {
+                init();
+                fc.addMessage("Login", new FacesMessage("Contraseña incorrecta"));
+                return null;
             }
-            return "/huespedes/bienvenida?faces-redirect=true";
-        } else {
+        }else if(msj.equals("Eliminado")){
             init();
-            fc.addMessage("Login", new FacesMessage("Nombre de Usuario/Contraseña incorrecto"));
+            fc.addMessage("Login", new FacesMessage("Esta cuenta ha sido eliminada, contacta a un administrador para obtener ayuda"));
+            return null;
+        }else if(msj.equals("Inexistente")){
+            init();
+            fc.addMessage("Login", new FacesMessage("No existe una cuenta asociada a este nombre de usuario"));
             return null;
         }
+        return null;
     }
     
     public String cerrarSesion() {        
