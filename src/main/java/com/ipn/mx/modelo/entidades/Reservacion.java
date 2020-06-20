@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table (name = "Reservacion", schema = "public")
@@ -16,8 +18,11 @@ public class Reservacion implements Serializable {
     private int idReservacion;
     private int idHuesped;
     private int idCuarto;
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
+    @Temporal(TemporalType.DATE)
     private Date fechaTermino;
+    @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
     private double precioTotal;
     private boolean esActiva;

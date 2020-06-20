@@ -5,58 +5,114 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Agregar Reservacion</title>
-         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <!--<h:outputScript library="js" name="bootstrap.min.js"/>
+        <title>HotelWeb | Crear Reservación</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+<!--        <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
         <h:outputScript library="js" name="popper.min.js"/>-->
+        <h:outputStylesheet library="css" name="custom.css"/>
     </h:head>
     <h:body>
-        <div class="container">
-            <div class="card border-primary mb-3">
-                <div class="card-header">
-                    <h1>Formulario de Reservacion</h1>
+        <h:panelGroup layout="block" class="bg-primary text-white border-bottom border-primary"><h1>Bienvenido #{nombreUsuario}, usuario de tipo #{tipo}</h1>
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <h:form rendered='#{tipo == "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.prepareListaHuespedes()}">
+                                Lista de Huespedes
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Lista de Reservaciones
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}">
+                                Crear Reservacion
+                            </h:commandLink>
+                        </div>
+                    </h:form>
+                    <h:form rendered='#{tipo != "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.preparePerfil()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{idHuesped}"/>
+                                Ver Perfil
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{idHuesped}"/>
+                                Crear Reservación
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Mis Reservaciones
+                            </h:commandLink>
+                        </div>
+                    </h:form>
                 </div>
-                <div class="card-body text-primary">
-                    <f:view>
-                        <h:form enctype="multipart/form-data">
-                            <h:inputHidden id="txtIdHuesped" value="#{huespedMB.dto.entidad.idHuesped}" rendered="#{tipo=='huesped'}"/>
-                            <h:panelGrid columns="2" class="form-group row">
-                                <h:outputText value="Huesped" rendered="#{tipo=='administrador'}"/>
-                                <h:selectOneMenu id="txtHuesped" value="#{reservacionMB.dto.entidad.idHuesped}" rendered="#{tipo=='administrador'}">      
-                                    <f:selectItem itemLabel="seleccionar Huesped" itemValue=""/>
-                                    <f:selectItems value="#{huespedMB.listaDeHuespedes}" var="huesped"
-                                                   itemValue="#{huesped.idHuesped}" itemLabel="#{huesped.nombre} #{huesped.apellidoPaterno}" />
-                                    <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
-                                </h:selectOneMenu>
-                                <h:outputText value="Cuarto"/>
-                                <h:selectOneMenu id="txtCuarto" value="#{reservacionMB.dto.entidad.idCuarto}">      
-                                    <f:selectItem itemLabel="seleccionar Cuarto" itemValue=""/>
-                                    <f:selectItems value="#{cuartoMB.listaCuartos()}" var="cuarto"
-                                                   itemValue="#{cuarto.idCuarto}" itemLabel="#{cuarto.idCuarto}" />
-                                    <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
-                                </h:selectOneMenu>
-                                <h:outputText id="fechaInicio" value="Fecha de Inicio: "/>
-                                <p:calendar id="event" value="#{reservacionMB.dto.entidad.fechaInicio}">
-                                    <p:ajax update="txtcosto" event="dateSelect" listener="#{reservacionMB.onDateSelect}" />
-                                </p:calendar>
-                                <h:outputText id="fechaFin" value="Fecha de Salida:  "/>
-                                <p:calendar id="event1" value="#{reservacionMB.dto.entidad.fechaTermino}">
-                                    <p:ajax event="dateSelect" listener="#{reservacionMB.onDateSelect2}" update="txtcosto"/>
-                                </p:calendar>
-                                <h:outputText id="cost" value="Costo: $"/>
-                                <h:outputText id="txtcosto" value="#{reservacionMB.sacaCosto()}"/>
-                                <h:commandButton value="Crear" action="#{reservacionMB.add()}" rendered="#{tipo=='huesped'}" actionListener="#{reservacionMB.seleccionarHuesped}">
-                                    <f:param name="claveSel" value="#{idHuesped}"/>
-                                </h:commandButton>
-                                <h:commandButton value="Crear" action="#{reservacionMB.add()}" rendered="#{tipo=='administrador'}">
-                                </h:commandButton>
-                            </h:panelGrid>      
-                        </h:form>
-                    </f:view>
-                </div>
-            </div>
-        </div>
+            </nav>
+        </h:panelGroup>
+        <h:panelGroup layout="block" class="container">
+            <h:panelGroup layout="block" class="d-flex flex-column justify-content-center pt-5 mt-5">
+                <h:panelGroup layout="block" class="card border-primary text-white bg-primary font-weight-bold mb-3 ">
+                    <h:panelGroup class="card-header text-center">
+                        <h1>Formulario de Reservacion</h1>
+                    </h:panelGroup>
+                    <h:panelGroup class="card-body special-card text-white bg-dark d-flex justify-content-center">
+                        <f:view>
+                            <h:form enctype="multipart/form-data" >
+                                <h:inputHidden id="txtIdHuesped" value="#{huespedMB.dto.entidad.idHuesped}" rendered="#{tipo=='huesped'}"/>
+                                <h:panelGroup layout="block" class="d-flex flex-column justify-content-center">
+                                    <h:outputText value="Huesped" rendered="#{tipo=='administrador'}"/>
+                                    <h:selectOneMenu id="txtHuesped" class="form-control" value="#{reservacionMB.dto.entidad.idHuesped}" rendered="#{tipo=='administrador'}">      
+                                        <f:selectItem itemLabel="seleccionar Huesped" itemValue=""/>
+                                        <f:selectItems value="#{huespedMB.listaDeHuespedes}" var="huesped"
+                                                       itemValue="#{huesped.idHuesped}" itemLabel="#{huesped.nombre} #{huesped.apellidoPaterno}" />
+                                        <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
+                                    </h:selectOneMenu>
+                                    <h:outputText value="Cuarto:"/>
+                                    <h:selectOneMenu id="txtCuarto" class="form-control" value="#{reservacionMB.dto.entidad.idCuarto}">      
+                                        <f:selectItem itemLabel="Seleccionar Cuarto" itemValue=""/>
+                                        <f:selectItems value="#{cuartoMB.listaCuartos()}" var="cuarto"
+                                                       itemValue="#{cuarto.idCuarto}" itemLabel="#{cuarto.idCuarto}" />
+                                        <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
+                                    </h:selectOneMenu>
+                                    <h:outputText id="fechaInicio" value="Fecha de Inicio: "/>
+                                    <p:calendar id="event" value="#{reservacionMB.dto.entidad.fechaInicio}">
+                                        <p:ajax update="txtcosto" event="dateSelect" listener="#{reservacionMB.onDateSelect}" />
+                                    </p:calendar>
+                                    <h:outputText id="fechaFin" value="Fecha de Salida:  "/>
+                                    <p:calendar id="event1"  value="#{reservacionMB.dto.entidad.fechaTermino}">
+                                        <p:ajax event="dateSelect" listener="#{reservacionMB.onDateSelect2}" update="txtcosto"/>
+                                    </p:calendar>
+                                    <h:outputText id="cost" value="Costo: $"/>
+                                    <h:outputText id="txtcosto" class="text-success" value="#{reservacionMB.sacaCosto()}"/>
+                                    <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
+                                        <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{reservacionMB.add()}" rendered="#{tipo=='huesped'}" actionListener="#{reservacionMB.seleccionarHuesped}">
+                                            <f:param name="claveSel" value="#{idHuesped}"/>
+                                        </h:commandButton>
+                                        <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{reservacionMB.add()}" rendered="#{tipo=='administrador'}">
+                                        </h:commandButton>
+                                    </h:panelGroup>
+                                    <h:messages class="m-3 text-danger"  /> 
+                                </h:panelGroup>      
+                            </h:form>
+                        </f:view>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
     </h:body>
 </html>
 

@@ -4,68 +4,151 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Perfil de Huesped</title>
+        <title>HotelWeb | Bienvenida</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
         <h:outputScript library="js" name="popper.min.js"/>
+        <h:outputStylesheet library="css" name="custom.css"/>
     </h:head>
     <h:body>
-        <div class="container">  
-            <div class="card border-primary mb-3">
-                <div class="card-header">
-                    <h1>Perfil de Huesped</h1>
+        <h:panelGroup layout="block" class="bg-primary text-white border-bottom border-primary"><h1>Bienvenido #{nombreUsuario}, usuario de tipo #{tipo}</h1>
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <h:form rendered='#{tipo == "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.prepareListaHuespedes()}">
+                                Lista de Huespedes
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Lista de Reservaciones
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}">
+                                Crear Reservacion
+                            </h:commandLink>
+                        </div>
+                    </h:form>
+                    <h:form rendered='#{tipo != "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.preparePerfil()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{idHuesped}"/>
+                                Ver Perfil
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{idHuesped}"/>
+                                Crear Reservación
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Mis Reservaciones
+                            </h:commandLink>
+                        </div>
+                    </h:form>
                 </div>
-                <div class="card-body text-primary">
-                    <f:view>
-                        <h:form>
-                            <h:panelGrid columns="2" class="form-group row">
-                                <h:outputText value="idHuesped"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.idHuesped}"/>
+            </nav>
+        </h:panelGroup>
+        <h:panelGroup layout="block" class="container">  
+            <h:panelGroup layout="block" class="d-flex flex-column justify-content-center pt-5 mt-5">
+                <h:panelGroup class="card border-primary text-white bg-primary font-weight-bold mb-3 ">
+                    <h:panelGroup class="card-header text-center">
+                        <h1>Perfil de Huesped</h1>
+                    </h:panelGroup>
+                    <h:panelGroup class="card-body special-card text-white bg-dark d-flex justify-content-center">
+                        <f:view>
+                            <h:form class="form-group">
+                                <h:panelGroup class="d-flex flex-row">
+                                    <h:panelGroup layout="block" class="d-flex flex-column justify-content-center">
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="ID: "/>
+                                            
+                                            <h:outputText value="#{huespedMB.dto.entidad.idHuesped}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Nombre: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.nombre}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Paterno: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.apellidoPaterno}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Materno: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.apellidoMaterno}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="E-mail: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.email}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Estado: "/>
+                                            <h:outputText value="#{huespedMB.displayEstado(huespedMB.dto.entidad.idMunicipio)}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Municipio: "/>
+                                            <h:outputText value="#{huespedMB.displayMunicipio(huespedMB.dto.entidad.idMunicipio)}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="No. Tarjeta: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.numeroTarjeta}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Teléfono: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.telefono}"/>
+                                        </h:panelGroup>
+                                        <br/>
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Usuario: "/>
+                                            <h:outputText value="#{huespedMB.dto.entidad.nombreUsuario}"/>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" class="d-flex justify-content-center pt-3">
+                                            <h:commandButton 
+                                                action="#{huespedMB.prepareUpdate()}" 
+                                                value="Editar"
+                                                class="btn btn-success text-white btn-block font-weight-bold"
+                                                actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                                <f:param name="claveSel" value="#{huespedMB.dto.entidad.idHuesped}"/>
+                                            </h:commandButton>
+                                        </h:panelGroup>
 
-                                <h:outputText value="nombreHuesped"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.nombre}"/>
+                                    </h:panelGroup>
 
-                                <h:outputText value="paternoHuesped"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.apellidoPaterno}"/>
 
-                                <h:outputText value="maternoHuesped"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.apellidoMaterno}"/>
+                                    <h:panelGroup layout="block" class="px-5">
+                                        
+                                        <h:graphicImage value="#{huespedMB.displayFoto(huespedMB.dto.entidad.idHuesped)}" height="300" width="300"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
 
-                                <h:outputText value="emailHuesped"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.email}"/>
+                            </h:form>
+                        </f:view>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
 
-                                <h:outputText value="estadoHuesped"/>
-                                <h:outputText value="#{huespedMB.displayEstado(huespedMB.dto.entidad.idMunicipio)}"/>
-
-                                <h:outputText value="municipioHuesped"/>
-                                <h:outputText value="#{huespedMB.displayMunicipio(huespedMB.dto.entidad.idMunicipio)}"/>
-
-                                <h:outputText value="No. Tarjeta"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.numeroTarjeta}"/>
-
-                                <h:outputText value="Teléfono"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.telefono}"/>
-
-                                <h:outputText value="nombreUsuario"/>
-                                <h:outputText value="#{huespedMB.dto.entidad.nombreUsuario}"/>
-
-                                <h:outputText value="Foto"/>
-                                <h:graphicImage value="#{huespedMB.displayFoto(huespedMB.dto.entidad.idHuesped)}" height="55" width="55"/>
-                            </h:panelGrid>
-                            
-                            <h:commandButton 
-                                action="#{huespedMB.prepareUpdate()}" 
-                                value="Editar"
-                                actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                <f:param name="claveSel" value="#{huespedMB.dto.entidad.idHuesped}"/>
-                            </h:commandButton>
-
-                        </h:form>
-                    </f:view>
-                </div>
-            </div>
-        </div>
     </h:body>
 </html>
 

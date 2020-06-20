@@ -111,7 +111,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     @PostConstruct
     public void init(){
         listaDeHuespedes = new ArrayList<>();
-        listaDeHuespedes = dao.readAll();    
+        listaDeHuespedes = dao.readExistentes();    
     }
     
     public String prepareAdd(){

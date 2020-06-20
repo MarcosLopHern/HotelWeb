@@ -10,36 +10,51 @@
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
         <h:outputScript library="js" name="popper.min.js"/>
+        <h:outputStylesheet library="css" name="custom.css"/>
     </h:head>
     <h:body>
-        <div class="container">
-            <div class="card border-primary mb-3">
-                <div class="card-header">
-                    <h1>Iniciar Sesi&oacute;n</h1>
-                </div>
-                <div class="card-body text-primary">
-                    <f:view>
-                        <h:form>
-                            <h:messages style="color:red;margin:8px;" /> 
-                            <h:panelGrid columns="2" class="form-group row">
-                                <h:outputText value="Nombre de Usuario:"/>
-                                <h:inputText id="txtNombreUsuario" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
+        <h:panelGroup layout="block" class="container">
+            <h:panelGroup layout="block" class="d-flex flex-column justify-content-center pt-5 mt-5">
+                <h:panelGroup layout="block" class="card border-primary text-white bg-primary font-weight-bold mb-3 ">
+                    <h:panelGroup layout="block" class="card-header text-center">
+                        <h1>Iniciar Sesi&oacute;n</h1>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" class="card-body special-card text-white bg-dark d-flex justify-content-center translucent">
+                        <f:view>
+                            <h:form class="form-group">
 
-                                <h:outputText value="Contrase&ntilde;a:"/>
-                                <h:inputSecret id="txtPswrd" value="#{usuarioMB.dto.entidad.pswrd}"/>
+                                <h:panelGroup layout="block" class="d-flex flex-row">
+                                    <h:panelGroup layout="block" class="d-flex flex-column justify-content-center">
+                                        <h:panelGroup layout="block">
+                                            <h:outputText value="Nombre de Usuario:&ensp;"/>
+                                            <h:inputText id="txtNombreUsuario" class="form-control px-3" value="#{usuarioMB.dto.entidad.nombreUsuario}"/>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" class="pt-3">
+                                            <h:outputText value="Contrase&ntilde;a:"/>
+                                            <h:inputSecret id="txtPswrd" class="form-control" value="#{usuarioMB.dto.entidad.pswrd}"/>
+                                        </h:panelGroup>
 
-                                <h:commandButton value="Ingresar" action="#{usuarioMB.iniciarSesion()}"/>
-                                <h:commandLink action="#{huespedMB.prepareAdd()}">
-                                    Registrarse
-                                </h:commandLink>
-                               
-                            </h:panelGrid>
-                        </h:form>
-                        
-                    </f:view>
-                </div>
-            </div>
-        </div>
+                                        <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
+                                            <h:commandButton value="Ingresar"  class="btn btn-primary btn-block font-weight-bold" action="#{usuarioMB.iniciarSesion()}"/>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
+                                            <h:commandLink action="#{huespedMB.prepareAdd()}">
+                                                ¿No tienes una cuenta? ¡Registrate!
+                                            </h:commandLink>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" class="pl-5">
+                                        <h:graphicImage value="img/hotel.png"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:messages class="m-3 text-danger"  /> 
+                            </h:form>
+
+                        </f:view>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
     </h:body>
 </html>
 

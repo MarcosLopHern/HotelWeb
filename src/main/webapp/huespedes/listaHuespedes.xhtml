@@ -4,143 +4,205 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>HotelWeb | Lista de Cuartos</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="jquery-3.4.1.slim.min.js"/>
         <h:outputScript library="js" name="popper.min.js"/>
+        <h:outputStylesheet library="css" name="custom.css"/>
     </h:head>
     <h:body>
-        <h:form rendered='#{tipo == "administrador"}'>
-            <h:commandLink action="#{huespedMB.generarReporteGeneral()}">
-                Reporte General de Huespedes
-            </h:commandLink>
-        </h:form>
-        <div class="container">
-            <div class="table-responsive">
-                <h:panelGrid>
-                    <f:view>
-                        <h:form>
-                            <h:dataTable value="#{huespedMB.listaDeHuespedes}" var="dto" styleClass="table" columnClasses="col">
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="idHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value=""/>
-                                    <h:commandLink action="#{huespedMB.preparePerfil()}"
-                                                   actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
-                                        #{dto.idHuesped}
-                                    </h:commandLink>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="nombreHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.nombre}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="paternoHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.apellidoPaterno}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="maternoHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.apellidoMaterno}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="emailHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.email}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="estadoHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value="#{huespedMB.displayEstado(dto.idMunicipio)}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="municipioHuesped"/>
-                                    </f:facet>
-                                    <h:outputText value="#{huespedMB.displayMunicipio(dto.idMunicipio)}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="No. Tarjeta"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.numeroTarjeta}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Teléfono"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.telefono}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="nombreUsuario"/>
-                                    </f:facet>
-                                    <h:outputText value="#{dto.nombreUsuario}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Foto"/>
-                                    </f:facet>
-                                    <h:graphicImage value="#{huespedMB.displayFoto(dto.idHuesped)}" height="55" width="55"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Reporte"/>
-                                    </f:facet>
-                                    <h:commandButton 
-                                        action="#{huespedMB.generarReporteIndividual()}" 
-                                        value="Ver Reporte"
-                                        actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
-                                    </h:commandButton>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Acciones"/>
-                                    </f:facet>
-                                
-                                    <h:commandButton 
-                                        action="#{huespedMB.prepareUpdate()}" 
-                                        value="Editar"
-                                        actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
-                                    </h:commandButton>
-                                        
-                                    <h:commandButton 
-                                        action="#{huespedMB.delete()}" 
-                                        value="Eliminar"
-                                        actionListener="#{huespedMB.seleccionarHuesped}">                                
-                                        <f:param name="claveSel" value="#{dto.idHuesped}"/>
-                                    </h:commandButton>
-                            </h:column>
-                            </h:dataTable>
-                        </h:form>
-                    </f:view>
-                </h:panelGrid>
-            </div>
-        </div>
+        <h:panelGroup layout="block" class="bg-primary text-white border-bottom border-primary"><h1>Bienvenido #{nombreUsuario}, usuario de tipo #{tipo}</h1>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <h:form rendered='#{tipo == "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.prepareListaHuespedes()}">
+                                Lista de Huespedes
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Lista de Reservaciones
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}">
+                                Crear Reservacion
+                            </h:commandLink>
+                        </div>
+                    </h:form>
+                    <h:form rendered='#{tipo != "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.preparePerfil()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{idHuesped}"/>
+                                Ver Perfil
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}" actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                <f:param name="claveSel" value="#{idHuesped}"/>
+                                Crear Reservación
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Mis Reservaciones
+                            </h:commandLink>
+                        </div>
+                    </h:form>
+                </div>
+            </nav>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" class="d-flex flex-column justify-content-center pt-5 mt-5">
+            <h:panelGroup layout="block" class="card border-primary text-white bg-primary font-weight-bold mb-3 ">
+                <h:panelGroup layout="block" class="card-header text-center">
+                    <h1>Lista de Huespedes</h1>
+                </h:panelGroup>
+                <h:panelGroup layout="block" class="card-body special-card text-white bg-dark d-flex flex-column align-content-center">
+                    <h:form rendered='#{tipo == "administrador"}' class="d-flex justify-content-center">
+                        <h:commandLink action="#{huespedMB.generarReporteGeneral()}">
+                            Reporte General de Huespedes
+                        </h:commandLink>
+                    </h:form>
+                    <br/>
+                    <h:panelGroup class="d-flex flex-column">
+                        <h:panelGroup layout="block" class="table-responsive justify-content-center text-white" >
+                            <h:panelGrid>
+                                <f:view>
+                                    <h:form>
+                                        <h:dataTable value="#{huespedMB.listaDeHuespedes}" var="dto" class="table" columnClasses="col">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Nombre"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.nombre}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Paterno"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.apellidoPaterno}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Materno"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.apellidoMaterno}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="E-mail"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.email}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Estado"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{huespedMB.displayEstado(dto.idMunicipio)}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Municipio"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{huespedMB.displayMunicipio(dto.idMunicipio)}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="No. Tarjeta"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.numeroTarjeta}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Teléfono"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.telefono}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Usuario"/>
+                                                </f:facet>
+                                                <h:outputText class="text-white" value="#{dto.nombreUsuario}"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Foto"/>
+                                                </f:facet>
+                                                <h:graphicImage value="#{huespedMB.displayFoto(dto.idHuesped)}" height="55" width="55"/>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Consultas"/>
+                                                </f:facet>
+                                                <!--                                                <h:outputText value=""/>-->
+
+                                                <h:commandButton 
+                                                    action="#{huespedMB.generarReporteIndividual()}" 
+                                                    value="Ver Reporte"
+                                                    class="btn btn-info btn-block font-weight-bold"
+                                                    actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                                    <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                                </h:commandButton>
+                                                
+                                                <h:commandButton 
+                                                    action="#{huespedMB.preparePerfil()}" 
+                                                    value="Ver Perfil"
+                                                    class="btn btn-secondary text-white btn-block font-weight-bold"
+                                                    actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                                    <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                                </h:commandButton>
+                                            </h:column>
+
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText class="text-warning" value="Acciones"/>
+                                                </f:facet>
+
+                                                <h:commandButton 
+                                                    action="#{huespedMB.prepareUpdate()}" 
+                                                    value="Editar"
+                                                    class="btn btn-success text-white btn-block font-weight-bold"
+                                                    actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                                    <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                                </h:commandButton>
+
+                                                <h:commandButton 
+                                                    action="#{huespedMB.delete()}" 
+                                                    value="Eliminar"
+                                                    class="btn btn-danger btn-block font-weight-bold"
+                                                    actionListener="#{huespedMB.seleccionarHuesped}">                                
+                                                    <f:param name="claveSel" value="#{dto.idHuesped}"/>
+                                                </h:commandButton>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </h:form>
+                                </f:view>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
     </h:body>
 </html>
 

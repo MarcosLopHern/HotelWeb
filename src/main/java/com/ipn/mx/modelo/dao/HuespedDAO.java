@@ -67,7 +67,7 @@ public class HuespedDAO {
         return dto;
     }
     
-    public List<HuespedDTO> readAll(){
+    public List<HuespedDTO> readExistentes(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
         List<HuespedDTO> lista = null;
@@ -83,5 +83,23 @@ public class HuespedDAO {
         }
         return lista;
     }
+    
+    public List<HuespedDTO> readAll(){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        List<HuespedDTO> lista = null;
+        try{
+            transaction.begin();
+            Query q = session.createQuery("from Huesped h order by h.idHuesped");
+            lista = q.list();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return lista;
+    }
+    
     
 }
