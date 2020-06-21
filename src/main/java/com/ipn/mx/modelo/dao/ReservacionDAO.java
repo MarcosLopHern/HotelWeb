@@ -112,8 +112,12 @@ public class ReservacionDAO {
             transaction.begin();
             ProcedureCall call = session.createStoredProcedureCall( "sp_validateReservacion" );
             call.registerParameter("idC",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getIdCuarto()+"");
-            call.registerParameter("fecIni",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getFechaInicio().toString());
-            call.registerParameter("fecFin",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getFechaInicio().toString());
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+            String fecIni = sdf.format(dto.getEntidad().getFechaInicio());
+            String fecFin = sdf.format(dto.getEntidad().getFechaTermino());
+            call.registerParameter("fecIni",String.class,ParameterMode.IN).bindValue(fecIni);
+            call.registerParameter("fecFin",String.class,ParameterMode.IN).bindValue(fecFin);
             ResultSetOutput rs = (ResultSetOutput)call.getOutputs().getCurrent();            
             msj = (String) rs.getSingleResult();
             transaction.commit();
