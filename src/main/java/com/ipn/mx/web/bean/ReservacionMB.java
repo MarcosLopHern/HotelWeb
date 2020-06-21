@@ -122,7 +122,7 @@ public class ReservacionMB extends BaseBean implements Serializable {
         return prepareListaReservaciones();
     }
     
-    public Boolean validate(){
+    public Boolean validateCreate(){
         boolean valido = true;
         //validar campos del formulario
         
@@ -135,7 +135,7 @@ public class ReservacionMB extends BaseBean implements Serializable {
     }
     
     public String add(){
-        Boolean valido = validate();
+        Boolean valido = validateCreate();
         System.out.println("DTO: " + dto);
         if(valido){
             dao.create(dto);
