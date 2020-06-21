@@ -144,12 +144,13 @@ public class ReservacionMB extends BaseBean implements Serializable {
             }else{
                 return prepareUpdate();
             }
+        }else{
+            return null;
         }
-        return prepareUpdate();
     }
     
     public String delete(){
-        Boolean valido = validate();
+        Boolean valido = validateDelete();
         if(valido){
             dao.delete(dto);
             if(valido){
@@ -249,5 +250,9 @@ public class ReservacionMB extends BaseBean implements Serializable {
             Logger.getLogger(ReservacionMB.class.getName()).log(Level.SEVERE, null, ex);
         }
         FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    private Boolean validateDelete() {
+        return true;
     }
 }
