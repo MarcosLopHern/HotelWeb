@@ -74,7 +74,7 @@
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="e90e160b-4f10-4cb2-9bf5-3dc08fb69342"/>
 				<staticText>
-					<reportElement x="20" y="20" width="460" height="43" forecolor="#FFFFFF" uuid="589fcae8-4406-4a48-8410-1f8d06fee163"/>
+					<reportElement x="20" y="20" width="555" height="43" forecolor="#FFFFFF" uuid="589fcae8-4406-4a48-8410-1f8d06fee163"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>

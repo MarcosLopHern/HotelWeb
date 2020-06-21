@@ -50,15 +50,15 @@
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="a5fafd5f-1c6a-4c37-8a03-e11a4d64021a"/>
 				<staticText>
-					<reportElement x="20" y="20" width="420" height="43" forecolor="#FFFFFF" uuid="70aa6606-6a7e-410d-8e52-11655f63f1be"/>
+					<reportElement x="20" y="20" width="553" height="43" forecolor="#FFFFFF" uuid="70aa6606-6a7e-410d-8e52-11655f63f1be"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Reporte de reservaciones]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="60" width="180" height="20" forecolor="#FFFFFF" uuid="d428a553-fd38-42af-8f80-bf8fbb8fff9a"/>
-					<textElement textAlignment="Right">
+					<reportElement x="355" y="60" width="218" height="20" forecolor="#FFFFFF" uuid="d428a553-fd38-42af-8f80-bf8fbb8fff9a"/>
+					<textElement textAlignment="Left">
 						<font size="14" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Agendadas por huespedes]]></text>
