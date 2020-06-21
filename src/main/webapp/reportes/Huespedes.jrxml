@@ -42,14 +42,15 @@
 	</style>
 	<subDataset name="tableDataset" uuid="79e45d9c-0499-4f1b-968b-117e5e7593dc">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adaptador"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<queryString language="SQL">
-			<![CDATA[SELECT hotelweb.huesped.nombre ,
-  hotelweb.huesped.`apellidoPaterno` ,
-   hotelweb.huesped.`apellidoMaterno` ,
-    hotelweb.huesped.email ,
-     hotelweb.huesped.telefono ,
-      hotelweb.huesped.foto from  hotelweb.huesped 
-      where  hotelweb.huesped.existe = 1]]>
+			<![CDATA[SELECT heroku_305578cf087e9cc.huesped.nombre ,
+  heroku_305578cf087e9cc.huesped.`apellidoPaterno` ,
+   heroku_305578cf087e9cc.huesped.`apellidoMaterno` ,
+    heroku_305578cf087e9cc.huesped.email ,
+     heroku_305578cf087e9cc.huesped.telefono ,
+      heroku_305578cf087e9cc.huesped.foto from  heroku_305578cf087e9cc.huesped 
+      where  heroku_305578cf087e9cc.huesped.existe = 1]]>
 		</queryString>
 		<field name="nombre" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="nombre"/>

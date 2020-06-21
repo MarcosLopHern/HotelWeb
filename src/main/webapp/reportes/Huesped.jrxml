@@ -5,21 +5,21 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adaptador"/>
 	<parameter name="idHuesped" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT  hotelweb.huesped.`idHuesped`,
-   hotelweb.huesped.nombre,
-    hotelweb.huesped.`apellidoPaterno` ,
-     hotelweb.huesped.`apellidoMaterno` ,
-      hotelweb.huesped.email,
-       hotelweb.estado.`nombre` ,
-        hotelweb.municipio.`nombre` ,
-         hotelweb.huesped.`numeroTarjeta` ,
-          hotelweb.huesped.telefono ,
-           hotelweb.huesped.`nombreUsuario` ,
-            hotelweb.huesped.foto
-            from  hotelweb.huesped ,  hotelweb.estado , hotelweb.municipio
-            where  hotelweb.huesped.`idMunicipio`  =  hotelweb.municipio.`idMunicipio`
-            and  hotelweb.municipio.`idEstado`  =  hotelweb.estado.`idEstado`
-            and hotelweb.huesped.`idHuesped` = $P{idHuesped}
+		<![CDATA[SELECT  heroku_305578cf087e9cc.huesped.`idHuesped`,
+   heroku_305578cf087e9cc.huesped.nombre,
+    heroku_305578cf087e9cc.huesped.`apellidoPaterno` ,
+     heroku_305578cf087e9cc.huesped.`apellidoMaterno` ,
+      heroku_305578cf087e9cc.huesped.email,
+       heroku_305578cf087e9cc.estado.`nombre` ,
+        heroku_305578cf087e9cc.municipio.`nombre` ,
+         heroku_305578cf087e9cc.huesped.`numeroTarjeta` ,
+          heroku_305578cf087e9cc.huesped.telefono ,
+           heroku_305578cf087e9cc.huesped.`nombreUsuario` ,
+            heroku_305578cf087e9cc.huesped.foto
+            from  heroku_305578cf087e9cc.huesped ,  heroku_305578cf087e9cc.estado , heroku_305578cf087e9cc.municipio
+            where  heroku_305578cf087e9cc.huesped.`idMunicipio`  =  heroku_305578cf087e9cc.municipio.`idMunicipio`
+            and  heroku_305578cf087e9cc.municipio.`idEstado`  =  heroku_305578cf087e9cc.estado.`idEstado`
+            and heroku_305578cf087e9cc.huesped.`idHuesped` = $P{idHuesped}
             LIMIT 1]]>
 	</queryString>
 	<field name="idHuesped" class="java.lang.Integer">

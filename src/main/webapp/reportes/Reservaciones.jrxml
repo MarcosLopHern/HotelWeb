@@ -4,15 +4,15 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adaptador"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT   hotelweb.huesped.nombre ,
- hotelweb.reservacion.`idCuarto` ,
-  hotelweb.reservacion.`fechaInicio` ,
-   hotelweb.reservacion.`fechaTermino` ,
-    hotelweb.reservacion.`fechaRegistro` ,
-     hotelweb.reservacion.`precioTotal` ,
-      hotelweb.reservacion.`esActiva` 
-      from  hotelweb.reservacion,   hotelweb.huesped where
-        hotelweb.huesped.`idHuesped`  =  hotelweb.reservacion.`idHuesped`]]>
+		<![CDATA[SELECT   heroku_305578cf087e9cc.huesped.nombre ,
+ heroku_305578cf087e9cc.reservacion.`idCuarto` ,
+  heroku_305578cf087e9cc.reservacion.`fechaInicio` ,
+   heroku_305578cf087e9cc.reservacion.`fechaTermino` ,
+    heroku_305578cf087e9cc.reservacion.`fechaRegistro` ,
+     heroku_305578cf087e9cc.reservacion.`precioTotal` ,
+      heroku_305578cf087e9cc.reservacion.`esActiva` 
+      from  heroku_305578cf087e9cc.reservacion,   heroku_305578cf087e9cc.huesped where
+        heroku_305578cf087e9cc.huesped.`idHuesped`  =  heroku_305578cf087e9cc.reservacion.`idHuesped`]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
@@ -22,15 +22,15 @@
 		<property name="com.jaspersoft.studio.field.label" value="idCuarto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="reservacion"/>
 	</field>
-	<field name="fechaInicio" class="java.sql.Timestamp">
+	<field name="fechaInicio" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="fechaInicio"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="reservacion"/>
 	</field>
-	<field name="fechaTermino" class="java.sql.Timestamp">
+	<field name="fechaTermino" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="fechaTermino"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="reservacion"/>
 	</field>
-	<field name="fechaRegistro" class="java.sql.Timestamp">
+	<field name="fechaRegistro" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="fechaRegistro"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="reservacion"/>
 	</field>
