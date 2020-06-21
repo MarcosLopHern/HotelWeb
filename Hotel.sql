@@ -265,7 +265,7 @@ delimiter ;
 
 /*PROCEDIMIENTO DE RESERVACION*/
 delimiter **
-create procedure sp_crearReservacion(idH int, idC int, fecIni datetime,fecFin datetime)
+create procedure sp_crearReservacion(idH int, idC int, fecIni date,fecFin date)
 begin 
 	declare msj nvarchar(30);
     declare precio decimal;
@@ -280,6 +280,20 @@ begin
         else
 			set msj = "Cuarto no reservable";
         end if;
+    end if;
+    select msj;
+end **
+delimiter ;
+
+drop procedure sp_validateReservacion;
+delimiter **
+create procedure sp_validateReservacion(idC int, fecIni date, fecFin date)
+begin 
+	declare msj nvarchar(30);
+    if (select count(*) from Reservacion where idCuarto = idC and ((fecIni between fechaInicio and fechaTermino) or (fecFin between fechaInicio and fechaTermino) or (fechaInicio between fecIni and fecFin) or (fechaTermino between fecIni and fecFin)) and esActiva = 1) > 0 then
+		set msj = "Activa";
+	else
+		set msj = "Disponible";
     end if;
     select msj;
 end **

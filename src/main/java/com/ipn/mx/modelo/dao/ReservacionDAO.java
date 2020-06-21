@@ -3,10 +3,13 @@ package com.ipn.mx.modelo.dao;
 import com.ipn.mx.modelo.dto.ReservacionDTO;
 import com.ipn.mx.utilidades.HibernateUtil;
 import java.util.List;
+import javax.persistence.ParameterMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.query.Query;
+import org.hibernate.result.ResultSetOutput;
 
 public class ReservacionDAO {
         public void create(ReservacionDTO dto){
@@ -100,4 +103,24 @@ public class ReservacionDAO {
         }
         return lista;
     }
+    
+    public String validate(ReservacionDTO dto){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        String msj = "";
+        try{
+            transaction.begin();
+            ProcedureCall call = session.createStoredProcedureCall( "sp_validateReservacion" );
+            call.registerParameter("idC",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getIdCuarto()+"");
+            call.registerParameter("fecIni",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getFechaInicio().toString());
+            call.registerParameter("fecFin",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getFechaInicio().toString());
+            ResultSetOutput rs = (ResultSetOutput)call.getOutputs().getCurrent();            
+            msj = (String) rs.getSingleResult();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive())
+                transaction.rollback();
+        }
+        return msj;
+    } 
 }

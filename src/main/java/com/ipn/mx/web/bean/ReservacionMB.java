@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -124,6 +125,12 @@ public class ReservacionMB extends BaseBean implements Serializable {
     public Boolean validate(){
         boolean valido = true;
         //validar campos del formulario
+        
+        String msj = dao.validate(dto);
+        if(msj.equals("Activa")){
+            valido = false;
+            FacesContext.getCurrentInstance().addMessage("Reservacion", new FacesMessage("El cuarto ya fue reservado en las fechas establecidas"));
+        }
         return valido;
     }
     
