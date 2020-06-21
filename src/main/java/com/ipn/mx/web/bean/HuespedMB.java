@@ -116,6 +116,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public String prepareAdd(){
         dto = new HuespedDTO();
+        nombreUsuario = "";
         idEstado = 0;
         setAccion(ACC_CREAR);
         return "/huespedes/huespedForm?faces-redirect=true";

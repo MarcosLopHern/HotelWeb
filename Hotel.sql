@@ -1,6 +1,4 @@
-drop database if exists HotelWeb;
-create database HotelWeb;
-use HotelWeb;
+use heroku_305578cf087e9cc;
 
 create table Usuario(
 nombreUsuario nvarchar(30) primary key not null,
@@ -115,7 +113,7 @@ delimiter **
 create procedure sp_login(nomUsr nvarchar(30),pswd nvarchar(32))
 begin 
 	declare msj nvarchar(30);
-    if (select count(*) from Usuario where nombreUsuario = nomUsr and pswrd = pswd and existe = 1) < 1 then
+    if (select count(*) from Usuario where nombreUsuario = nomUsr and pswrd = binary pswd and existe = 1) < 1 then
 		set msj = "Usuario/contraseña incorrecto";
 	else
         set msj = nomUsr;
