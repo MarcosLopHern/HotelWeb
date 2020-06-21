@@ -16,6 +16,8 @@ FROM heroku_305578cf087e9cc.reservacion,
 	heroku_305578cf087e9cc.huesped
 WHERE 
 	 heroku_305578cf087e9cc.huesped.`idHuesped` = heroku_305578cf087e9cc.reservacion.`idHuesped` 
+	 AND
+	 heroku_305578cf087e9cc.huesped.`idHuesped` = $P{idReservacion}
 	 LIMIT 1]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String">
