@@ -17,7 +17,7 @@ public class ConexionBD {
     public Connection obtenerConexion() {
         String user = "b618971292afe5";
         String pwd = "2971486e";
-        String url = "jdbc:mysql://us-cdbr-east-05.cleardb.net:3306/heroku_305578cf087e9cc?serverTimezone=America/Mexico_City&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;useSSL=false";
+        String url = "jdbc:mysql://us-cdbr-east-05.cleardb.net:3306/heroku_305578cf087e9cc?serverTimezone=America/Mexico_City";
         String mySqlDriver = "com.mysql.cj.jdbc.Driver";
 
         try {
