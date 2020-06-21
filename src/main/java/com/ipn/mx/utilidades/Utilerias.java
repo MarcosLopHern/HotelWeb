@@ -11,6 +11,9 @@ import javax.mail.internet.MimeMessage;
 
 public class Utilerias {
 
+    private static final String DIRECCION_REMITENTE = "hotelwebmrc@gmail.com";
+    private static final String PASSWORD_REMITENTE = "h0t3lw3b";
+    
     public static void enviarEmail(String correoDestinatario, String asunto, String texto) {
         try {
             Properties p = new Properties();
@@ -30,13 +33,13 @@ public class Utilerias {
             Session s = Session.getInstance(p, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("protocobas@gmail.com", "pr0t0c0l0");
+                    return new PasswordAuthentication(DIRECCION_REMITENTE, PASSWORD_REMITENTE);
                 }
             });
             
             
             MimeMessage mensaje = new MimeMessage(s);
-            mensaje.setFrom(new InternetAddress("protocobas@gmail.com"));
+            mensaje.setFrom(new InternetAddress(DIRECCION_REMITENTE));
             mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestinatario));
             mensaje.setSubject(asunto);
             mensaje.setText(texto);
