@@ -28,9 +28,9 @@ public class FiltroAcceso implements Filter{
             tipo = req.getSession().getAttribute("tipo").toString();
         }
         String url = req.getRequestURI();
-//        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-//        res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-//        res.setDateHeader("Expires", 0);
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        res.setDateHeader("Expires", 0);
 
         if(tipo.isEmpty()){ // Si el tipo es nulo
             // Si no es el index, el formulario de huespedes o un recurso js o css redirecciona al index
