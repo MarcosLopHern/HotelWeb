@@ -36,6 +36,9 @@
                             <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}">
                                 Crear Reservacion
                             </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.prepareAdd()}">
+                                Crear Huesped
+                            </h:commandLink>
                         </div>
                     </h:form>
                     <h:form rendered='#{tipo != "administrador"}'>

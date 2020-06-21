@@ -235,7 +235,7 @@ public class HuespedMB extends BaseBean implements Serializable {
                 }
             }
             if(valido){
-                return prepareIndex();
+                return prepareListaHuespedes();
             }else{
                 prepareAdd();
             }
