@@ -124,8 +124,8 @@ public class HuespedMB extends BaseBean implements Serializable {
     }
     
     public String prepareAdd(){
-        listaEstados();
         dto = new HuespedDTO();
+        listaEstados();
         nombreUsuario = "";
         idEstado = 0;
         setAccion(ACC_CREAR);
@@ -319,9 +319,10 @@ public class HuespedMB extends BaseBean implements Serializable {
         }
     }
     
-    public void listaEstados(){
+    public List<Estado> listaEstados(){
         EstadoDAO edao = new EstadoDAO();
         listaDeEstados = edao.readAll();
+        return listaDeEstados;
     }
     
     public List<Municipio> listaMunicipios(){
