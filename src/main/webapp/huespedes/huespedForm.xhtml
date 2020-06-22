@@ -61,7 +61,7 @@
                                     <h:inputText id="txtNombre" class="form-control" value="#{huespedMB.dto.entidad.nombre}" required="true" requiredMessage="Ingrese el nombre" validatorMessage="El nombre se compone de máximo 30 caracteres">
                                         <f:validateLength  maximum="30" minimum="1"/>
                                     </h:inputText>
-                                    
+
                                     <h:outputText value="Apellido Paterno:"/>
                                     <h:inputText id="txtApellidoPaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoPaterno}" required="true" requiredMessage="Ingrese el apellido paterno" validatorMessage="El campo apellido paterno acepta máximo 30 caracteres">
                                         <f:validateLength  maximum="30" minimum="1"/>
@@ -87,7 +87,7 @@
                                     <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}" required="true" requiredMessage="Ingrese un teléfono" validatorMessage="Ingrese un teléfono válido (máximo 10, minimo 6 dígitos)">
                                         <f:validateRegex pattern="([0-9]{6,10})" for="txtTelefono"/>
                                     </h:inputText>
-                                    
+
                                     <h:outputText value="Foto:"/>
                                     <h:inputFile id="txtFoto" class="form-control-file" value="#{huespedMB.foto}"/>
 
@@ -120,16 +120,19 @@
                                         <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.add()}" rendered="#{!huespedMB.modoActualizar}"/>
                                         <h:commandButton value="Editar" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.update()}" rendered="#{huespedMB.modoActualizar}"/>
                                     </h:panelGroup>
-                                    <h:form rendered='#{tipo != "administrador"}' class="d-flex justify-content-center">
-                                        <h:commandLink class="text-center text-primary" action="#{huespedMB.back()}">
-                                            ¿Ya tienes una cuenta? Inicia sesión.
-                                        </h:commandLink>
-                                    </h:form>
+
                                     <h:messages class="m-3 text-danger"  /> 
                                 </h:panelGroup>
                             </h:form>
 
+
+
                         </f:view>
+                        <h:form rendered='#{tipo != "administrador"}' class="d-flex justify-content-center">
+                            <h:commandLink class="text-center text-primary" action="#{huespedMB.prepareIndex()}">
+                                ¿Ya tienes una cuenta? Inicia sesión.
+                            </h:commandLink>
+                        </h:form>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
