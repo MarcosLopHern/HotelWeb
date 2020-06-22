@@ -1,3 +1,5 @@
+drop database if exists heroku_305578cf087e9cc;
+create database heroku_305578cf087e9cc;
 use heroku_305578cf087e9cc;
 
 create table Usuario(
@@ -285,7 +287,7 @@ begin
 end **
 delimiter ;
 
-drop procedure sp_validateReservacion;
+drop procedure if exists sp_validateReservacion;
 delimiter **
 create procedure sp_validateReservacion(idC int, fecIni date, fecFin date)
 begin 
@@ -305,10 +307,10 @@ begin
 	declare msj nvarchar(30);
     declare precio decimal;
     if (select count(*) from Reservacion where idReservacion = idR and esActiva = 1) < 1 then
-		set msj = "Reservacion ya inactiva";
+		set msj = "Inactiva";
 	else
 		update Reservacion set esActiva = 0 where idReservacion = idR;
-        set msj = "Reservacion cancelada";
+        set msj = "Cancelada";
     end if;
     select msj;
 end **

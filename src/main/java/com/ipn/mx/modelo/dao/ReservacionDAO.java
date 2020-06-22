@@ -40,18 +40,25 @@ public class ReservacionDAO {
         }
     }
     
-    public void delete(ReservacionDTO dto){
+    public String delete(ReservacionDTO dto){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();
+        String msj ="";
         try{
             transaction.begin();
-            session.delete(dto.getEntidad());
+            //session.delete(dto.getEntidad());
+            ProcedureCall call = session.createStoredProcedureCall( "sp_cancelarReservacion" );
+            call.registerParameter("idR",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getIdReservacion()+"");
+            ResultSetOutput rs = (ResultSetOutput)call.getOutputs().getCurrent();            
+            msj = (String) rs.getSingleResult();
             transaction.commit();
         }catch(HibernateException he){
             if(transaction!=null && transaction.isActive()){
                 transaction.rollback();
+                msj = "Error";
             }
         }
+        return msj;
     }
     
     public ReservacionDTO read(ReservacionDTO dto){
@@ -91,7 +98,6 @@ public class ReservacionDAO {
         Transaction transaction = session.getTransaction();
         List<ReservacionDTO> lista = null;
         try{
-            System.out.println("from Reservacion r where r.idHuesped = " + idHuesped + " order by r.idReservacion");
             transaction.begin();
             Query q = session.createQuery("from Reservacion r where r.idHuesped = " + idHuesped + " order by r.idReservacion");
             lista = q.list();

@@ -154,7 +154,7 @@
 
                                                     <h:commandButton 
                                                         action="#{reservacionMB.delete()}" 
-                                                        value="Eliminar"
+                                                        value="Cancelar"
                                                         class="btn btn-danger text-white btn-block font-weight-bold"
                                                         actionListener="#{reservacionMB.seleccionarReservacion}">                                
                                                         <f:param name="claveSel" value="#{dto.idReservacion}"/>
@@ -228,7 +228,7 @@
 
                                                     <h:commandButton 
                                                         action="#{reservacionMB.delete()}" 
-                                                        value="Eliminar"
+                                                        value="Cancelar"
                                                         class="btn btn-danger text-white btn-block font-weight-bold"
                                                         actionListener="#{reservacionMB.seleccionarReservacion}"
                                                         rendered="#{idHuesped==dto.idHuesped}">                                

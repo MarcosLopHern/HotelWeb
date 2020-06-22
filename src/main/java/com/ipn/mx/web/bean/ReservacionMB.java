@@ -136,7 +136,6 @@ public class ReservacionMB extends BaseBean implements Serializable {
     
     public String add(){
         Boolean valido = validateCreate();
-        System.out.println("DTO: " + dto);
         if(valido){
             dao.create(dto);
             if(valido){
@@ -152,14 +151,17 @@ public class ReservacionMB extends BaseBean implements Serializable {
     public String delete(){
         Boolean valido = validateDelete();
         if(valido){
-            dao.delete(dto);
-            if(valido){
+            String msj = dao.delete(dto);
+            if(msj.equals("Cancelada")){
                 return prepareListaReservaciones();
             }else{
-                return prepareUpdate();
+                if(msj.equals("Inactiva"))
+                    FacesContext.getCurrentInstance().addMessage("Reservacion", new FacesMessage("La reservacion ya fue cancelada"));
+                else
+                    return prepareListaReservaciones();
             }
         }
-        return prepareUpdate();
+        return prepareListaReservaciones();
     }
     
     public void seleccionarReservacion(ActionEvent event){
