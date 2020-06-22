@@ -45,6 +45,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     private HuespedDAO dao = new HuespedDAO();
     private HuespedDTO dto;
     private List<HuespedDTO> listaDeHuespedes;
+    private List<Estado> listaEstados;
     private int idEstado;
     private String nombreUsuario;
     private String pswrd;
@@ -115,6 +116,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     }
     
     public String prepareAdd(){
+        listaEstados();
         dto = new HuespedDTO();
         nombreUsuario = "";
         idEstado = 0;
@@ -124,6 +126,8 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public String prepareUpdate(){
         setAccion(ACC_ACTUALIZAR);
+        
+        listaEstados();
         
         int idMunicipio = dto.getEntidad().getIdMunicipio();
         MunicipioDTO mdto = new MunicipioDTO();
@@ -307,9 +311,9 @@ public class HuespedMB extends BaseBean implements Serializable {
         }
     }
     
-    public List<Estado> listaEstados(){
+    public void listaEstados(){
         EstadoDAO edao = new EstadoDAO();
-        return edao.readAll();
+        listaEstados = edao.readAll();
     }
     
     public List<Municipio> listaMunicipios(){
