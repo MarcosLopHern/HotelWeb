@@ -80,7 +80,7 @@
                                 <h:panelGroup layout="block" class="d-flex flex-column justify-content-center">
                                     <h:outputText value="Huesped" rendered="#{tipo=='administrador'}"/>
                                     <h:selectOneMenu id="txtHuesped" class="form-control" value="#{reservacionMB.dto.entidad.idHuesped}" rendered="#{tipo=='administrador'}">      
-                                        <f:selectItem itemLabel="seleccionar Huesped" itemValue=""/>
+                                        <f:selectItem itemLabel="Seleccionar Huesped" itemValue=""/>
                                         <f:selectItems value="#{huespedMB.listaDeHuespedes}" var="huesped"
                                                        itemValue="#{huesped.idHuesped}" itemLabel="#{huesped.nombre} #{huesped.apellidoPaterno}" />
                                         <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
