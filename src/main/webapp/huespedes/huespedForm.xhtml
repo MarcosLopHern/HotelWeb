@@ -58,23 +58,38 @@
                                 <h:panelGroup layout="block" class="d-flex flex-column justify-content-center">
 
                                     <h:outputText value="Nombre:"/>
-                                    <h:inputText id="txtNombre" class="form-control" value="#{huespedMB.dto.entidad.nombre}" required="true" requiredMessage="Ingrese el nombre"/>
-
+                                    <h:inputText id="txtNombre" class="form-control" value="#{huespedMB.dto.entidad.nombre}" required="true" requiredMessage="Ingrese el nombre" validatorMessage="El nombre se compone de máximo 30 caracteres">
+                                        <f:validateLength  maximum="30" minimum="1"/>
+                                    </h:inputText>
+                                    
                                     <h:outputText value="Apellido Paterno:"/>
-                                    <h:inputText id="txtApellidoPaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoPaterno}" required="true" requiredMessage="Ingrese el apellido paterno"/>
+                                    <h:inputText id="txtApellidoPaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoPaterno}" required="true" requiredMessage="Ingrese el apellido paterno" validatorMessage="El campo apellido paterno acepta máximo 30 caracteres">
+                                        <f:validateLength  maximum="30" minimum="1"/>
+                                    </h:inputText>
 
                                     <h:outputText value="Apellido Materno:"/>
-                                    <h:inputText id="txtApellidoMaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoMaterno}" required="true" requiredMessage="Ingrese el apellido materno" />
+                                    <h:inputText id="txtApellidoMaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoMaterno}" required="true" requiredMessage="Ingrese el apellido materno" validatorMessage="El campo apellido materno acepta máximo 30 caracteres">
+                                        <f:validateLength  maximum="30" minimum="1"/>
+                                    </h:inputText>
 
                                     <h:outputText value="Email:"/>
-                                    <h:inputText id="txtEmail" class="form-control" value="#{huespedMB.dto.entidad.email}" required="true" requiredMessage="Ingrese el email"/>
+                                    <h:inputText id="txtEmail" class="form-control" value="#{huespedMB.dto.entidad.email}" required="true" requiredMessage="Ingrese el email" validatorMessage="Ingrese un email válido (máximo 50 caracteres)">
+                                        <f:validateLength  maximum="50" minimum="3"/>
+                                        <f:validateRegex pattern="^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$" for="txtEmail"/>
+                                    </h:inputText>
 
                                     <h:outputText value="No. Tarjeta:"/>
-                                    <h:inputText id="txtNumeroTarjeta" class="form-control" value="#{huespedMB.dto.entidad.numeroTarjeta}" required="true" requiredMessage="Ingrese el número de tarjeta"/>
+                                    <h:inputText id="txtNumeroTarjeta" class="form-control" value="#{huespedMB.dto.entidad.numeroTarjeta}" required="true" requiredMessage="Ingrese el número de tarjeta" validatorMessage="Ingrese un número de tarjeta válido (16 caracteres)">
+                                        <f:validateLength  maximum="16" minimum="16" />   
+                                        <f:validateRegex pattern="[0-9]*" for="txtNumeroTarjeta"/>
+                                    </h:inputText>
 
                                     <h:outputText value="Telefono:"/>
-                                    <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}" required="true" requiredMessage="Ingrese un teléfono"/>
-
+                                    <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}" required="true" requiredMessage="Ingrese un teléfono" validatorMessage="Ingrese un teléfono válido (máximo 10 caracteres)">
+                                        <f:validateLength  maximum="10" minimum="8" />   
+                                        <f:validateRegex pattern="[0-9]*" for="txtTelefono"/>
+                                    </h:inputText>
+                                    
                                     <h:outputText value="Foto:"/>
                                     <h:inputFile id="txtFoto" class="form-control-file" value="#{huespedMB.foto}"/>
 
@@ -94,10 +109,16 @@
                                     </h:selectOneMenu>
 
                                     <h:outputText value="Nombre de Usuario:"/>
-                                    <h:inputText id="txtNombreUsuario" class="form-control" readonly="#{huespedMB.modoActualizar}" value="#{huespedMB.nombreUsuario}" required="true" requiredMessage="Ingrese un nombre de usuario"/>
+                                    <h:inputText id="txtNombreUsuario" class="form-control" readonly="#{huespedMB.modoActualizar}" value="#{huespedMB.nombreUsuario}" required="true" requiredMessage="Ingrese un nombre de usuario" validatorMessage="Ingrese un nombre de usuario válido (máximo 30 caracteres)">
+                                        <f:validateLength  maximum="30" minimum="30" />   
+                                        <f:validateRegex pattern="(\w)*" for="txtNombreUsuario"/>
+                                    </h:inputText>
 
                                     <h:outputText value="Contraseña:"/>
-                                    <h:inputSecret id="txtPswrd" class="form-control" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}" required="true" requiredMessage="Ingrese una contraseña"/>
+                                    <h:inputSecret id="txtPswrd" class="form-control" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}" required="true" requiredMessage="Ingrese una contraseña" validatorMessage="Ingrese un email válido (máximo 32, mínimo 4 caracteres)">
+                                        <f:validateLength  maximum="32" minimum="4" />   
+                                        <f:validateRegex pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$)" for="txtPswrd"/>
+                                    </h:inputSecret>
 
                                     <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
                                         <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.add()}" rendered="#{huespedMB.modoCrear}"/>
