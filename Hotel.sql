@@ -44,8 +44,7 @@ foreign key(idMunicipio) references Municipio(idMunicipio)
 create table Cuarto(
 idCuarto int primary key auto_increment not null,
 precioDiario decimal not null,
-esReservable boolean not null default 1,
-estaEnUso boolean not null default 0
+esReservable boolean not null default 1
 );
 
 create table Reservacion(
