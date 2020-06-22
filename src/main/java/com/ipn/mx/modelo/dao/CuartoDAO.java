@@ -88,6 +88,23 @@ public class CuartoDAO {
         return lista;
     }
     
+    public List<CuartoDTO> readReservables(){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        List<CuartoDTO> lista = null;
+        try{
+            transaction.begin();
+            Query q = session.createQuery("from Cuarto c where c.esReservable = 1 order by c.idCuarto");
+            lista = q.list();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return lista;
+    }
+    
     public List grafica(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();

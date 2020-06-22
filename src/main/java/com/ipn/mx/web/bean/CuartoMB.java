@@ -143,12 +143,24 @@ public class CuartoMB extends BaseBean implements Serializable {
         }
     }
     
+    public List<CuartoDTO> listaCuartosReservables(){
+        CuartoDAO dao = new CuartoDAO();
+        try{
+           return dao.readReservables();
+        }catch(Exception e){
+            error("errorListaCuartos", "Error al obtener lista de cuartos");
+            return null;
+        }
+    }
+    
+    
+    
     public void generarGrafica() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         try {
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-            JFreeChart chart = ChartFactory.createPieChart3D("Usos por Cuarto", getGraficaAlumnos(), true, true, Locale.getDefault());
-            PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("Cuarto {0} : {1} Usos ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+            JFreeChart chart = ChartFactory.createPieChart3D("Reservaciones por Cuarto", getGraficaAlumnos(), true, true, Locale.getDefault());
+            PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("Cuarto {0} : {1} Reservaciones ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
             ((PiePlot) chart.getPlot()).setLabelGenerator(labelGenerator);
             ServletOutputStream sos = response.getOutputStream();
             response.setContentType("image/gif");

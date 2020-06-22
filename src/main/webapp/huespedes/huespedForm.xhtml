@@ -117,7 +117,7 @@
                                     </h:inputSecret>
 
                                     <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
-                                        <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.add()}" rendered="#{huespedMB.modoCrear}"/>
+                                        <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.add()}" rendered="#{!huespedMB.modoActualizar}"/>
                                         <h:commandButton value="Editar" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.update()}" rendered="#{huespedMB.modoActualizar}"/>
                                     </h:panelGroup>
                                     <h:form rendered='#{tipo != "administrador"}' class="d-flex justify-content-center">

@@ -88,10 +88,6 @@
                                         <f:selectItem itemValue = "false" itemLabel = "No" /> 
                                     </h:selectOneMenu> 	
 
-                                    <h:outputText value="Está en uso: "/>
-                                    <h:outputText value="Sí" rendered="#{dto.estaEnUso}"/>
-                                    <h:outputText value="No" rendered="#{!dto.estaEnUso}"/>
-
                                     <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
                                         <h:commandButton value="Editar" class="btn btn-primary btn-block font-weight-bold" action="#{cuartoMB.update()}" rendered="#{cuartoMB.modoActualizar}"/>
                                     </h:panelGroup>

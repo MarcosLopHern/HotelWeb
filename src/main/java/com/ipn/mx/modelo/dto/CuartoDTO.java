@@ -30,7 +30,6 @@ public class CuartoDTO implements Serializable{
         sb.append("idCuarto").append(getEntidad().getIdCuarto()).append("\n");
         sb.append("precioDiario").append(getEntidad().getPrecioDiario()).append("\n");
         sb.append("esReservable").append(getEntidad().getEsReservable()).append("\n");
-        sb.append("estaEnUso").append(getEntidad().getEstaEnUso()).append("\n");
         
         return sb.toString();
     }

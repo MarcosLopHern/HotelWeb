@@ -86,9 +86,9 @@
                                         <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
                                     </h:selectOneMenu>
                                     <h:outputText value="Cuarto:"/>
-                                    <h:selectOneMenu id="txtCuarto" class="form-control" value="#{reservacionMB.dto.entidad.idCuarto}">      
-                                        <f:selectItem itemLabel="Seleccionar Cuarto" itemValue=""/>
-                                        <f:selectItems value="#{cuartoMB.listaCuartos()}" var="cuarto"
+                                    <h:selectOneMenu id="txtCuarto" class="form-control" value="#{reservacionMB.dto.entidad.idCuarto}" required="true" requiredMessage="Ingrese el cuarto a reservar">      
+                                        <f:selectItem itemLabel="Seleccionar Cuarto" itemValue="#{null}"/>
+                                        <f:selectItems value="#{cuartoMB.listaCuartosReservables()}" var="cuarto"
                                                        itemValue="#{cuarto.idCuarto}" itemLabel="#{cuarto.idCuarto}" />
                                         <f:ajax execute="txtCuarto" event="change" render="txtcosto"/> 
                                     </h:selectOneMenu>

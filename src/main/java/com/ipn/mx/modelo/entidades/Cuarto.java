@@ -15,7 +15,6 @@ public class Cuarto implements Serializable {
     private int idCuarto;
     private double precioDiario;
     private boolean esReservable;
-    private boolean estaEnUso;
 
     public Cuarto() {
     }
@@ -42,14 +41,6 @@ public class Cuarto implements Serializable {
 
     public void setEsReservable(boolean esReservable) {
         this.esReservable = esReservable;
-    }
-
-    public boolean getEstaEnUso() {
-        return estaEnUso;
-    }
-
-    public void setEstaEnUso(boolean estaEnUso) {
-        this.estaEnUso = estaEnUso;
     }
     
 }

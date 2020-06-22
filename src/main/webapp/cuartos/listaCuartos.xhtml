@@ -106,14 +106,6 @@
                                                     <h:outputText  class="text-danger" value="No" rendered="#{!dto.esReservable}"/>
                                                 </h:column>
 
-                                                <h:column>
-                                                    <f:facet name="header">
-                                                        <h:outputText class="text-warning" value="Está&nbsp;en&nbsp;uso"/>
-                                                    </f:facet>
-                                                    <h:outputText value="Sí"  class="text-success" rendered="#{dto.estaEnUso}"/>
-                                                    <h:outputText value="No"  class="text-danger" rendered="#{!dto.estaEnUso}"/>
-                                                </h:column>
-
                                                 <h:column rendered='#{tipo == "administrador"}'>
                                                     <f:facet name="header">
                                                         <h:outputText class="text-warning" value="Acciones"/>
