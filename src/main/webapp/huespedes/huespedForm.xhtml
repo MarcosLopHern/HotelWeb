@@ -115,7 +115,7 @@
                                     </h:inputText>
 
                                     <h:outputText value="Contraseña:"/>
-                                    <h:inputSecret id="txtPswrd" class="form-control" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}" required="true" requiredMessage="Ingrese una contraseña" validatorMessage="Ingrese un email válido (máximo 32, mínimo 4 caracteres)">
+                                    <h:inputSecret id="txtPswrd" class="form-control" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}" required="true" requiredMessage="Ingrese una contraseña" validatorMessage="Ingrese una contraseña válida (máximo 32, mínimo 4 caracteres)">
                                         <f:validateLength  maximum="32" minimum="4" />   
                                         <f:validateRegex pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$)" for="txtPswrd"/>
                                     </h:inputSecret>
