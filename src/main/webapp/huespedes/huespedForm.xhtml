@@ -12,6 +12,37 @@
         <h:outputStylesheet library="css" name="custom.css"/>
     </h:head>
     <h:body>
+        <h:panelGroup layout="block" class="bg-primary text-white border-bottom border-primary"><h1>Bienvenido #{nombreUsuario}</h1>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <h:form rendered='#{tipo == "administrador"}'>
+                        <div class="navbar-nav ">
+                            <h:commandLink class="nav-item nav-link" action="#{usuarioMB.cerrarSesion()}">
+                                Cerrar Sesion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.prepareListaHuespedes()}">
+                                Lista de Huespedes
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{cuartoMB.prepareListaCuartos()}">
+                                Lista de Cuartos
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareListaReservaciones()}">
+                                Lista de Reservaciones
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{reservacionMB.prepareNew()}">
+                                Crear Reservacion
+                            </h:commandLink>
+                            <h:commandLink class="nav-item nav-link" action="#{huespedMB.prepareAdd()}">
+                                Crear Huesped
+                            </h:commandLink>
+                        </div>
+                    </h:form>
+                </div>
+            </nav>
+        </h:panelGroup>
         <h:panelGroup layout="block" class="container">
             <h:panelGroup layout="block" class="d-flex flex-column justify-content-center pt-5 mt-5">
                 <h:panelGroup layout="block" class="card border-primary text-white bg-primary font-weight-bold mb-3 ">
@@ -72,6 +103,11 @@
                                         <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.add()}" rendered="#{huespedMB.modoCrear}"/>
                                         <h:commandButton value="Editar" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.update()}" rendered="#{huespedMB.modoActualizar}"/>
                                     </h:panelGroup>
+                                    <h:form rendered='#{tipo != "administrador"}' class="d-flex justify-content-center">
+                                        <h:commandLink class="text-center text-primary" action="#{huespedMB.prepareIndex()}">
+                                            ¿Ya tienes una cuenta? Inicia sesión.
+                                        </h:commandLink>
+                                    </h:form>
                                     <h:messages class="m-3 text-danger"  /> 
                                 </h:panelGroup>
                             </h:form>
