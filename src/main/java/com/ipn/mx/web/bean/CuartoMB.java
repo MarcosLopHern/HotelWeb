@@ -2,15 +2,9 @@ package com.ipn.mx.web.bean;
 
 import com.ipn.mx.modelo.dao.CuartoDAO;
 import com.ipn.mx.modelo.dto.CuartoDTO;
-import com.ipn.mx.modelo.entidades.Cuarto;
 import com.ipn.mx.modelo.entidades.Grafica;
 import static com.ipn.mx.web.bean.BaseBean.ACC_ACTUALIZAR;
-import static com.ipn.mx.web.bean.BaseBean.ACC_CREAR;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,9 +18,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -183,7 +175,11 @@ public class CuartoMB extends BaseBean implements Serializable {
         return pie;
     }
 
-    
+    public String estaEnUso(int idCuarto){
+        CuartoDTO cdto = new CuartoDTO();
+        cdto.getEntidad().setIdCuarto(idCuarto);
+        return dao.estaEnUo(cdto);
+    }
     
     
     

@@ -3,12 +3,16 @@ package com.ipn.mx.modelo.dao;
 import com.ipn.mx.modelo.dto.CuartoDTO;
 import com.ipn.mx.modelo.entidades.Grafica;
 import com.ipn.mx.utilidades.HibernateUtil;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.ParameterMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.query.Query;
+import org.hibernate.result.ResultSetOutput;
 
 public class CuartoDAO {
     
@@ -124,5 +128,26 @@ public class CuartoDAO {
         return l;
     }
     
-    
+    public String estaEnUo(CuartoDTO dto){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.getTransaction();
+        String msj = "";
+        try{
+            transaction.begin();
+            ProcedureCall call = session.createStoredProcedureCall( "sp_estaEnUso" );
+            
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String fecha = sdf.format(java.sql.Date.valueOf(LocalDate.now()));
+            
+            call.registerParameter("idC",String.class,ParameterMode.IN).bindValue(dto.getEntidad().getIdCuarto()+"");
+            call.registerParameter("fecha",String.class,ParameterMode.IN).bindValue(fecha);
+            ResultSetOutput rs = (ResultSetOutput)call.getOutputs().getCurrent();            
+            msj = (String) rs.getSingleResult();
+            transaction.commit();
+        }catch(HibernateException he){
+            if(transaction!=null && transaction.isActive())
+                transaction.rollback();
+        }
+        return msj;
+    } 
 }

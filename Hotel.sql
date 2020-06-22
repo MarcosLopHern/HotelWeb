@@ -218,6 +218,19 @@ delimiter ;
 
 /*--PROCEDIMIENTOS DE CUARTOS--*/
 delimiter **
+create procedure sp_estaEnUso(idC int, fecha date)
+begin 
+	declare msj nvarchar(30);
+    if (select count(*) from Reservacion where idCuarto = idC and (fecha between fechaInicio and fechaTermino) and esActiva = 1) > 0 then
+		set msj = "En Uso";
+	else
+		set msj = "Disponible";
+    end if;
+    select msj;
+end **
+delimiter ;
+
+delimiter **
 create procedure sp_actualizarCuarto(idC int,pd decimal, esR boolean)
 begin
 	declare msj nvarchar(30);

@@ -105,6 +105,13 @@
                                                     <h:outputText  class="text-success" value="Sí" rendered="#{dto.esReservable}"/>
                                                     <h:outputText  class="text-danger" value="No" rendered="#{!dto.esReservable}"/>
                                                 </h:column>
+                                                
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText  class="text-warning" value="Disponibilidad"/>
+                                                    </f:facet>
+                                                    <h:outputText  class="text-white" value="#{cuartoMB.estaEnUso(dto.idCuarto)}"/>
+                                                </h:column>
 
                                                 <h:column rendered='#{tipo == "administrador"}'>
                                                     <f:facet name="header">
