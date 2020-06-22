@@ -1,7 +1,6 @@
-drop database if exists heroku_305578cf087e9cc;
-create database heroku_305578cf087e9cc;
 use heroku_305578cf087e9cc;
 
+select * from reservacion;
 create table Usuario(
 nombreUsuario nvarchar(30) primary key not null,
 pswrd nvarchar(32) not null,
@@ -287,7 +286,6 @@ begin
 end **
 delimiter ;
 
-drop procedure if exists sp_validateReservacion;
 delimiter **
 create procedure sp_validateReservacion(idC int, fecIni date, fecFin date)
 begin 
