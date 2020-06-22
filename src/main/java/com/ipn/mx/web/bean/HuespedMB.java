@@ -45,7 +45,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     private HuespedDAO dao = new HuespedDAO();
     private HuespedDTO dto;
     private List<HuespedDTO> listaDeHuespedes;
-    private List<Estado> listaEstados;
+    private List<Estado> listaDeEstados;
     private int idEstado;
     private String nombreUsuario;
     private String pswrd;
@@ -107,6 +107,14 @@ public class HuespedMB extends BaseBean implements Serializable {
 
     public void setListaDeHuespedes(List<HuespedDTO> listaDeHuespedes) {
         this.listaDeHuespedes = listaDeHuespedes;
+    }
+
+    public List<Estado> getListaDeEstados() {
+        return listaDeEstados;
+    }
+
+    public void setListaDeEstados(List<Estado> listaDeEstados) {
+        this.listaDeEstados = listaDeEstados;
     }
     
     @PostConstruct
@@ -313,7 +321,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public void listaEstados(){
         EstadoDAO edao = new EstadoDAO();
-        listaEstados = edao.readAll();
+        listaDeEstados = edao.readAll();
     }
     
     public List<Municipio> listaMunicipios(){

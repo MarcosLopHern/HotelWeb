@@ -94,7 +94,7 @@
                                     <h:outputText value="Estado:"/>
                                     <h:selectOneMenu id="txtEstado" class="form-control" value="#{huespedMB.idEstado}" required="true" requiredMessage="Ingrese el estado de residencia">      
                                         <f:selectItem itemLabel="Seleccionar Estado" itemValue="#{null}"/>
-                                        <f:selectItems value="#{huespedMB.listaEstados}" var="estado"
+                                        <f:selectItems value="#{huespedMB.listaDeEstados}" var="estado"
                                                        itemValue="#{estado.idEstado}" itemLabel="#{estado.nombre}" />
                                         <f:ajax execute="txtEstado" event="change" render="txtMunicipio"/> 
                                     </h:selectOneMenu>
