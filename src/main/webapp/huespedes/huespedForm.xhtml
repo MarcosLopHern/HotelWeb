@@ -121,7 +121,7 @@
                                         <h:commandButton value="Editar" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.update()}" rendered="#{huespedMB.modoActualizar}"/>
                                     </h:panelGroup>
                                     <h:form rendered='#{tipo != "administrador"}' class="d-flex justify-content-center">
-                                        <h:commandLink class="text-center text-primary" action="#{huespedMB.prepareIndex()}">
+                                        <h:commandLink class="text-center text-primary" action="#{huespedMB.back()}">
                                             ¿Ya tienes una cuenta? Inicia sesión.
                                         </h:commandLink>
                                     </h:form>
