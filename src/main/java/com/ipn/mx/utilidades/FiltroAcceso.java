@@ -34,7 +34,7 @@ public class FiltroAcceso implements Filter{
 
         if(tipo.isEmpty()){ // Si el tipo es nulo
             // Si no es el index, el formulario de huespedes o un recurso js o css redirecciona al index
-            if(!url.endsWith("/") && !url.contains("index") && !url.contains("huespedForm") && !url.endsWith("js") && !url.endsWith("css") && !url.endsWith("jpg") && !url.endsWith("png") && !url.endsWith("jar") && !url.endsWith("war"))
+            if(!url.endsWith("/") && !url.contains("index") && !url.contains("huespedForm") && !url.endsWith(".js") && !url.endsWith(".css") && !url.endsWith(".jpg") && !url.endsWith(".png") && !url.endsWith(".jar") && !url.endsWith(".war"))
                 res.sendRedirect(req.getServletContext().getContextPath()+"/");  
             else chain.doFilter(request, response);
         }else if(tipo.equals("huesped")){ // Si el tipo es huesped
