@@ -79,13 +79,13 @@
                                     </h:inputText>
 
                                     <h:outputText value="No. Tarjeta:"/>
-                                    <h:inputText id="txtNumeroTarjeta" class="form-control" value="#{huespedMB.dto.entidad.numeroTarjeta}" required="true" requiredMessage="Ingrese el número de tarjeta" validatorMessage="Ingrese un número de tarjeta válido (máximo 20 dígitos)">
-                                        <f:validateRegex pattern="([0-9]{1,20})" for="txtNumeroTarjeta"/>
+                                    <h:inputText id="txtNumeroTarjeta" class="form-control" value="#{huespedMB.dto.entidad.numeroTarjeta}" required="true" requiredMessage="Ingrese el número de tarjeta" validatorMessage="Ingrese un número de tarjeta válido (máximo 20, mínimo 8 dígitos)">
+                                        <f:validateRegex pattern="([0-9]{8,20})" for="txtNumeroTarjeta"/>
                                     </h:inputText>
 
                                     <h:outputText value="Telefono:"/>
-                                    <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}" required="true" requiredMessage="Ingrese un teléfono" validatorMessage="Ingrese un teléfono válido (máximo 10 digitos)">
-                                        <f:validateRegex pattern="([0-9]{8,10})" for="txtTelefono"/>
+                                    <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}" required="true" requiredMessage="Ingrese un teléfono" validatorMessage="Ingrese un teléfono válido (máximo 10, minimo 6 dígitos)">
+                                        <f:validateRegex pattern="([0-9]{6,10})" for="txtTelefono"/>
                                     </h:inputText>
                                     
                                     <h:outputText value="Foto:"/>
