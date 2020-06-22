@@ -27,46 +27,46 @@
                                 <h:panelGroup layout="block" class="d-flex flex-column justify-content-center">
 
                                     <h:outputText value="Nombre:"/>
-                                    <h:inputText id="txtNombre" class="form-control" value="#{huespedMB.dto.entidad.nombre}"/>
+                                    <h:inputText id="txtNombre" class="form-control" value="#{huespedMB.dto.entidad.nombre}" required="true" requiredMessage="Ingrese el nombre"/>
 
                                     <h:outputText value="Apellido Paterno:"/>
-                                    <h:inputText id="txtApellidoPaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoPaterno}"/>
+                                    <h:inputText id="txtApellidoPaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoPaterno}" required="true" requiredMessage="Ingrese el apellido paterno"/>
 
                                     <h:outputText value="Apellido Materno:"/>
-                                    <h:inputText id="txtApellidoMaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoMaterno}"/>
+                                    <h:inputText id="txtApellidoMaterno" class="form-control" value="#{huespedMB.dto.entidad.apellidoMaterno}" required="true" requiredMessage="Ingrese el apellido materno" />
 
                                     <h:outputText value="Email:"/>
-                                    <h:inputText id="txtEmail" class="form-control" value="#{huespedMB.dto.entidad.email}"/>
+                                    <h:inputText id="txtEmail" class="form-control" value="#{huespedMB.dto.entidad.email}" required="true" requiredMessage="Ingrese el email"/>
 
                                     <h:outputText value="No. Tarjeta:"/>
-                                    <h:inputText id="txtNumeroTarjeta" class="form-control" value="#{huespedMB.dto.entidad.numeroTarjeta}"/>
+                                    <h:inputText id="txtNumeroTarjeta" class="form-control" value="#{huespedMB.dto.entidad.numeroTarjeta}" required="true" requiredMessage="Ingrese el número de tarjeta"/>
 
                                     <h:outputText value="Telefono:"/>
-                                    <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}"/>
+                                    <h:inputText  id="txtTelefono" class="form-control" value="#{huespedMB.dto.entidad.telefono}" required="true" requiredMessage="Ingrese un teléfono"/>
 
                                     <h:outputText value="Foto:"/>
                                     <h:inputFile id="txtFoto" class="form-control-file" value="#{huespedMB.foto}"/>
 
                                     <h:outputText value="Estado:"/>
-                                    <h:selectOneMenu id="txtEstado" class="form-control" value="#{huespedMB.idEstado}">      
-                                        <f:selectItem itemLabel="Seleccionar Estado" itemValue=""/>
+                                    <h:selectOneMenu id="txtEstado" class="form-control" value="#{huespedMB.idEstado}" required="true" requiredMessage="Ingrese el estado de residencia">      
+                                        <f:selectItem itemLabel="Seleccionar Estado" itemValue="#{null}"/>
                                         <f:selectItems value="#{huespedMB.listaEstados()}" var="estado"
                                                        itemValue="#{estado.idEstado}" itemLabel="#{estado.nombre}" />
                                         <f:ajax execute="txtEstado" event="change" render="txtMunicipio"/> 
                                     </h:selectOneMenu>
 
                                     <h:outputText id="lblMunicipio" value="Municipio:" />
-                                    <h:selectOneMenu id="txtMunicipio" class="form-control" value="#{huespedMB.dto.entidad.idMunicipio}">
-                                        <f:selectItem itemLabel="Seleccionar Municipio" itemValue=""/>
+                                    <h:selectOneMenu id="txtMunicipio" class="form-control" value="#{huespedMB.dto.entidad.idMunicipio}" required="true" requiredMessage="Ingrese el municipio de residencia">
+                                        <f:selectItem itemLabel="Seleccionar Municipio" itemValue="#{null}"/>
                                         <f:selectItems value="#{huespedMB.listaMunicipios()}" var="municipio"
                                                        itemValue="#{municipio.idMunicipio}" itemLabel="#{municipio.nombre}"/>
                                     </h:selectOneMenu>
 
                                     <h:outputText value="Nombre de Usuario:"/>
-                                    <h:inputText id="txtNombreUsuario" class="form-control" readonly="#{huespedMB.modoActualizar}" value="#{huespedMB.nombreUsuario}"/>
+                                    <h:inputText id="txtNombreUsuario" class="form-control" readonly="#{huespedMB.modoActualizar}" value="#{huespedMB.nombreUsuario}" required="true" requiredMessage="Ingrese un nombre de usuario"/>
 
                                     <h:outputText value="Contraseña:"/>
-                                    <h:inputSecret id="txtPswrd" class="form-control" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}"/>
+                                    <h:inputSecret id="txtPswrd" class="form-control" value="#{huespedMB.pswrd}" redisplay="#{huespedMB.modoActualizar}" required="true" requiredMessage="Ingrese una contraseña"/>
 
                                     <h:panelGroup layout="block" class="flex-fill d-flex justify-content-center pt-3">
                                         <h:commandButton value="Crear" class="btn btn-primary btn-block font-weight-bold" action="#{huespedMB.add()}" rendered="#{huespedMB.modoCrear}"/>
