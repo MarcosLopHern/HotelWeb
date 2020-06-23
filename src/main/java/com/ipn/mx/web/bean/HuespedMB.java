@@ -121,6 +121,7 @@ public class HuespedMB extends BaseBean implements Serializable {
     public void init(){
         listaDeHuespedes = new ArrayList<>();
         listaDeHuespedes = dao.readExistentes();    
+        listaDeEstados = new ArrayList<>();
     }
     
     public String prepareAdd(){
@@ -321,7 +322,8 @@ public class HuespedMB extends BaseBean implements Serializable {
     
     public List<Estado> listaEstados(){
         EstadoDAO edao = new EstadoDAO();
-        listaDeEstados = edao.readAll();
+        while(listaDeEstados.isEmpty())
+            listaDeEstados = edao.readAll();
         return listaDeEstados;
     }
     
